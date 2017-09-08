@@ -30,6 +30,7 @@ import java.util.*;
  */
 @RestController
 @RequestMapping("/api/mobile")
+@CrossOrigin
 public class MobileController {
 
     private final Logger log = LoggerFactory.getLogger(MobileController.class);
