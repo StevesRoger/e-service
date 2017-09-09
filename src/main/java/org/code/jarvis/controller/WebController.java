@@ -35,7 +35,6 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/web")
-@CrossOrigin
 public class WebController {
 
     private final Logger log = LoggerFactory.getLogger(WebController.class);

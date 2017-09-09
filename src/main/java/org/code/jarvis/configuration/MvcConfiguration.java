@@ -1,7 +1,10 @@
 package org.code.jarvis.configuration;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  * Created by KimChheng on 5/8/2017.
@@ -22,29 +25,16 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
         registry.addViewController("/403").setViewName("403");
     }
 
-    @Override
+  @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("*")
+        registry.addMapping("/**")
+                .allowedMethods("*")
+                .allowedHeaders("*")
                 .allowedOrigins("*")
-                .allowedMethods("GET", "POST", "DELETE", "PUT", "OPTIONS", "PATCH")
-                .allowedHeaders("Origin", "Authorization", "Content-Type", "Accept", "x-requested-with", "Cache-Control")
-                .allowCredentials(true).maxAge(3600);
+                .allowCredentials(true)
+                .maxAge(3600);
     }
 
-
-    /*@Bean
-    public ViewResolver getViewResolver() {
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/WEB-INF/views/");
-        resolver.setSuffix(".html");
-        return resolver;
-    }
-
-    @Override
-    public void configureDefaultServletHandling(
-            DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
-    }*/
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
