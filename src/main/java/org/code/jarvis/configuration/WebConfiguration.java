@@ -8,6 +8,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -52,6 +54,19 @@ public class WebConfiguration {
     public HibernateTransactionManager geTransactionManager(SessionFactory sessionFactory) {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory);
         return transactionManager;
+    }
+
+    @Bean
+    public HttpHeaders httpHeadersFCM() {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("Authorization", "key=" + environment.getProperty("fcm.server.key"));
+        httpHeaders.set("Content-Type", "application/json");
+        return httpHeaders;
+    }
+
+    @Bean
+    public String fcmUrl(){
+        return environment.getProperty("fcm.url");
     }
 
     public Properties getHibernateProperties() {

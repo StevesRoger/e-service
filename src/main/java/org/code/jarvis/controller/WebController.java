@@ -1,34 +1,30 @@
 package org.code.jarvis.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import flexjson.JSONDeserializer;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.code.jarvis.component.FCMNotification;
 import org.code.jarvis.model.core.*;
 import org.code.jarvis.model.response.JResponseEntity;
 import org.code.jarvis.service.CustomerEntityService;
 import org.code.jarvis.service.ProductEntityService;
 import org.code.jarvis.service.PromotionEntityService;
-import org.code.jarvis.util.AdvertisementUtil;
+import org.code.jarvis.util.JsonUtil;
 import org.code.jarvis.util.ResponseFactory;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by KimChheng on 5/13/2017.
@@ -48,9 +44,7 @@ public class WebController {
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
-    private JSONDeserializer<Map<String, Object>> jsonDeserializer;
-    @Autowired
-    private Environment environment;
+    private FCMNotification fcmNotification;
 
 
     @ApiOperation(
@@ -71,6 +65,7 @@ public class WebController {
         try {
             Product product = objectMapper.readValue(json, Product.class);
             productEntityService.saveOrUpdateProduct(files, product);
+            fcmNotification.pushNotification("new product", "product", product);
         } catch (Exception e) {
             log.error(e.getMessage());
             e.printStackTrace();
@@ -177,10 +172,6 @@ public class WebController {
                     break;
                 case "PRO":
                     entity = productEntityService.getEntityById(id, Product.class);
-                    if (entity != null) {
-                        productEntityService.executeSQL("DELETE FROM td_customer_image WHERE cus_id IN(SELECT cus_id FROM td_customer WHERE pro_id=" + id + ")");
-                        productEntityService.executeSQL("DELETE FROM td_customer WHERE pro_id=" + id);
-                    }
                     break;
                 case "POM":
                     entity = productEntityService.getEntityById(id, Promotion.class);
@@ -192,6 +183,10 @@ public class WebController {
                     break;
             }
             if (entity != null) {
+                if (entity instanceof Product) {
+                    productEntityService.executeSQL("DELETE FROM td_customer_image WHERE cus_id IN(SELECT cus_id FROM td_customer WHERE pro_id=" + id + ")");
+                    productEntityService.executeSQL("DELETE FROM td_customer WHERE pro_id=" + id);
+                }
                 productEntityService.delete(entity);
                 return ResponseFactory.build("Delete entity successful", HttpStatus.OK);
             }
@@ -283,7 +278,7 @@ public class WebController {
                     response.add(advertisement);
                 }
             }
-            pushNotification();
+            fcmNotification.pushNotification("Submit advertisement successful", "advertisement", JsonUtil.getAdvertisement(response));
             return ResponseFactory.build("Submit advertisement successful", HttpStatus.OK, response);
         } catch (IOException e) {
             e.printStackTrace();
@@ -412,30 +407,7 @@ public class WebController {
     @GetMapping(value = "/notification")
     public void pushNotification() {
         try {
-            log.info("======>>>> Push notifcation to client");
-            String fcmServerKey = environment.getProperty("fcm.server.key");
-            String url = "https://fcm.googleapis.com/fcm/send";
-
-            RestTemplate restTemplate = new RestTemplate();
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.set("Authorization", "key=" + fcmServerKey);
-            httpHeaders.set("Content-Type", "application/json");
-
-            JSONObject body = new JSONObject();
-            JSONObject message = new JSONObject();
-
-            body.put("to", "/topics/Testing");
-
-            message.put("title", "V-Printing");
-            message.put("body", "New Advertisement");
-            message.put("type", "Advertisement");
-            message.put("data", AdvertisementUtil.getAdvertisement(productEntityService));
-
-            body.put("data", message);
-
-            HttpEntity<String> httpEntity = new HttpEntity(body.toString(), httpHeaders);
-            String response = restTemplate.postForObject(url, httpEntity, String.class);
-            log.info("======>>>> Push Notification FCM:" + response);
+            fcmNotification.pushNotification("delete advertisement", "advertisement", null);
         } catch (Exception e) {
             e.printStackTrace();
         }
