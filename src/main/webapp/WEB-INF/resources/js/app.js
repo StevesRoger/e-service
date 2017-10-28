@@ -111,11 +111,15 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
                 "PHONE2": $scope.txtPhone2
             },
         };
+
+
+
         //part value 'json'-> json data
         formData.append('json', JSON.stringify(model));
         for (var i = 0; i < arrayFile.length; i++) {
             formData.append("files", arrayFile[i], arrayFile[i].name);
         }
+
         console.log("JSON DATA ===>>> " + formData.get("json"));
         console.log("FILES ===>>> " + formData.get("files"));
 
