@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.code.jarvis.component.FCMNotification;
 import org.code.jarvis.model.core.*;
 import org.code.jarvis.model.response.JResponseEntity;
 import org.code.jarvis.service.CustomerEntityService;
@@ -11,7 +12,6 @@ import org.code.jarvis.service.ProductEntityService;
 import org.code.jarvis.service.PromotionEntityService;
 import org.code.jarvis.util.Constant;
 import org.code.jarvis.util.EntityConvertor;
-import org.code.jarvis.util.FCMNotification;
 import org.code.jarvis.util.ResponseFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +44,9 @@ public class WebController {
     private PromotionEntityService promotionEntityService;
     @Autowired
     private ObjectMapper objectMapper;
+    @Autowired
+    private FCMNotification fcmNotification;
+
 
     @ApiOperation(
             httpMethod = "POST",
@@ -63,6 +66,7 @@ public class WebController {
         try {
             Product product = objectMapper.readValue(json, Product.class);
             productEntityService.saveOrUpdateProduct(files, product);
+            fcmNotification.pushNotification("new product", Constant.PRODUCT, Constant.NEW, product);
         } catch (Exception e) {
             log.error(e.getMessage());
             e.printStackTrace();
@@ -169,10 +173,6 @@ public class WebController {
                     break;
                 case "PRO":
                     entity = productEntityService.getEntityById(id, Product.class);
-                    if (entity != null) {
-                        productEntityService.executeSQL("DELETE FROM td_customer_image WHERE cus_id IN(SELECT cus_id FROM td_customer WHERE pro_id=" + id + ")");
-                        productEntityService.executeSQL("DELETE FROM td_customer WHERE pro_id=" + id);
-                    }
                     break;
                 case "POM":
                     entity = productEntityService.getEntityById(id, Promotion.class);
@@ -184,6 +184,10 @@ public class WebController {
                     break;
             }
             if (entity != null) {
+                if (entity instanceof Product) {
+                    productEntityService.executeSQL("DELETE FROM td_customer_image WHERE cus_id IN(SELECT cus_id FROM td_customer WHERE pro_id=" + id + ")");
+                    productEntityService.executeSQL("DELETE FROM td_customer WHERE pro_id=" + id);
+                }
                 productEntityService.delete(entity);
                 return ResponseFactory.build("Delete entity successful", HttpStatus.OK);
             }
@@ -275,7 +279,7 @@ public class WebController {
                     response.add(advertisement);
                 }
             }
-            FCMNotification.pushNotification(Constant.ADVERTISEMENT, Constant.NEW, EntityConvertor.getAdvertisement(response));
+            fcmNotification.pushNotification("Submit advertisement successful", Constant.ADVERTISEMENT, Constant.NEW, EntityConvertor.getAdvertisement(response));
             return ResponseFactory.build("Submit advertisement successful", HttpStatus.OK, response);
         } catch (IOException e) {
             e.printStackTrace();
@@ -402,7 +406,11 @@ public class WebController {
             value = "Push notification to client",
             notes = "This url request to server to push notification to client")
     @GetMapping(value = "/notification")
-    public void pushNotification(@RequestParam(value = "id") int id) {
-        FCMNotification.pushNotification(Constant.ADVERTISEMENT, Constant.DELETE, id);
+    public void pushNotification(@RequestParam(value = "id") long id) {
+        try {
+            fcmNotification.pushNotification("delete advertisement", Constant.ADVERTISEMENT, Constant.DELETE, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
