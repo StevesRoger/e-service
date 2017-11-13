@@ -9,14 +9,13 @@ import java.util.*;
 /**
  * Created by ki.kao on 9/5/2017.
  */
-public final class AdvertisementUtil {
+public final class EntityConvertor {
 
 
-    public static List<Map<String, Object>> getAdvertisement(EntityService entityService) {
+    public static List<Map<String, Object>> getAdvertisement(List<Advertisement>list) {
         List<Map<String, Object>> response = new ArrayList<>();
-        List<Advertisement> list = entityService.list(Advertisement.class);
         for (Advertisement advertisement : list) {
-            Map<String, Object> json = new HashMap<String, Object>();
+            Map<String, Object> json = new HashMap();
             json.put("ID", advertisement.getId());
             json.put("IMAGE", advertisement.getImage().getId());
             response.add(json);

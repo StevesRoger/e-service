@@ -1,7 +1,6 @@
 package org.code.jarvis.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import flexjson.JSONDeserializer;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -10,25 +9,23 @@ import org.code.jarvis.model.response.JResponseEntity;
 import org.code.jarvis.service.CustomerEntityService;
 import org.code.jarvis.service.ProductEntityService;
 import org.code.jarvis.service.PromotionEntityService;
-import org.code.jarvis.util.AdvertisementUtil;
+import org.code.jarvis.util.Constant;
+import org.code.jarvis.util.EntityConvertor;
+import org.code.jarvis.util.FCMNotification;
 import org.code.jarvis.util.ResponseFactory;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by KimChheng on 5/13/2017.
@@ -47,11 +44,6 @@ public class WebController {
     private PromotionEntityService promotionEntityService;
     @Autowired
     private ObjectMapper objectMapper;
-    @Autowired
-    private JSONDeserializer<Map<String, Object>> jsonDeserializer;
-    @Autowired
-    private Environment environment;
-
 
     @ApiOperation(
             httpMethod = "POST",
@@ -167,7 +159,7 @@ public class WebController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")})
     @GetMapping(value = "/entity/delete", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public JResponseEntity<Object> deletePromotion(@RequestParam(value = "id") long id, @RequestParam(value = "type") String type) {
+    public JResponseEntity<Object> deleteEntity(@RequestParam(value = "id") long id, @RequestParam(value = "type") String type) {
         try {
             log.info("======>>>> client request delete entity");
             AbstractEntity entity = null;
@@ -264,7 +256,7 @@ public class WebController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @PostMapping(value = "/advertisement/submit", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public JResponseEntity<Object> uploadImage(@RequestPart MultipartFile[] files) throws IOException {
+    public JResponseEntity<Object> submitAdvertisement(@RequestPart MultipartFile[] files) throws IOException {
         try {
             log.info("Client Upload file advertisement:" + files.length);
             List<Advertisement> response = new ArrayList<>(files.length);
@@ -283,7 +275,7 @@ public class WebController {
                     response.add(advertisement);
                 }
             }
-            pushNotification();
+            FCMNotification.pushNotification(Constant.ADVERTISEMENT, Constant.NEW, EntityConvertor.getAdvertisement(response));
             return ResponseFactory.build("Submit advertisement successful", HttpStatus.OK, response);
         } catch (IOException e) {
             e.printStackTrace();
@@ -410,34 +402,7 @@ public class WebController {
             value = "Push notification to client",
             notes = "This url request to server to push notification to client")
     @GetMapping(value = "/notification")
-    public void pushNotification() {
-        try {
-            log.info("======>>>> Push notifcation to client");
-            String fcmServerKey = environment.getProperty("fcm.server.key");
-            String url = "https://fcm.googleapis.com/fcm/send";
-
-            RestTemplate restTemplate = new RestTemplate();
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.set("Authorization", "key=" + fcmServerKey);
-            httpHeaders.set("Content-Type", "application/json");
-
-            JSONObject body = new JSONObject();
-            JSONObject message = new JSONObject();
-
-            body.put("to", "/topics/Testing");
-
-            message.put("title", "V-Printing");
-            message.put("body", "New Advertisement");
-            message.put("type", "Advertisement");
-            message.put("data", AdvertisementUtil.getAdvertisement(productEntityService));
-
-            body.put("data", message);
-
-            HttpEntity<String> httpEntity = new HttpEntity(body.toString(), httpHeaders);
-            String response = restTemplate.postForObject(url, httpEntity, String.class);
-            log.info("======>>>> Push Notification FCM:" + response);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void pushNotification(@RequestParam(value = "id") int id) {
+        FCMNotification.pushNotification(Constant.ADVERTISEMENT, Constant.DELETE, id);
     }
 }

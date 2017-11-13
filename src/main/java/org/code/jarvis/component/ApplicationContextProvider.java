@@ -33,9 +33,4 @@ public class ApplicationContextProvider implements ApplicationContextAware {
     }
 
 
-    @Bean
-    public JSONDeserializer<Map<String, Object>> deserializer() {
-        return new JSONDeserializer<>();
-    }
-
 }
