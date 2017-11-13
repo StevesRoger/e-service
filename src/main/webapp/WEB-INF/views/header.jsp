@@ -27,6 +27,12 @@
     <link rel="stylesheet" href="./resources/css/alertify.core.css"/>
 
     <link rel="stylesheet" href="./resources/css/alertify.default.css"/>
+    <script src="./resources/js/jquery-1.11.3.min.js"></script>
+
+    <%-- color --%>
+
+    <script src="./resources/js/spectrum.js"></script>
+    <link rel="stylesheet" href="./resources/css/spectrum.css"/>
 
 
 </head>

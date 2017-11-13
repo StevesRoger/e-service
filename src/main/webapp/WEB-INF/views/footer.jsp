@@ -1,5 +1,5 @@
 
-    <script src="./resources/js/jquery-1.11.3.min.js"></script>
+
     <script src="./resources/js/active-menu.js"></script>
 
     <script src="./resources/js/angular.min.js"></script>
@@ -18,10 +18,11 @@
     <script src="./resources/js/bootstrap.min.js"></script>
 
     <script src="./resources/js/main.js"></script>
-
     <script src="./resources/js/custom-scripts.js"></script>
-
     <script src="./resources/js/alertify.min.js"></script>
+    <%--create colors--%>
+    <script src="./resources/js/create-colors.js"></script>
+
 
     </body>
 </html>

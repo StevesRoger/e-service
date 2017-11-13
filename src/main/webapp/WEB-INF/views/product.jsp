@@ -22,16 +22,17 @@
                                         <div class="form-group required">
                                             <input class="ng-hide" ng-model="txtId"/>
                                             <label class="control-label">Code</label>
-                                            <input class="form-control" placeholder="Enter Code"
-                                                   ng-model="txtCode" name="txtCode" required/>
+                                            <input class="form-control" placeholder="Enter Code" ng-model="txtCode" name="txtCode" required/>
                                         </div>
-                                        <div class="form-group required" id="color-control">
-                                            <label class="control-label">Color</label>
-                                            <input class="texcolor" type="text" id="txt" name="txtcolor"/>
-                                            <input type="button" value=" + " onclick="myFunction()" required/>
+
+                                        <div class="form-group required">
+                                            <label class="control-label">Color </label>
+                                            <input type='text' id="full"/>
+                                            <span id="selectColor"></span>
 
                                         </div>
-                                        <div>
+
+                                        <div class="form-group required">
                                             <label class="control-label">Size</label>
                                             <input class="form-control" placeholder="Enter Size"
                                                    ng-model="txtSize" name="txtSize" required/>
@@ -87,6 +88,7 @@
                                             <input class="form-control" placeholder="Enter Facebook"
                                                    ng-model="txtFacebook">
                                         </div>
+
                                     </form>
 
                                 </div>
@@ -164,31 +166,8 @@
         <div class="gallery"></div>
         <div class="clear"></div>
     </div>
+
 </div>
 
-
-
-<script>
-    function myFunction() {
-
-        var lastVal;
-
-        $('<input/>').attr({ type: 'color', id: 'color1', name: 'color', class:'cvcolor'}).appendTo('#color-control');
-
-        var bla = $('#color1').val();
-
-        $('#txt').val($('#txt').val() + bla);
-
-        $('.cvcolor').change(function() {
-
-            lastVal = $(".texcolor").val($(this).val());
-            console.log(lastVal);
-
-        });
-
-    }
-
-
-</script>
 
 <jsp:include page="footer.jsp"/>

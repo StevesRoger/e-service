@@ -97,6 +97,8 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
 
     $scope.submitProduct = function () {
         var formData = new FormData();
+        $scope.txtColor = selectedColors.toString();
+        console.log($scope.txtColor);
         var model = {
             "ID": $scope.txtId,
             "CODE": $scope.txtCode,
@@ -111,8 +113,6 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
                 "PHONE2": $scope.txtPhone2
             },
         };
-
-
 
         //part value 'json'-> json data
         formData.append('json', JSON.stringify(model));
@@ -385,6 +385,10 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
         $("#preview").empty();
         while (arrayFile.length > 0) {
             arrayFile.pop();
+        }
+        while (selectedColors.length > 0){
+            selectedColors.pop();
+            onTagsChange();
         }
     }
 

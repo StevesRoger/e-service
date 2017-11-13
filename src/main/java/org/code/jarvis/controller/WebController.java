@@ -65,7 +65,7 @@ public class WebController {
         try {
             Product product = objectMapper.readValue(json, Product.class);
             productEntityService.saveOrUpdateProduct(files, product);
-            fcmNotification.pushNotification("new product", "product", product);
+            //fcmNotification.pushNotification("new product", "product", product);
         } catch (Exception e) {
             log.error(e.getMessage());
             e.printStackTrace();
@@ -278,7 +278,7 @@ public class WebController {
                     response.add(advertisement);
                 }
             }
-            fcmNotification.pushNotification("Submit advertisement successful", "advertisement", JsonUtil.getAdvertisement(response));
+            //fcmNotification.pushNotification("Submit advertisement successful", "advertisement", JsonUtil.getAdvertisement(response));
             return ResponseFactory.build("Submit advertisement successful", HttpStatus.OK, response);
         } catch (IOException e) {
             e.printStackTrace();
