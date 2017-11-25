@@ -9,16 +9,16 @@ import org.code.jarvis.model.core.*;
 import org.code.jarvis.model.response.JResponseEntity;
 import org.code.jarvis.service.CustomerEntityService;
 import org.code.jarvis.service.ProductEntityService;
+import org.code.jarvis.service.ProductService;
 import org.code.jarvis.service.PromotionEntityService;
-import org.code.jarvis.util.JsonUtil;
 import org.code.jarvis.util.ResponseFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -45,6 +45,9 @@ public class WebController {
     private ObjectMapper objectMapper;
     @Autowired
     private FCMNotification fcmNotification;
+
+    @Autowired
+    private ProductService productService;
 
 
     @ApiOperation(
@@ -411,5 +414,25 @@ public class WebController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @ApiOperation(
+            httpMethod = "POST",
+            value = "Fetch all products",
+            notes = "This url does fetch all products",
+            response = JResponseEntity.class,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiResponses(value = {
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")})
+    @PostMapping(value = "/products/fetch", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Product> getProducts(
+            @RequestParam(value = "offset", defaultValue = "1", required = false) int offset,
+            @RequestParam(value = "limit", defaultValue = "10", required = false) int limit) {
+        List<Product> products = customerEntityService.getList("SELECT * FROM td_product ORDER BY pro_id DESC OFFSET " + offset + " LIMIT " + limit + " ", Product.class);
+
+        return new ResponseEntity(products, HttpStatus.OK);
     }
 }

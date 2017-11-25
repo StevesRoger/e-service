@@ -49,7 +49,7 @@ public class WebConfiguration {
         return sessionFactory;
     }
 
-    @Bean
+    @Bean(name = "transactionManager")
     @Autowired
     public HibernateTransactionManager geTransactionManager(SessionFactory sessionFactory) {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory);

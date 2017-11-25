@@ -34,7 +34,6 @@
     <script src="./resources/js/spectrum.js"></script>
     <link rel="stylesheet" href="./resources/css/spectrum.css"/>
 
-
 </head>
 
 <body>

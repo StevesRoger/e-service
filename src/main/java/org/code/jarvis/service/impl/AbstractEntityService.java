@@ -3,7 +3,6 @@ package org.code.jarvis.service.impl;
 import org.code.jarvis.model.core.AbstractEntity;
 import org.code.jarvis.repository.EntityDao;
 import org.code.jarvis.service.EntityService;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -97,6 +96,16 @@ public abstract class AbstractEntityService implements EntityService {
     @Override
     public ResultSet executeQuery(String sql) throws Exception {
         return getDao().executeQuery(sql);
+    }
+
+    @Override
+    public <T> List<T> getList(String sql, Class<T> clazz) {
+        return getDao().getList(sql, clazz);
+    }
+
+    @Override
+    public <T> T getSingle(String sql, Class<T> clzz) {
+        return getDao().getSingle(sql, clzz);
     }
 
     @Override

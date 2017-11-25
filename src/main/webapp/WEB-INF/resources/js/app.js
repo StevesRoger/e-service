@@ -7,19 +7,34 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.customers = [];
     $scope.types = {"WED": "សំបុត្រការ", "CER": "សំបុត្របុណ្យ", "DES": "សំបុត្រច្នៃ"};
 
+    $scope.inputData = '';
+    $scope.languages = ['English', 'French', 'German', 'Other'];
+    $scope.peopleData = {
+        language : 'English'
+    };
+
+    //https://codepen.io/huychau/pen/MebMoN?editors=1010
+
+    $scope.limit = 10
+    $scope.offset = 1;
+    $scope.page = 1;
+
     $scope.sort = function (keyname) {
         $scope.sortKey = keyname;   //set the sortKey to the param passed
         $scope.reverse = !$scope.reverse; //if true make it false and vice versa
     }
 
+
+
+
     $scope.fetchProduct = function () {
         spinner.appendTo("body");
         $http({
             method: 'POST',
-            url: baseUrl + '/product/fetch',
+            url: baseUrl + '/products/fetch'+'?offset='+$scope.offset+'&limit='+$scope.limit,
         }).then(function (response) {
-            console.log(response.data["DATA"]);
-            $scope.products = response.data["DATA"];
+            console.log(response.data);
+            $scope.products = response.data;
             spinner.remove();
         }, function (response) {
             console.log(response);
@@ -397,4 +412,20 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
             && !$scope.txtColor == "" && !$scope.txtPrice == ""
             && !$scope.selectType == "" && !$scope.txtPhone1 == "";
     }
+
+    $scope.prevPage = function () {
+        if ($scope.offset > 0) {
+            $scope.offset - $scope.limit;
+        }
+    };
+
+    $scope.nextPage = function () {
+        if ($scope.products.size > 0){
+            $scope.offset = $scope.offset * $scope.limit;
+            $scope.page +=1;
+        }else {
+            $('.disabled');
+        }
+    };
+
 }]);

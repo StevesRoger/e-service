@@ -1,4 +1,3 @@
-
 <jsp:include page="header.jsp"/>
 <jsp:include page="navigationbar.jsp"/>
 
@@ -22,7 +21,8 @@
                                         <div class="form-group required">
                                             <input class="ng-hide" ng-model="txtId"/>
                                             <label class="control-label">Code</label>
-                                            <input class="form-control" placeholder="Enter Code" ng-model="txtCode" name="txtCode" required/>
+                                            <input class="form-control" placeholder="Enter Code" ng-model="txtCode"
+                                                   name="txtCode" required/>
                                         </div>
 
                                         <div class="form-group required">
@@ -48,14 +48,22 @@
                                                     <h3 class="panel-title pull-left">Upload images</h3>
                                                 </div>
                                                 <div class="file-tab panel-body">
-                                                    <input type="file" id="files" name="files[]" accept="image/*" multiple/>
+                                                    <input type="file" id="files" name="files[]" accept="image/*"
+                                                           multiple/>
                                                     <div id="preview" style="margin-top: 5px"></div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary" ng-click="submitProduct()">Submit</button>
+                                        <button type="submit" class="btn btn-primary" ng-click="submitProduct()">
+                                            Submit
+                                        </button>
                                         <button type="reset" class="btn btn-default" ng-click="reset()">Clear</button>
                                     </form>
+                                </div>
+                                <div class="pull-right">
+                                    <span>
+                                        <select ng-model="peopleData.language" ng-options="item for item in languages"></select>
+                                    </span>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
                                 <div class="col-lg-6">
@@ -151,6 +159,26 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div>
+                                <ul class="pagination pull-right">
+                                    <li>
+                                        <a href ng-click="prevPage()">« Prev</a>
+                                    </li>
+                                    <li ng-repeat="n in range(pagedItems.length)" ng-class="{active: n == currentPage}"
+                                        ng-click="setPage()">
+                                        <a href ng-bind="n + 1">1</a>
+                                        <span>
+                                            <select ng-model="peopleData.language"
+                                                    ng-options="item for item in languages"></select>
+                                        </span>
+                                    </li>
+                                    <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+                                        <a href ng-click="nextPage()">Next »</a>
+                                    </li>
+                                </ul>
+                            </div>
+
                         </div>
                         <!-- /.panel-body -->
                     </div>

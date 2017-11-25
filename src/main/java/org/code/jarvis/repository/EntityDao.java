@@ -1,7 +1,6 @@
 package org.code.jarvis.repository;
 
 import org.code.jarvis.model.core.AbstractEntity;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -43,9 +42,13 @@ public interface EntityDao {
 
     <T> void delete(T entity);
 
+    <T> List<T> getList(String sql, Class<T> clazz);
+
+    <T> T getSingle(String sql, Class<T> clzz);
+
     int executeSQL(String sql);
 
-    ResultSet executeQuery(String sql)throws Exception;
+    ResultSet executeQuery(String sql) throws Exception;
 
     void flush();
 

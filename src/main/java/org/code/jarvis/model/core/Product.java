@@ -3,13 +3,12 @@ package org.code.jarvis.model.core;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -18,7 +17,7 @@ import java.util.List;
 @Entity
 @Table(name = "td_product")
 @JsonPropertyOrder({"ID", "CODE", "SIZE", "PRICE", "COLOR", "CONTACT"})
-public class Product extends AbstractEntity {
+public class Product extends AbstractEntity  {
 
     @JsonProperty("COLOR")
     private String color;
@@ -125,4 +124,6 @@ public class Product extends AbstractEntity {
         }
         return list;
     }
+
+
 }

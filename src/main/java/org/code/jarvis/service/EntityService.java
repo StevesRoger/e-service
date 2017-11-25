@@ -46,6 +46,10 @@ public interface EntityService {
 
     <T> void delete(T entity);
 
+    <T> List<T> getList(String sql, Class<T> clazz);
+
+    <T> T getSingle(String sql, Class<T> clzz);
+
     int executeSQL(String sql);
 
     ResultSet executeQuery(String sql)throws Exception;

@@ -17,6 +17,8 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,6 +35,9 @@ public abstract class AbstractEntityDao implements EntityDao {
 
     @Autowired
     private SessionFactory sessionFactory;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public SessionFactory getSessionFactory() {
@@ -170,5 +175,13 @@ public abstract class AbstractEntityDao implements EntityDao {
         getCurrentSession().clear();
     }
 
+    @Override
+    public <T> List<T> getList(String sql, Class<T> clazz) {
+        return entityManager.createNativeQuery(sql,clazz).getResultList();
+    }
 
+    @Override
+    public <T> T getSingle(String sql, Class<T> clazz) {
+        return (T) entityManager.createNativeQuery(sql,clazz).getSingleResult();
+    }
 }
