@@ -61,13 +61,6 @@
                                     </form>
                                 </div>
 
-                                <div class="pull-right ">
-                                    <div class="col-lg-6">
-
-                                    </div>
-
-                                </div>
-
                                 <!-- /.col-lg-6 (nested) -->
                                 <div class="col-lg-6">
                                     <form role="form">
@@ -172,26 +165,25 @@
                             <div>
                                 <ul class="pagination pull-right">
                                     <li>
-                                        <a href ng-click="prevPage()">« Prev</a>
+                                        <a href ng-click="prevPage()"> << Prev </a>
                                     </li>
-                                    <li ng-repeat="n in range(pagedItems.length)" ng-class="{active: n == currentPage}"
+                                    <%--<li ng-repeat="n in range(pagedItems.length)" ng-class="{active: n == currentPage}"
                                         ng-click="setPage()">
                                         <a href ng-bind="n + 1">1</a>
-
-                                    </li>
+                                    </li>--%>
                                     <li>
                                         <span class="sapn-page-gination">
-                                            <select ng-model="peopleData.language" ng-options="item for item in languages"></select>
+                                            <select ng-change="onChangeSize()" ng-model="itemPerPage" ng-options="item for item in pageSizes"></select>
                                         </span>
                                     </li>
-                                    <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
-                                        <a href ng-click="nextPage()">Next »</a>
+                                    <li ng-class="">
+                                        <a href ng-click="nextPage()"> >> Next </a>
                                     </li>
                                 </ul>
                             </div>
 
                         </div>
-                        <!-- /.panel-body -->
+                        <!-- /.panel-body  {disabled: currentPage == pagedItems.length - 1}  -->
                     </div>
                     <!-- /.panel -->
                 </div>

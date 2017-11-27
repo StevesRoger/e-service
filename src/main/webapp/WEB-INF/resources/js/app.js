@@ -7,44 +7,24 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.customers = [];
     $scope.types = {"WED": "សំបុត្រការ", "CER": "សំបុត្របុណ្យ", "DES": "សំបុត្រច្នៃ"};
 
-    $scope.inputData = '';
-    $scope.languages = ['10', '20', '30', '40', '50','100'];
-    $scope.peopleData = {
-        language : '10'
+    $scope.pageSizes = [10, 20, 30, 40, 50, 100];
+    $scope.perPage = {
+        pageSizes : 10
     };
 
-    //https://codepen.io/huychau/pen/MebMoN?editors=1010
-
-    $scope.limit = 10
-    $scope.offset = 1;
-    $scope.page = 1;
+    $scope.currentPage = 1;
+    $scope.itemPerPage = 10;
 
     $scope.sort = function (keyname) {
         $scope.sortKey = keyname;   //set the sortKey to the param passed
         $scope.reverse = !$scope.reverse; //if true make it false and vice versa
     }
 
-
-    if ($scope.peopleData.language === '10'){
-
-    }else if ($scope.peopleData.language === '20'){
-
-    }else if ($scope.peopleData.language === '30'){
-
-    }else if ($scope.peopleData.language === '40'){
-
-    }else if ($scope.peopleData.language === '50'){
-
-    }else if ($scope.peopleData.language === '100'){
-
-    }
-
-
     $scope.fetchProduct = function () {
         spinner.appendTo("body");
         $http({
             method: 'POST',
-            url: baseUrl + '/products/fetch'+'?offset='+$scope.offset+'&limit='+$scope.limit,
+            url: baseUrl + '/products/fetch'+'?offset='+$scope.currentPage+'&limit='+$scope.itemPerPage,
         }).then(function (response) {
             console.log(response.data);
             $scope.products = response.data;
@@ -426,19 +406,28 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
             && !$scope.selectType == "" && !$scope.txtPhone1 == "";
     }
 
+    $scope.onChangeSize = function() {
+        /*console.log("$scope.currentPage: ", $scope.currentPage); console.log("$scope.itemPerPage: ", $scope.itemPerPage);*/
+        $scope.fetchProduct();
+    }
+
     $scope.prevPage = function () {
-        if ($scope.offset > 0) {
-            $scope.offset - $scope.limit;
+        if ($scope.currentPage - 1 >= 1){
+            $scope.currentPage -= 1;
+            $scope.fetchProduct();
+        }else {
+            swal('Oops...', 'Data already in the last..!', 'info').catch(swal.noop).catch(swal.noop);
         }
     };
 
     $scope.nextPage = function () {
-        if ($scope.products.size > 0){
-            $scope.offset = $scope.offset * $scope.limit;
-            $scope.page +=1;
+        if ($scope.currentPage + 1 <= 4){
+            $scope.currentPage += 1;
+            $scope.fetchProduct();
         }else {
-            $('.disabled');
+            swal('Oops...', 'No data available on the server!', 'info').catch(swal.noop).catch(swal.noop);
         }
     };
+    //SELECT COUNT(pro_id) as total_items, CEIL((CAST((COUNT(pro_id)) as FLOAT) /CAST(20 as FLOAT))) as total_pages   FROM td_product;
 
 }]);
