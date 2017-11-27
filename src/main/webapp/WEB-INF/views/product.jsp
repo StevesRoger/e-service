@@ -60,11 +60,14 @@
                                         <button type="reset" class="btn btn-default" ng-click="reset()">Clear</button>
                                     </form>
                                 </div>
-                                <div class="pull-right">
-                                    <span>
-                                        <select ng-model="peopleData.language" ng-options="item for item in languages"></select>
-                                    </span>
+
+                                <div class="pull-right ">
+                                    <div class="col-lg-6">
+
+                                    </div>
+
                                 </div>
+
                                 <!-- /.col-lg-6 (nested) -->
                                 <div class="col-lg-6">
                                     <form role="form">
@@ -108,6 +111,12 @@
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             Table Products
+                                        </div>
+
+                                        <div class="pull-right ">
+                                            <span class="form-group">
+
+                                        </span>
                                         </div>
                                         <div class="panel-body">
                                             <div class="table-responsive">
@@ -168,9 +177,11 @@
                                     <li ng-repeat="n in range(pagedItems.length)" ng-class="{active: n == currentPage}"
                                         ng-click="setPage()">
                                         <a href ng-bind="n + 1">1</a>
-                                        <span>
-                                            <select ng-model="peopleData.language"
-                                                    ng-options="item for item in languages"></select>
+
+                                    </li>
+                                    <li>
+                                        <span class="sapn-page-gination">
+                                            <select ng-model="peopleData.language" ng-options="item for item in languages"></select>
                                         </span>
                                     </li>
                                     <li ng-class="{disabled: currentPage == pagedItems.length - 1}">

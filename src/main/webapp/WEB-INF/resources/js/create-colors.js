@@ -1,7 +1,7 @@
 
 var selectedColors = [];
 $("#full").spectrum({
-    color: "#ff00c8",
+    color: "#000000",
     showInput: true,
     className: "full-spectrum",
     showInitial: true,

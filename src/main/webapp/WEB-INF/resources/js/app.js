@@ -8,9 +8,9 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.types = {"WED": "សំបុត្រការ", "CER": "សំបុត្របុណ្យ", "DES": "សំបុត្រច្នៃ"};
 
     $scope.inputData = '';
-    $scope.languages = ['English', 'French', 'German', 'Other'];
+    $scope.languages = ['10', '20', '30', '40', '50','100'];
     $scope.peopleData = {
-        language : 'English'
+        language : '10'
     };
 
     //https://codepen.io/huychau/pen/MebMoN?editors=1010
@@ -25,6 +25,19 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
     }
 
 
+    if ($scope.peopleData.language === '10'){
+
+    }else if ($scope.peopleData.language === '20'){
+
+    }else if ($scope.peopleData.language === '30'){
+
+    }else if ($scope.peopleData.language === '40'){
+
+    }else if ($scope.peopleData.language === '50'){
+
+    }else if ($scope.peopleData.language === '100'){
+
+    }
 
 
     $scope.fetchProduct = function () {
