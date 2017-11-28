@@ -1,11 +1,10 @@
 package org.code.jarvis.model.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.http.HttpStatus;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by KimChheng on 5/9/2017.
@@ -21,7 +20,9 @@ public final class JResponseEntity<T> {
     @JsonProperty("HTTP_STATUS")
     private HttpStatus status;
     @JsonProperty("DATA")
-    private final List<T> data = new ArrayList<T>();
+    private final List<Object> data = new ArrayList();
+    @JsonProperty("MAP")
+    private final Map<String, Object> map = new HashMap();
 
     public JResponseEntity() {
     }
@@ -58,16 +59,26 @@ public final class JResponseEntity<T> {
         this.status = status;
     }
 
-    public List<T> getData() {
+    public List<Object> getData() {
         return data;
     }
 
-    public void addBody(T body) {
+    public void addBody(Object body) {
         if (body != null) {
             if (body instanceof List)
-                data.addAll((Collection<? extends T>) body);
+                data.addAll((Collection<?>) body);
             else
                 data.add(body);
+        }
+    }
+
+    public void addBody(String key, Object body) {
+        if (key != null && !key.isEmpty() && body != null) {
+            if (body instanceof List) {
+                addBody(body);
+            } else {
+                map.put(key, body);
+            }
         }
     }
 }

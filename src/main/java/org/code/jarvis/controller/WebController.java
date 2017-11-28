@@ -9,16 +9,15 @@ import org.code.jarvis.model.core.*;
 import org.code.jarvis.model.response.JResponseEntity;
 import org.code.jarvis.service.CustomerEntityService;
 import org.code.jarvis.service.ProductEntityService;
-import org.code.jarvis.service.ProductService;
 import org.code.jarvis.service.PromotionEntityService;
 import org.code.jarvis.util.ResponseFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -45,10 +44,6 @@ public class WebController {
     private ObjectMapper objectMapper;
     @Autowired
     private FCMNotification fcmNotification;
-
-    @Autowired
-    private ProductService productService;
-
 
     @ApiOperation(
             httpMethod = "POST",
@@ -428,13 +423,18 @@ public class WebController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")})
     @PostMapping(value = "/products/fetch", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Product> getProducts(
+    public JResponseEntity<Object> getProducts(
             @RequestParam(value = "offset", defaultValue = "1", required = false) int offset,
             @RequestParam(value = "limit", defaultValue = "10", required = false) int limit) {
 
         String sql = "SELECT * FROM td_product ORDER BY pro_id DESC OFFSET " + ((offset - 1) * limit) + " LIMIT " + limit;
-        String count ="";
+        String count_total = "SELECT COUNT(pro_id) FROM td_product;";
         List<Product> products = promotionEntityService.getList(sql, Product.class);
-        return new ResponseEntity(products, HttpStatus.OK);
+        int count = productEntityService.executeSQL(count_total);
+        JResponseEntity<Object> responseEntity = ResponseFactory.build();
+        responseEntity.addBody(products);
+        responseEntity.addBody("COUNT", count);
+        return responseEntity;
     }
+
 }
