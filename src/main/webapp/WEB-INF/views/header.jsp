@@ -12,9 +12,6 @@
     <!-- Bootstrap Styles-->
     <link rel="stylesheet" href="./resources/css/bootstrap.min.css">
 
-    <!-- Custom Styles-->
-    <link href="./resources/css/custom-styles.css" rel="stylesheet"/>
-
     <!-- Google Fonts-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -28,6 +25,9 @@
 
     <link rel="stylesheet" href="./resources/css/alertify.default.css"/>
     <script src="./resources/js/jquery-1.11.3.min.js"></script>
+
+    <!-- Custom Styles-->
+    <link href="./resources/css/custom-styles.css" rel="stylesheet"/>
 
     <%-- color --%>
 

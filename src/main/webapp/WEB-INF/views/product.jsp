@@ -167,10 +167,9 @@
                                     <li>
                                         <a href ng-click="prevPage()"> << Prev </a>
                                     </li>
-                                    <%--<li ng-repeat="n in range(pagedItems.length)" ng-class="{active: n == currentPage}"
-                                        ng-click="setPage()">
-                                        <a href ng-bind="n + 1">1</a>
-                                    </li>--%>
+                                    <li>
+                                        <span>1/5 Pages</span>
+                                    </li>
                                     <li>
                                         <span class="sapn-page-gination">
                                             <select ng-change="onChangeSize()" ng-model="itemPerPage" ng-options="item for item in pageSizes"></select>

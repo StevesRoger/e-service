@@ -732,6 +732,13 @@ input#color1 {
 .full-spectrum .sp-palette {
     max-width: 200px;
 }
+ul.pagination.pull-right {
+    margin: 5px 0px;
+}
+div#page-inner {
+    padding: 0px 15px;
+
+}
 
 
 /*----------------------------------------------

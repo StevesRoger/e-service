@@ -433,6 +433,7 @@ public class WebController {
             @RequestParam(value = "limit", defaultValue = "10", required = false) int limit) {
 
         String sql = "SELECT * FROM td_product ORDER BY pro_id DESC OFFSET " + ((offset - 1) * limit) + " LIMIT " + limit;
+        String count ="";
         List<Product> products = promotionEntityService.getList(sql, Product.class);
         return new ResponseEntity(products, HttpStatus.OK);
     }
