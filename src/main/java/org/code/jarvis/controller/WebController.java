@@ -430,6 +430,7 @@ public class WebController {
 
         String count_total = "SELECT COUNT(pro_id) as count FROM td_product";
         long count =  productEntityService.getCount(count_total);
+
         String sql = "SELECT * FROM td_product ORDER BY pro_id DESC OFFSET " + ((offset - 1) * limit) + " LIMIT " + limit;
         List<Product> products = productEntityService.getList(sql, Product.class);
 

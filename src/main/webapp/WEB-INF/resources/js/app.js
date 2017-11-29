@@ -26,8 +26,9 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
             method: 'POST',
             url: baseUrl + '/products/fetch'+'?offset='+$scope.currentPage+'&limit='+$scope.itemPerPage,
         }).then(function (response) {
-            console.log(" fect product response : ", response.data);
+            console.log(" fetch product response : ", response.data);
             $scope.products = response.data["DATA"];
+            console.log($scope.counts = response.data.MAP.COUNT);
             spinner.remove();
         }, function (response) {
             console.log(response);
