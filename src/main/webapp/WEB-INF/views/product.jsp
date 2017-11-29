@@ -164,18 +164,18 @@
 
                             <div>
                                 <ul class="pagination pull-right">
-                                    <li>
+                                    <li ng-class="{disabled:currentPage === 1}">
                                         <a href ng-click="prevPage()"> << Prev </a>
                                     </li>
                                     <li>
-                                        <span>1/5 Pages</span>
+                                        <span> {{currentPage}} / {{countPage}} Pages</span>
                                     </li>
                                     <li>
                                         <span class="sapn-page-gination">
                                             <select ng-change="onChangeSize()" ng-model="itemPerPage" ng-options="item for item in pageSizes"></select>
                                         </span>
                                     </li>
-                                    <li ng-class="">
+                                    <li ng-class="{disabled:currentPage === countPage}">
                                         <a href ng-click="nextPage()"> >> Next </a>
                                     </li>
                                 </ul>

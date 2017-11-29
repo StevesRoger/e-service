@@ -14,6 +14,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
 
     $scope.currentPage = 1;
     $scope.itemPerPage = 10;
+    $scope.countPage = 0;
 
     $scope.sort = function (keyname) {
         $scope.sortKey = keyname;   //set the sortKey to the param passed
@@ -28,7 +29,8 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
         }).then(function (response) {
             console.log(" fetch product response : ", response.data);
             $scope.products = response.data["DATA"];
-            console.log($scope.counts = response.data.MAP.COUNT);
+            $scope.countPage = Math.ceil(response.data.MAP.COUNT / $scope.itemPerPage);
+            console.log($scope.countPage);
             spinner.remove();
         }, function (response) {
             console.log(response);
@@ -283,6 +285,12 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
         $scope.txtPhone2 = product.CONTACT.PHONE2;
         $scope.txtEmail = product.CONTACT.EMAIL;
         $scope.txtFacebook = product.CONTACT.FACEBOOK;
+
+        if (product.COLOR != null){
+            selectedColors = product.COLOR.split(",");
+            editProduct(selectedColors);
+        }
+
         $("html, body").animate({scrollTop: 0}, 600);
 
     }
@@ -408,7 +416,6 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
     }
 
     $scope.onChangeSize = function() {
-        /*console.log("$scope.currentPage: ", $scope.currentPage); console.log("$scope.itemPerPage: ", $scope.itemPerPage);*/
         $scope.fetchProduct();
     }
 
@@ -416,20 +423,13 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
         if ($scope.currentPage - 1 >= 1){
             $scope.currentPage -= 1;
             $scope.fetchProduct();
-        }else {
-            swal('Oops...', 'Data already in the last..!', 'info').catch(swal.noop).catch(swal.noop);
         }
     };
 
     $scope.nextPage = function () {
-
-        if ($scope.currentPage + 1 <= 4){
+        if ($scope.currentPage + 1 <= $scope.countPage){
             $scope.currentPage += 1;
             $scope.fetchProduct();
-        }else {
-            swal('Oops...', 'No data available on the server!', 'info').catch(swal.noop).catch(swal.noop);
         }
     };
-    //SELECT COUNT(pro_id) as total_items, CEIL((CAST((COUNT(pro_id)) as FLOAT) /CAST(20 as FLOAT))) as total_pages   FROM td_product;
-
 }]);

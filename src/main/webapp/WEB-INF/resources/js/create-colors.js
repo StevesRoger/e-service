@@ -72,3 +72,17 @@ function onTagsChange() {
         console.error("selectedColors is null: ", selectedColors);
     }
 }
+
+function editProduct(Object) {
+    if (selectedColors) {
+        var tags = [];
+        $.each(selectedColors, function(i, color) {
+            tags.push('<div data-color=' + color + ' class="color-box" style="background-color: ' + color + '"></div>');
+        });
+        $('#selectColor').html(tags.join(''));
+        console.log("selectedColors change: ", selectedColors);
+
+    } else {
+        console.error("selectedColors is null: ", selectedColors);
+    }
+}
