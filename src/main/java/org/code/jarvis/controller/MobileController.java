@@ -8,7 +8,7 @@ import org.code.jarvis.model.core.*;
 import org.code.jarvis.model.response.JResponseEntity;
 import org.code.jarvis.service.CustomerEntityService;
 import org.code.jarvis.service.ProductEntityService;
-import org.code.jarvis.util.JsonUtil;
+import org.code.jarvis.util.EntityConvertor;
 import org.code.jarvis.util.ResponseFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by KimChheng on 5/18/2017.
@@ -128,7 +131,7 @@ public class MobileController {
         List<Map<String, Object>> response = new ArrayList<>();
         try {
             log.info("Client mobile requested view advertisement");
-            response = JsonUtil.getAdvertisement(productEntityService.list(Advertisement.class));
+            response = EntityConvertor.getAdvertisement(productEntityService.list(Advertisement.class));
         } catch (Exception e) {
             log.error(e.getMessage());
             e.printStackTrace();

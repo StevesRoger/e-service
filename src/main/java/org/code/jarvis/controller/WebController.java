@@ -10,6 +10,8 @@ import org.code.jarvis.model.response.JResponseEntity;
 import org.code.jarvis.service.CustomerEntityService;
 import org.code.jarvis.service.ProductEntityService;
 import org.code.jarvis.service.PromotionEntityService;
+import org.code.jarvis.util.Constant;
+import org.code.jarvis.util.EntityConvertor;
 import org.code.jarvis.util.ResponseFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +66,7 @@ public class WebController {
         try {
             Product product = objectMapper.readValue(json, Product.class);
             productEntityService.saveOrUpdateProduct(files, product);
-            //fcmNotification.pushNotification("new product", "product", product);
+            fcmNotification.pushNotification("new product", Constant.PRODUCT, Constant.NEW, product);
         } catch (Exception e) {
             log.error(e.getMessage());
             e.printStackTrace();
@@ -277,7 +279,7 @@ public class WebController {
                     response.add(advertisement);
                 }
             }
-            //fcmNotification.pushNotification("Submit advertisement successful", "advertisement", JsonUtil.getAdvertisement(response));
+            fcmNotification.pushNotification("Submit advertisement successful", Constant.ADVERTISEMENT, Constant.NEW, EntityConvertor.getAdvertisement(response));
             return ResponseFactory.build("Submit advertisement successful", HttpStatus.OK, response);
         } catch (IOException e) {
             e.printStackTrace();
@@ -404,9 +406,9 @@ public class WebController {
             value = "Push notification to client",
             notes = "This url request to server to push notification to client")
     @GetMapping(value = "/notification")
-    public void pushNotification() {
+    public void pushNotification(@RequestParam(value = "id") long id) {
         try {
-            fcmNotification.pushNotification("delete advertisement", "advertisement", null);
+            fcmNotification.pushNotification("delete advertisement", Constant.ADVERTISEMENT, Constant.DELETE, id);
         } catch (Exception e) {
             e.printStackTrace();
         }
