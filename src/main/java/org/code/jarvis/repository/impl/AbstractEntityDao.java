@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -183,5 +184,11 @@ public abstract class AbstractEntityDao implements EntityDao {
     @Override
     public <T> T getSingle(String sql, Class<T> clazz) {
         return (T) entityManager.createNativeQuery(sql,clazz).getSingleResult();
+    }
+
+    @Override
+    public long getCount(String sql) {
+        BigInteger count = (BigInteger) entityManager.createNativeQuery(sql).getSingleResult();
+        return count.longValue();
     }
 }

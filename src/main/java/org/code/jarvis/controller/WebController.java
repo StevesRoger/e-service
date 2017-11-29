@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -427,13 +428,17 @@ public class WebController {
             @RequestParam(value = "offset", defaultValue = "1", required = false) int offset,
             @RequestParam(value = "limit", defaultValue = "10", required = false) int limit) {
 
+        String count_total = "SELECT COUNT(pro_id) as count FROM td_product";
+        long count =  productEntityService.getCount(count_total);
         String sql = "SELECT * FROM td_product ORDER BY pro_id DESC OFFSET " + ((offset - 1) * limit) + " LIMIT " + limit;
-        String count_total = "SELECT COUNT(pro_id) FROM td_product;";
-        List<Product> products = promotionEntityService.getList(sql, Product.class);
-        int count = productEntityService.executeSQL(count_total);
+        List<Product> products = productEntityService.getList(sql, Product.class);
+
         JResponseEntity<Object> responseEntity = ResponseFactory.build();
-        responseEntity.addBody(products);
+        responseEntity.addBody("PRODUCTS", products);
         responseEntity.addBody("COUNT", count);
+        responseEntity.setCode(200);
+        responseEntity.setStatus(HttpStatus.OK);
+        responseEntity.setMessage("SUCCESS");
         return responseEntity;
     }
 

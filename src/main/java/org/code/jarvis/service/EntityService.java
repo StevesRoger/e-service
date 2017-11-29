@@ -6,6 +6,7 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -53,6 +54,8 @@ public interface EntityService {
     int executeSQL(String sql);
 
     ResultSet executeQuery(String sql)throws Exception;
+
+    long getCount(String sql);
 
     void flush();
 

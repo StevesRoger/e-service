@@ -26,8 +26,8 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
             method: 'POST',
             url: baseUrl + '/products/fetch'+'?offset='+$scope.currentPage+'&limit='+$scope.itemPerPage,
         }).then(function (response) {
-            console.log(response.data);
-            $scope.products = response.data;
+            console.log(" fect product response : ", response.data);
+            $scope.products = response.data["DATA"];
             spinner.remove();
         }, function (response) {
             console.log(response);
@@ -421,6 +421,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
     };
 
     $scope.nextPage = function () {
+
         if ($scope.currentPage + 1 <= 4){
             $scope.currentPage += 1;
             $scope.fetchProduct();

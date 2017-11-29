@@ -6,6 +6,7 @@ import org.code.jarvis.service.EntityService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -116,5 +117,10 @@ public abstract class AbstractEntityService implements EntityService {
     @Override
     public void clear() {
         getDao().clear();
+    }
+
+    @Override
+    public long getCount(String sql) {
+        return getDao().getCount(sql);
     }
 }

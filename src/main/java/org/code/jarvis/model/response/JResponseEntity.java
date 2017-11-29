@@ -20,7 +20,7 @@ public final class JResponseEntity<T> {
     @JsonProperty("HTTP_STATUS")
     private HttpStatus status;
     @JsonProperty("DATA")
-    private final List<Object> data = new ArrayList();
+    private List<Object> data = new ArrayList();
     @JsonProperty("MAP")
     private final Map<String, Object> map = new HashMap();
 
@@ -61,6 +61,10 @@ public final class JResponseEntity<T> {
 
     public List<Object> getData() {
         return data;
+    }
+
+    public void setData(List<Object> data){
+        this.data = data;
     }
 
     public void addBody(Object body) {
