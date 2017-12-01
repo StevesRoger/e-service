@@ -1,6 +1,5 @@
 package org.code.jarvis.component;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +28,7 @@ public class FCMNotification {
     private String fcmUrl;
 
 
-    public <T> String pushNotification(String message, String type, int action, T data) throws JsonProcessingException {
+    public <T> String pushNotification(String message, String type, int action, T data) {
         log.info("======>>>> Push notification to client");
         List<T> list = new ArrayList();
         if (data != null) {
@@ -52,7 +51,7 @@ public class FCMNotification {
         body.put("to", "/topics/V-Printing");
         body.put("data", json);
 
-        String response = restTemplate.postForObject(fcmUrl, new HttpEntity(json.toString(), httpHeaders), String.class);
+        String response = restTemplate.postForObject(fcmUrl, new HttpEntity(body.toString(), httpHeaders), String.class);
         log.info("======>>>> Push Notification FCM:" + response);
         return response;
     }

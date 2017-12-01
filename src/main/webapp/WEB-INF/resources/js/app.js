@@ -9,7 +9,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
 
     $scope.pageSizes = [10, 20, 30, 40, 50, 100];
     $scope.perPage = {
-        pageSizes : 10
+        pageSizes: 10
     };
 
     $scope.currentPage = 1;
@@ -25,7 +25,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
         spinner.appendTo("body");
         $http({
             method: 'POST',
-            url: baseUrl + '/products/fetch'+'?offset='+$scope.currentPage+'&limit='+$scope.itemPerPage,
+            url: baseUrl + '/products/fetch' + '?offset=' + $scope.currentPage + '&limit=' + $scope.itemPerPage,
         }).then(function (response) {
             console.log(" fetch product response : ", response.data);
             $scope.products = response.data["DATA"];
@@ -81,13 +81,13 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
             advertisements = response.data["DATA"];
             for (var i = 0; i < advertisements.length; i++) {
                 var ad = advertisements[i];
-                var span = $("<span class='close' id='" + ad.ID + "' name='" + ad.IMAGE.ID + "'>&times;</span>");
-                var img = $("<img name='" + ad.IMAGE.ID + "' class='img-thumbnail' src='" + imageUrl + "/view/" + ad.IMAGE.ID + "' title='" + ad.IMAGE.NAME + "' style='height:100px;cursor: pointer;'/>");
+                var span = $("<span class='close' id='" + ad.ID + "' name='" + ad.IMAGE + "'>&times;</span>");
+                var img = $("<img name='" + ad.IMAGE + "' class='img-thumbnail' src='" + imageUrl + "/view/" + ad.IMAGE + "' title='" + ad.IMAGE + "' style='height:100px;cursor: pointer;'/>");
                 var wrap = $("<div class='img-wrap'></div>");
                 span.appendTo(wrap);
                 img.appendTo(wrap);
                 wrap.appendTo($("#grid"));
-                var div = $("<div><a id='" + ad.IMAGE.ID + "' href='" + imageUrl + "/view/" + ad.IMAGE.ID + "'></a></div>");
+                var div = $("<div><a id='" + ad.IMAGE + "' href='" + imageUrl + "/view/" + ad.IMAGE + "'></a></div>");
                 div.appendTo($('.gallery'));
                 $.fn.imageOnClick(div);
                 img.click(function () {
@@ -228,14 +228,14 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
                     for (var i = 0; i < ads.length; i++) {
                         var ad = ads[i];
                         advertisements.push(ad);
-                        var span = $("<span class='close' id='" + ad.ID + "' name='" + ad.IMAGE.ID + "'>&times;</span>");
-                        var img = $("<img name='" + ad.IMAGE.ID + "' class='img-thumbnail' src='" + imageUrl + "/view/" + ad.IMAGE.ID + "' title='" + ad.IMAGE.NAME + "' style='height:100px;cursor: pointer;'/>");
+                        var span = $("<span class='close' id='" + ad.ID + "' name='" + ad.IMAGE + "'>&times;</span>");
+                        var img = $("<img name='" + ad.IMAGE + "' class='img-thumbnail' src='" + imageUrl + "/view/" + ad.IMAGE + "' title='" + ad.IMAGE + "' style='height:100px;cursor: pointer;'/>");
                         var wrap = $("<div class='img-wrap'></div>");
                         span.appendTo(wrap);
                         img.appendTo(wrap);
                         wrap.appendTo($('#grid'));
                         //$("#grid").prepend(div);
-                        var div = $("<div><a id='" + ad.IMAGE.ID + "' href='" + imageUrl + "/view/" + ad.IMAGE.ID + "'></a></div>");
+                        var div = $("<div><a id='" + ad.IMAGE + "' href='" + imageUrl + "/view/" + ad.IMAGE + "'></a></div>");
                         div.appendTo($('.gallery'));
                         $.fn.imageOnClick(div);
                         img.click(function () {
@@ -286,7 +286,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
         $scope.txtEmail = product.CONTACT.EMAIL;
         $scope.txtFacebook = product.CONTACT.FACEBOOK;
 
-        if (product.COLOR != null){
+        if (product.COLOR != null) {
             selectedColors = product.COLOR.split(",");
             editProduct(selectedColors);
         }
@@ -321,6 +321,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
                         if (type == "PRO") {
                             $scope.products.splice(index, 1);
                             msg = "Your product has been deleted."
+                            $.get(baseUrl + "/item_deleted?id=" + id + "&type=PRODUCT");
                         }
                         else if (type == "POM") {
                             $scope.promotions.splice(index, 1);
@@ -334,7 +335,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
                             $("#" + val.attr("name")).parent("div").remove();
                             val.parent(".img-wrap").remove();
                             msg = "Your advertisement has been deleted."
-                            $.get(baseUrl + "/notification?id=" + id);
+                            $.get(baseUrl + "/item_deleted?id=" + id + "&type=ADVERTISEMENT");
                         }
                         alertify.log(msg, "success", 2000);
                         spinner.remove();
@@ -403,7 +404,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
         while (arrayFile.length > 0) {
             arrayFile.pop();
         }
-        while (selectedColors.length > 0){
+        while (selectedColors.length > 0) {
             selectedColors.pop();
             onTagsChange();
         }
@@ -415,19 +416,19 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
             && !$scope.selectType == "" && !$scope.txtPhone1 == "";
     }
 
-    $scope.onChangeSize = function() {
+    $scope.onChangeSize = function () {
         $scope.fetchProduct();
     }
 
     $scope.prevPage = function () {
-        if ($scope.currentPage - 1 >= 1){
+        if ($scope.currentPage - 1 >= 1) {
             $scope.currentPage -= 1;
             $scope.fetchProduct();
         }
     };
 
     $scope.nextPage = function () {
-        if ($scope.currentPage + 1 <= $scope.countPage){
+        if ($scope.currentPage + 1 <= $scope.countPage) {
             $scope.currentPage += 1;
             $scope.fetchProduct();
         }
