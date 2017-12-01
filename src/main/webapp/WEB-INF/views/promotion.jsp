@@ -101,6 +101,27 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div>
+                                <ul class="pagination pull-right">
+                                    <li ng-class="{disabled:currentPage === 1}">
+                                        <a href ng-click="backPromotion()"> << Prev </a>
+                                    </li>
+                                    <li>
+                                        <span> {{currentPage}} / {{countPage}} Pages</span>
+                                    </li>
+                                    <li>
+                                        <span class="sapn-page-gination">
+                                            <select ng-change="onChangeSizePromotion()" ng-model="itemPerPage" ng-options="item for item in pageSizes"></select>
+                                        </span>
+                                    </li>
+                                    <li ng-class="{disabled:currentPage === countPage}">
+                                        <a href ng-click="nexPromotion()"> >> Next </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+
                         </div>
                         <!-- /.panel-body -->
                     </div>

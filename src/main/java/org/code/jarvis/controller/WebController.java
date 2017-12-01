@@ -138,17 +138,24 @@ public class WebController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")})
     @PostMapping(value = "/promotion/fetch", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public JResponseEntity<Object> fetchPromotions() {
-        List list = new ArrayList();
-        try {
-            log.info("===>>> client request fetch all product");
-            list = promotionEntityService.list(Promotion.class);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            e.printStackTrace();
-            return ResponseFactory.build("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
-        }
-        return ResponseFactory.build("Success", HttpStatus.OK, list);
+    public JResponseEntity<Object> fetchPromotions(
+            @RequestParam(value = "offset", defaultValue = "1", required = false) int offset,
+            @RequestParam(value = "limit", defaultValue = "10", required = false) int limit) {
+
+        String count_total = "SELECT COUNT(pro_id) as count FROM td_promotion";
+        long count =  productEntityService.getCount(count_total);
+
+        String sql = "SELECT * FROM td_promotion ORDER BY pro_id DESC OFFSET " + ((offset - 1) * limit) + " LIMIT " + limit;
+        List<Promotion> promotions = promotionEntityService.getList(sql, Promotion.class);
+        JResponseEntity<Object> responseEntity = ResponseFactory.build();
+
+        responseEntity.addBody("COUNT", count);
+        responseEntity.addBody(promotions);
+
+        responseEntity.setMessage("Success");
+        responseEntity.setStatus(HttpStatus.OK);
+        responseEntity.setCode(200);
+        return responseEntity;
     }
 
     @ApiOperation(

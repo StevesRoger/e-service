@@ -43,10 +43,11 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
         spinner.appendTo("body");
         $http({
             method: 'POST',
-            url: baseUrl + '/promotion/fetch',
+            url: baseUrl + '/promotion/fetch'+'?offset='+$scope.currentPage+'&limit='+$scope.itemPerPage,
         }).then(function (response) {
-            console.log(response.data["DATA"]);
+            console.log(response.data);
             $scope.promotions = response.data["DATA"];
+            $scope.countPage = Math.ceil(response.data.MAP.COUNT / $scope.itemPerPage);
             spinner.remove();
         }, function (response) {
             console.log(response);
@@ -142,14 +143,14 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
                 data: formData,
                 transformRequest: angular.identity,
                 headers: {'Content-Type': undefined}
-            }).then(function (response) {// success
+            }).then(function (response) {  // success
                     console.log(response);
                     $scope.fetchProduct();
                     $scope.reset();
                     spinner.remove();
                     alertify.log("Submit product successful.", "success", 2000);
                 },
-                function (response) {// failed
+                function (response) {  // failed
                     console.log(response);
                     spinner.remove();
                     swal('Oops...', 'Something went wrong please contact to developer!', 'error').catch(swal.noop);
@@ -415,6 +416,8 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
             && !$scope.selectType == "" && !$scope.txtPhone1 == "";
     }
 
+    // for page product
+
     $scope.onChangeSize = function() {
         $scope.fetchProduct();
     }
@@ -432,4 +435,44 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
             $scope.fetchProduct();
         }
     };
+
+    // page for promotion
+    $scope.onChangeSizePromotion = function () {
+        $scope.fetchPromotion();
+    }
+    $scope.backPromotion = function () {
+        if ($scope.currentPage - 1 >= 1){
+            $scope.currentPage -= 1;
+            $scope.fetchPromotion();
+        }
+    }
+
+    $scope.nexPromotion = function () {
+        if ($scope.currentPage + 1 <= $scope.countPage){
+            $scope.currentPage += 1;
+            $scope.fetchPromotion();
+        }
+    };
+
+    $scope.deActiveCustomer = function () {
+        spinner.appendTo("body");
+        $$http({
+            method: 'POST',
+            url: baseUrl + '/customer/submit/status',
+            data: formData,
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        }).then(function (response) {  // success
+                console.log(response);
+                $scope.fetchCustomer();
+                spinner.remove();
+                alertify.log("Submit product successful.", "success", 2000);
+            },
+            function (response) {  // failed
+                console.log(response);
+                spinner.remove();
+                swal('Oops...', 'Something went wrong please contact to developer!', 'error').catch(swal.noop);
+            });
+    }
+
 }]);

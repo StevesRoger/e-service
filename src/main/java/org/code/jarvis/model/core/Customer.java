@@ -50,6 +50,8 @@ public class Customer extends AbstractEntity {
     private Long productId;
     @JsonIgnore
     private List<Image> images;
+    @JsonProperty("IS_ACTIVE_CUSTOMER")
+    private boolean isActive;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -241,5 +243,14 @@ public class Customer extends AbstractEntity {
             }
         }
         return list;
+    }
+
+    @Column(name = "is_cus_act", columnDefinition = "boolean default true", nullable = false)
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

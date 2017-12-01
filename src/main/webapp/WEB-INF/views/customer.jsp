@@ -47,6 +47,7 @@
                                                             <span class="glyphicon sort-icon" ng-show="sortKey=='PHONE'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                                                         </th>
                                                         <th>Action</th>
+                                                        <th>Active</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -70,6 +71,9 @@
                                                                     ng-click="deleteEntity(customer.ID, $index, 'CUS')"><span
                                                                     class="glyphicon glyphicon-trash"></span></button>
 
+                                                        </td>
+                                                        <td>
+                                                            <input id="checkboxes-0" ng-click="deActiveCustomer()" type="checkbox" ng-model="" ng-checked="true">
                                                         </td>
                                                     </tr>
                                                     </tbody>
