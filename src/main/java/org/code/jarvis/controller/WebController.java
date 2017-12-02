@@ -405,7 +405,7 @@ public class WebController {
     @GetMapping(value = "/item_deleted")
     public void pushNotification(@RequestParam(value = "id") long id, @RequestParam(value = "type") String type) {
         try {
-            fcmNotification.pushNotification("delete advertisement", type, Constant.DELETE, id);
+            fcmNotification.pushNotification("item deleted", type, Constant.DELETE, id);
         } catch (Exception e) {
             e.printStackTrace();
         }
