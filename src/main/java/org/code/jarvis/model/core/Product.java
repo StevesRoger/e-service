@@ -8,7 +8,6 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -17,7 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "td_product")
 @JsonPropertyOrder({"ID", "CODE", "SIZE", "PRICE", "COLOR", "CONTACT"})
-public class Product extends AbstractEntity  {
+public class Product extends AbstractEntity {
 
     @JsonProperty("COLOR")
     private String color;
@@ -31,6 +30,8 @@ public class Product extends AbstractEntity  {
     private EProductType productType;
     @JsonIgnore
     private List<Image> images;
+    @JsonProperty("IMAGES")
+    private List<Long> imageIds = new ArrayList<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -113,7 +114,24 @@ public class Product extends AbstractEntity  {
         this.productType = productType;
     }
 
-    @JsonProperty("IMAGES")
+    @Transient
+    public List<Long> getImageIds() {
+        if (images != null && !images.isEmpty()) {
+            for (Image image : images) {
+                imageIds.add(image.getId());
+            }
+        }
+        return imageIds;
+    }
+
+    public void setImageIds(List<Image> images) {
+        if (images != null) {
+            for (Image image : images)
+                imageIds.add(image.getId());
+        }
+    }
+
+    /* @JsonProperty("IMAGES")
     @Transient
     public List<Long> getImageId() {
         List<Long> list = new ArrayList<>();
@@ -123,7 +141,7 @@ public class Product extends AbstractEntity  {
             }
         }
         return list;
-    }
+    }*/
 
 
 }

@@ -8,7 +8,6 @@ import org.code.jarvis.model.core.*;
 import org.code.jarvis.model.response.JResponseEntity;
 import org.code.jarvis.service.CustomerEntityService;
 import org.code.jarvis.service.ProductEntityService;
-import org.code.jarvis.util.EntityConvertor;
 import org.code.jarvis.util.ResponseFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -128,10 +127,10 @@ public class MobileController {
             @ApiResponse(code = 500, message = "Internal Server Error")})
     @PostMapping(value = "/advertisement/fetch", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public JResponseEntity<Object> fetchAdvertisement() {
-        List<Map<String, Object>> response = new ArrayList<>();
+        List<Advertisement> response = new ArrayList<>();
         try {
             log.info("Client mobile requested view advertisement");
-            response = EntityConvertor.getAdvertisement(productEntityService.list(Advertisement.class));
+            response = productEntityService.list(Advertisement.class);
         } catch (Exception e) {
             log.error(e.getMessage());
             e.printStackTrace();

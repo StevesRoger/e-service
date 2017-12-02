@@ -68,8 +68,7 @@
                                             <label class="control-label">Type</label>
                                             <select class="form-control" ng-model="selectType" required>
                                                 <option></option>
-                                                <option ng-repeat="(key, value) in types" value="{{key}}">{{value}}
-                                                </option>
+                                                <option ng-repeat="(key, value) in types" value="{{key}}">{{value}}</option>
                                             </select>
                                         </div>
                                         <div class="form-group required">

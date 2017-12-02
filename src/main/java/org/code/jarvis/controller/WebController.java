@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +65,7 @@ public class WebController {
         try {
             Product product = objectMapper.readValue(json, Product.class);
             productEntityService.saveOrUpdateProduct(files, product);
-            fcmNotification.pushNotification("new product", Constant.PRODUCT, Constant.NEW, product);
+            fcmNotification.pushNotification("new product", Constant.PRODUCT, Constant.UPDATE, EntityConvertor.getProduct(product));
         } catch (Exception e) {
             log.error(e.getMessage());
             e.printStackTrace();
@@ -223,9 +222,7 @@ public class WebController {
     public JResponseEntity<Object> fetchCustomers() {
         List<Customer> list = new ArrayList<>();
         try {
-
             list = customerEntityService.list(Customer.class);
-
         } catch (Exception e) {
             log.error(e.getMessage());
             e.printStackTrace();
@@ -411,11 +408,11 @@ public class WebController {
     @ApiOperation(
             httpMethod = "GET",
             value = "Push notification to client",
-            notes = "This url request to server to push notification to client")
-    @GetMapping(value = "/notification")
-    public void pushNotification(@RequestParam(value = "id") long id) {
+            notes = "This url request to server to push notify item deleted to client")
+    @GetMapping(value = "/item_deleted")
+    public void pushNotification(@RequestParam(value = "id") long id, @RequestParam(value = "type") String type) {
         try {
-            fcmNotification.pushNotification("delete advertisement", Constant.ADVERTISEMENT, Constant.DELETE, id);
+            fcmNotification.pushNotification("delete advertisement", type, Constant.DELETE, id);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -438,13 +435,13 @@ public class WebController {
             @RequestParam(value = "limit", defaultValue = "10", required = false) int limit) {
 
         String count_total = "SELECT COUNT(pro_id) as count FROM td_product";
-        long count =  productEntityService.getCount(count_total);
+        long count = productEntityService.getCount(count_total);
 
         String sql = "SELECT * FROM td_product ORDER BY pro_id DESC OFFSET " + ((offset - 1) * limit) + " LIMIT " + limit;
         List<Product> products = productEntityService.getList(sql, Product.class);
 
         JResponseEntity<Object> responseEntity = ResponseFactory.build();
-        responseEntity.addBody("PRODUCTS", products);
+        responseEntity.addBody(products);
         responseEntity.addBody("COUNT", count);
         responseEntity.setCode(200);
         responseEntity.setStatus(HttpStatus.OK);

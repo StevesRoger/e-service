@@ -1,6 +1,5 @@
 package org.code.jarvis.model.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.http.HttpStatus;
 
@@ -20,9 +19,9 @@ public final class JResponseEntity<T> {
     @JsonProperty("HTTP_STATUS")
     private HttpStatus status;
     @JsonProperty("DATA")
-    private List<Object> data = new ArrayList();
+    private final List<T> data = new ArrayList();
     @JsonProperty("MAP")
-    private final Map<String, Object> map = new HashMap();
+    private final Map<String, T> map = new HashMap();
 
     public JResponseEntity() {
     }
@@ -59,28 +58,28 @@ public final class JResponseEntity<T> {
         this.status = status;
     }
 
-    public List<Object> getData() {
+    public List<T> getData() {
         return data;
     }
 
-    public void setData(List<Object> data){
-        this.data = data;
+    public Map<String, T> getMap() {
+        return map;
     }
 
-    public void addBody(Object body) {
+    public void addBody(T body) {
         if (body != null) {
             if (body instanceof List)
-                data.addAll((Collection<?>) body);
+                data.addAll((Collection<? extends T>) body);
             else
                 data.add(body);
         }
     }
 
-    public void addBody(String key, Object body) {
-        if (key != null && !key.isEmpty() && body != null) {
+    public void addBody(String key, T body) {
+        if (body != null) {
             if (body instanceof List) {
-                addBody(body);
-            } else {
+                data.addAll((Collection<? extends T>) body);
+            } else if (key != null && !key.isEmpty()) {
                 map.put(key, body);
             }
         }

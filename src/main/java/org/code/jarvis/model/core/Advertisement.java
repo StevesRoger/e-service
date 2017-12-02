@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by ki.kao on 8/28/2017.
@@ -14,9 +12,10 @@ import java.util.List;
 @Table(name = "td_advertisement")
 public class Advertisement extends AbstractEntity {
 
-
-    @JsonProperty("IMAGE")
+    @JsonIgnore
     private Image image;
+    @JsonProperty("IMAGE")
+    private Long imageId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,4 +50,15 @@ public class Advertisement extends AbstractEntity {
         this.image = image;
     }
 
+    @Transient
+    public Long getImageId() {
+        if (image != null) {
+            imageId = image.getId();
+        }
+        return imageId;
+    }
+
+    public void setImageId(Image image) {
+        this.imageId = image.getId();
+    }
 }
