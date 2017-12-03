@@ -9,7 +9,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
 
     $scope.pageSizes = [10, 20, 30, 40, 50, 100];
     $scope.perPage = {
-        pageSizes: 10
+        pageSizes : 10
     };
 
     $scope.currentPage = 1;
@@ -25,7 +25,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
         spinner.appendTo("body");
         $http({
             method: 'POST',
-            url: baseUrl + '/products/fetch' + '?offset=' + $scope.currentPage + '&limit=' + $scope.itemPerPage,
+            url: baseUrl + '/products/fetch'+'?offset='+$scope.currentPage+'&limit='+$scope.itemPerPage,
         }).then(function (response) {
             console.log(" fetch product response : ", response.data);
             $scope.products = response.data["DATA"];
@@ -43,10 +43,11 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
         spinner.appendTo("body");
         $http({
             method: 'POST',
-            url: baseUrl + '/promotion/fetch',
+            url: baseUrl + '/promotion/fetch'+'?offset='+$scope.currentPage+'&limit='+$scope.itemPerPage,
         }).then(function (response) {
-            console.log(response.data["DATA"]);
+            console.log(response.data);
             $scope.promotions = response.data["DATA"];
+            $scope.countPage = Math.ceil(response.data.MAP.COUNT / $scope.itemPerPage);
             spinner.remove();
         }, function (response) {
             console.log(response);
@@ -417,6 +418,9 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
     }
 
     $scope.onChangeSize = function () {
+    // for page product
+
+    $scope.onChangeSize = function() {
         $scope.fetchProduct();
     }
 
@@ -433,4 +437,44 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
             $scope.fetchProduct();
         }
     };
+
+    // page for promotion
+    $scope.onChangeSizePromotion = function () {
+        $scope.fetchPromotion();
+    }
+    $scope.backPromotion = function () {
+        if ($scope.currentPage - 1 >= 1){
+            $scope.currentPage -= 1;
+            $scope.fetchPromotion();
+        }
+    }
+
+    $scope.nexPromotion = function () {
+        if ($scope.currentPage + 1 <= $scope.countPage){
+            $scope.currentPage += 1;
+            $scope.fetchPromotion();
+        }
+    };
+
+    $scope.deActiveCustomer = function () {
+        spinner.appendTo("body");
+        $$http({
+            method: 'POST',
+            url: baseUrl + '/customer/submit/status',
+            data: formData,
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        }).then(function (response) {  // success
+                console.log(response);
+                $scope.fetchCustomer();
+                spinner.remove();
+                alertify.log("Submit product successful.", "success", 2000);
+            },
+            function (response) {  // failed
+                console.log(response);
+                spinner.remove();
+                swal('Oops...', 'Something went wrong please contact to developer!', 'error').catch(swal.noop);
+            });
+    }
+
 }]);

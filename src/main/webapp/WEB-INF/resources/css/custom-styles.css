@@ -18,7 +18,7 @@ body {
     margin: 10px 20px 10px 0px;
     background-color: transparent;
     padding: 15px 30px;
-    min-height: 1200px;
+    min-height: 1153px;
 }
 
 .header .container-fluid {
@@ -151,6 +151,10 @@ p {
     vertical-align: baseline;
     background-color: #24C2CE;
     border-radius: 10px;
+}
+
+input#checkboxes-0 {
+    margin-left: 26px;
 }
 
 /*----------------------------------------------
