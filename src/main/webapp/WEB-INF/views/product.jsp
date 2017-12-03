@@ -100,10 +100,13 @@
 
                             <div class="row">
                                 <div class="col-md-12"><br/>
-                                    <div>
-                                        <span >
-                                            <select ng-change="onChangeSize()" ng-model="itemPerPage" ng-options="item for item in pageSizes"></select>
-                                        </span>
+                                    <div class="row">
+                                        <div class="col-sm-8"></div>
+                                        <div class="col-sm-4 pull-right">
+                                            <div class="filter-product-type">
+                                                <select ng-change="onChangeSize()" ng-model="itemPerPage" ng-options="item for item in pageSizes" style="width: 346px;"></select>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="panel panel-default">
                                         <div class="panel-heading">

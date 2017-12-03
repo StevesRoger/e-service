@@ -474,4 +474,22 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
             });
     }
 
+    $scope.fetchProductType = function () {
+        spinner.appendTo("body");
+        $http({
+            method: 'POST',
+            url: baseUrl + '/products/fetch'+'?offset='+$scope.currentPage+'&limit='+$scope.itemPerPage,
+        }).then(function (response) {
+            console.log(" fetch product response : ", response.data);
+            $scope.products = response.data["DATA"];
+            $scope.countPage = Math.ceil(response.data.MAP.COUNT / $scope.itemPerPage);
+            console.log($scope.countPage);
+            spinner.remove();
+        }, function (response) {
+            console.log(response);
+            spinner.remove();
+            swal('Oops...', 'Something went wrong please contact to developer!', 'error').catch(swal.noop);
+        });
+    }
+
 }]);

@@ -157,6 +157,12 @@ input#checkboxes-0 {
     margin-left: 26px;
 }
 
+.filter-product-type {
+    width: 348px;
+    height: 30px;
+    margin-bottom: 5px;
+}
+
 /*----------------------------------------------
    DASHBOARD STYLES    
 ------------------------------------------------*/

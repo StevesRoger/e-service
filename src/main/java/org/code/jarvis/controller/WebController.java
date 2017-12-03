@@ -449,4 +449,36 @@ public class WebController {
         return responseEntity;
     }
 
+    @ApiOperation(
+            httpMethod = "POST",
+            value = "Fetch all products",
+            notes = "This url does fetch all products",
+            response = JResponseEntity.class,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiResponses(value = {
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")})
+    @PostMapping(value = "/products/fetch/type", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public JResponseEntity<Object> getProductsByProductType(
+            @RequestParam(value = "type", defaultValue = "WED", required = false) String type,
+            @RequestParam(value = "offset", defaultValue = "1", required = false) int offset,
+            @RequestParam(value = "limit", defaultValue = "10", required = false) int limit) {
+
+        String count_total = "SELECT COUNT(pro_id) as count FROM td_product WHERE pro_type = " + type;
+        long count = productEntityService.executeSQL(count_total);
+
+        String sql = "SELECT * FROM td_product ORDER BY pro_id DESC OFFSET " + ((offset - 1) * limit) + " LIMIT " + limit + "WHERE pro_type = " + type;
+        Product productsType = productEntityService.executeSQL(sql);
+
+        JResponseEntity<Object> responseEntity = ResponseFactory.build();
+        responseEntity.addBody(productsType);
+        responseEntity.addBody("COUNT", count);
+        responseEntity.setCode(200);
+        responseEntity.setStatus(HttpStatus.OK);
+        responseEntity.setMessage("SUCCESS");
+        return responseEntity;
+    }
+
 }
