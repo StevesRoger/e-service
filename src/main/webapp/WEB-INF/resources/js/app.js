@@ -417,9 +417,6 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
             && !$scope.selectType == "" && !$scope.txtPhone1 == "";
     }
 
-    $scope.onChangeSize = function () {
-    // for page product
-
     $scope.onChangeSize = function() {
         $scope.fetchProduct();
     }
