@@ -470,7 +470,7 @@ public class WebController {
         long count = productEntityService.executeSQL(count_total);
 
         String sql = "SELECT * FROM td_product ORDER BY pro_id DESC OFFSET " + ((offset - 1) * limit) + " LIMIT " + limit + "WHERE pro_type = " + type;
-        Product productsType = productEntityService.executeSQL(sql);
+        Product productsType = productEntityService.getSingle(sql, Product.class);
 
         JResponseEntity<Object> responseEntity = ResponseFactory.build();
         responseEntity.addBody(productsType);
