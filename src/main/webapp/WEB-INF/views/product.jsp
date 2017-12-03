@@ -100,15 +100,18 @@
 
                             <div class="row">
                                 <div class="col-md-12"><br/>
+                                    <div>
+                                        <span >
+                                            <select ng-change="onChangeSize()" ng-model="itemPerPage" ng-options="item for item in pageSizes"></select>
+                                        </span>
+                                    </div>
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             Table Products
                                         </div>
 
                                         <div class="pull-right ">
-                                            <span class="form-group">
-
-                                        </span>
+                                            <span class="form-group"></span>
                                         </div>
                                         <div class="panel-body">
                                             <div class="table-responsive">
