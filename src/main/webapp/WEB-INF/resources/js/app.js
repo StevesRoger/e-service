@@ -409,7 +409,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
             selectedColors.pop();
             onTagsChange();
         }
-    }
+    };
 
     function isValid() {
         return !$scope.txtCode == "" && !$scope.txtSize == ""
@@ -419,7 +419,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
 
     $scope.onChangeSize = function() {
         $scope.fetchProduct();
-    }
+    };
 
     $scope.prevPage = function () {
         if ($scope.currentPage - 1 >= 1) {
@@ -438,13 +438,13 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
     // page for promotion
     $scope.onChangeSizePromotion = function () {
         $scope.fetchPromotion();
-    }
+    };
     $scope.backPromotion = function () {
         if ($scope.currentPage - 1 >= 1){
             $scope.currentPage -= 1;
             $scope.fetchPromotion();
         }
-    }
+    };
 
     $scope.nexPromotion = function () {
         if ($scope.currentPage + 1 <= $scope.countPage){
@@ -472,7 +472,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
                 spinner.remove();
                 swal('Oops...', 'Something went wrong please contact to developer!', 'error').catch(swal.noop);
             });
-    }
+    };
 
     $scope.fetchProductType = function () {
         spinner.appendTo("body");
