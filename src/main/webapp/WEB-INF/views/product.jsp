@@ -139,7 +139,11 @@
                                                         <td>{{product.CODE}}</td>
                                                         <td>{{product.SIZE}}</td>
                                                         <td>{{product.PRICE}}</td>
-                                                        <td>{{product.COLOR}}</td>
+                                                        <td>
+                                                            <span ng-repeat="color in getColors(product.COLOR)">
+                                                                <span class="color-box" ng-style="{'background-color': color}"></span>
+                                                            </span>
+                                                        </td>
                                                         <td>{{types[product.TYPE]}}</td>
                                                         <td>{{product.CONTACT.PHONE1}}, {{product.CONTACT.PHONE2}}</td>
                                                         <td>{{product.CONTACT.EMAIL}}</td>

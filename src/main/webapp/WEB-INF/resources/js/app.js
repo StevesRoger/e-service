@@ -19,13 +19,13 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.sort = function (keyname) {
         $scope.sortKey = keyname;   //set the sortKey to the param passed
         $scope.reverse = !$scope.reverse; //if true make it false and vice versa
-    }
+    };
 
     $scope.fetchProduct = function () {
         spinner.appendTo("body");
         $http({
             method: 'POST',
-            url: baseUrl + '/products/fetch'+'?offset='+$scope.currentPage+'&limit='+$scope.itemPerPage,
+            url: baseUrl + '/products/fetch' + '?offset=' + $scope.currentPage + '&limit=' + $scope.itemPerPage,
         }).then(function (response) {
             console.log(" fetch product response : ", response.data);
             $scope.products = response.data["DATA"];
@@ -37,13 +37,13 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
             spinner.remove();
             swal('Oops...', 'Something went wrong please contact to developer!', 'error').catch(swal.noop);
         });
-    }
+    };
 
     $scope.fetchPromotion = function () {
         spinner.appendTo("body");
         $http({
             method: 'POST',
-            url: baseUrl + '/promotion/fetch'+'?offset='+$scope.currentPage+'&limit='+$scope.itemPerPage,
+            url: baseUrl + '/promotion/fetch' + '?offset=' + $scope.currentPage + '&limit=' + $scope.itemPerPage,
         }).then(function (response) {
             console.log(response.data);
             $scope.promotions = response.data["DATA"];
@@ -54,7 +54,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
             spinner.remove();
             swal('Oops...', 'Something went wrong please contact to developer!', 'error').catch(swal.noop);
         });
-    }
+    };
 
     $scope.fetchCustomer = function () {
         spinner.appendTo("body");
@@ -70,7 +70,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
             spinner.remove();
             swal('Oops...', 'Something went wrong please contact to developer!', 'error').catch(swal.noop);
         });
-    }
+    };
 
     $scope.fetchAdvertisement = function () {
         spinner.appendTo("body");
@@ -105,7 +105,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
             spinner.remove();
             swal('Oops...', 'Something went wrong please contact to developer!', 'error').catch(swal.noop);
         });
-    }
+    };
 
     $scope.submitProduct = function () {
         var formData = new FormData();
@@ -163,7 +163,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
             }).catch(swal.noop);
             console.log("====>>>> Can not submit there are invalid field or required");
         }
-    }
+    };
 
     $scope.submitPromotion = function () {
         var formData = new FormData();
@@ -207,7 +207,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
             ;
             console.log("====>>>> Can not submit there are invalid field or required");
         }
-    }
+    };
 
     $scope.submitAdvertisement = function () {
         var formData = new FormData();
@@ -262,7 +262,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
             }).catch(swal.noop);
             console.log("====>>>> Can not submit there are invalid field or required");
         }
-    }
+    };
 
     $.fn.spanOnClose = function (span) {
         span.click(function () {
@@ -273,7 +273,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
                 }
             }
         });
-    }
+    };
 
     $scope.editProduct = function (product) {
         $scope.txtId = product.ID;
@@ -301,7 +301,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
         $scope.txtCode = promotion.CODE;
         $scope.txtDesc = promotion.DESC;
         $("html, body").animate({scrollTop: 0}, 600);
-    }
+    };
 
     $scope.deleteEntity = function (id, index, val) {
         var msg = "";
@@ -349,7 +349,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
             }
         }
         $.fn.confirmDelete(func);
-    }
+    };
 
     $scope.viewImage = function (imgs, id, type) {
         console.log("array images id:" + imgs);
@@ -369,7 +369,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
         } else {
             swal('Oops...', 'No image available on the server!', 'info').catch(swal.noop).catch(swal.noop);
         }
-    }
+    };
 
     $scope.viewCustomer = function (customer) {
         $("#mName").text("Name: " + customer.GROOM_NAME);
@@ -386,7 +386,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
         $("#fb").text("Facebook: " + customer.FACEBOOK);
         $("#map").attr({"href": customer.MAP, "target": "_blank"});
         $("#other").text("Other: " + customer.OTHER);
-    }
+    };
 
     $scope.reset = function () {
         $scope.txtId = "";
@@ -417,7 +417,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
             && !$scope.selectType == "" && !$scope.txtPhone1 == "";
     }
 
-    $scope.onChangeSize = function() {
+    $scope.onChangeSize = function () {
         $scope.fetchProduct();
     };
 
@@ -440,14 +440,18 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
         $scope.fetchPromotion();
     };
     $scope.backPromotion = function () {
-        if ($scope.currentPage - 1 >= 1){
+        if ($scope.currentPage - 1 >= 1) {
             $scope.currentPage -= 1;
             $scope.fetchPromotion();
         }
     };
 
+    $scope.getColors = function (colors) {
+        return colors.split(",");
+    };
+
     $scope.nexPromotion = function () {
-        if ($scope.currentPage + 1 <= $scope.countPage){
+        if ($scope.currentPage + 1 <= $scope.countPage) {
             $scope.currentPage += 1;
             $scope.fetchPromotion();
         }
@@ -455,7 +459,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
 
     $scope.deActiveCustomer = function () {
         spinner.appendTo("body");
-        $$http({
+        $http({
             method: 'POST',
             url: baseUrl + '/customer/submit/status',
             data: formData,
@@ -490,6 +494,6 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
             spinner.remove();
             swal('Oops...', 'Something went wrong please contact to developer!', 'error').catch(swal.noop);
         });
-    }
+    };
 
 }]);

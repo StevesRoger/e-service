@@ -47,42 +47,42 @@ $("#full").spectrum({
     ]
 });
 
-$(document).on('dblclick', '.color-box', function(e) {
-    if (selectedColors) {
-        var colorId = $(this).data('color');
-        for (var i = 0; i < selectedColors.length; i++) {
-            if (selectedColors[i].indexOf(colorId) != -1) {
-                selectedColors.splice(i, 1);
+    $(document).on('dblclick', '.color-box', function(e) {
+        if (selectedColors) {
+            var colorId = $(this).data('color');
+            for (var i = 0; i < selectedColors.length; i++) {
+                if (selectedColors[i].indexOf(colorId) != -1) {
+                    selectedColors.splice(i, 1);
+                }
             }
+            onTagsChange();
         }
-        onTagsChange();
+    });
+
+    function onTagsChange() {
+        if (selectedColors) {
+            var tags = [];
+            $.each(selectedColors, function(i, color) {
+                tags.push('<div data-color=' + color + ' class="color-box" style="background-color: ' + color + '"></div>');
+            });
+            $('#selectColor').html(tags.join(''));
+            console.log("selectedColors change: ", selectedColors);
+
+        } else {
+            console.error("selectedColors is null: ", selectedColors);
+        }
     }
-});
 
-function onTagsChange() {
-    if (selectedColors) {
-        var tags = [];
-        $.each(selectedColors, function(i, color) {
-            tags.push('<div data-color=' + color + ' class="color-box" style="background-color: ' + color + '"></div>');
-        });
-        $('#selectColor').html(tags.join(''));
-        console.log("selectedColors change: ", selectedColors);
+    function editProduct(Object) {
+        if (selectedColors) {
+            var tags = [];
+            $.each(selectedColors, function(i, color) {
+                tags.push('<div data-color=' + color + ' class="color-box" style="background-color: ' + color + '"></div>');
+            });
+            $('#selectColor').html(tags.join(''));
+            console.log("selectedColors change: ", selectedColors);
 
-    } else {
-        console.error("selectedColors is null: ", selectedColors);
+        } else {
+            console.error("selectedColors is null: ", selectedColors);
+        }
     }
-}
-
-function editProduct(Object) {
-    if (selectedColors) {
-        var tags = [];
-        $.each(selectedColors, function(i, color) {
-            tags.push('<div data-color=' + color + ' class="color-box" style="background-color: ' + color + '"></div>');
-        });
-        $('#selectColor').html(tags.join(''));
-        console.log("selectedColors change: ", selectedColors);
-
-    } else {
-        console.error("selectedColors is null: ", selectedColors);
-    }
-}

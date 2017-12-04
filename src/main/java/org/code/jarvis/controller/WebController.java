@@ -462,19 +462,20 @@ public class WebController {
             @ApiResponse(code = 500, message = "Internal Server Error")})
     @PostMapping(value = "/products/fetch/type", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public JResponseEntity<Object> getProductsByProductType(
-            @RequestParam(value = "type", defaultValue = "WED", required = false) String type,
+            @RequestParam(value = "type", defaultValue = "DES", required = false) String type,
             @RequestParam(value = "offset", defaultValue = "1", required = false) int offset,
             @RequestParam(value = "limit", defaultValue = "10", required = false) int limit) {
 
-        String count_total = "SELECT COUNT(pro_id) as count FROM td_product WHERE pro_type = " + type;
-        long count = productEntityService.executeSQL(count_total);
+        /*String count_total = "SELECT COUNT(pro_id) as count FROM td_product WHERE TYPE = " + type;
+        long count = productEntityService.executeSQL(count_total);*/
 
-        String sql = "SELECT * FROM td_product ORDER BY pro_id DESC OFFSET " + ((offset - 1) * limit) + " LIMIT " + limit + "WHERE pro_type = " + type;
+        String sql = "SELECT * FROM td_product WHERE pro_type = '" + type + "' ORDER BY pro_id DESC OFFSET " + ((offset - 1) * limit) + " LIMIT " + limit;
+        //SELECT * from td_product WHERE pro_type = 'DES''" + userName + "'
         Product productsType = productEntityService.getSingle(sql, Product.class);
 
         JResponseEntity<Object> responseEntity = ResponseFactory.build();
         responseEntity.addBody(productsType);
-        responseEntity.addBody("COUNT", count);
+        //responseEntity.addBody("COUNT", count);
         responseEntity.setCode(200);
         responseEntity.setStatus(HttpStatus.OK);
         responseEntity.setMessage("SUCCESS");
