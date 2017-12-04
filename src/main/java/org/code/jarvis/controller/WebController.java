@@ -13,6 +13,7 @@ import org.code.jarvis.service.PromotionEntityService;
 import org.code.jarvis.util.Constant;
 import org.code.jarvis.util.EntityConvertor;
 import org.code.jarvis.util.ResponseFactory;
+import org.hibernate.Criteria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -434,7 +435,7 @@ public class WebController {
             @RequestParam(value = "offset", defaultValue = "1", required = false) int offset,
             @RequestParam(value = "limit", defaultValue = "10", required = false) int limit) {
 
-        String count_total = "SELECT COUNT(pro_id) as count FROM td_product";
+        String count_total = "SELECT COUNT(pro_id) FROM td_product";
         long count = productEntityService.getCount(count_total);
 
         String sql = "SELECT * FROM td_product ORDER BY pro_id DESC OFFSET " + ((offset - 1) * limit) + " LIMIT " + limit;
@@ -462,24 +463,55 @@ public class WebController {
             @ApiResponse(code = 500, message = "Internal Server Error")})
     @PostMapping(value = "/products/fetch/type", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public JResponseEntity<Object> getProductsByProductType(
-            @RequestParam(value = "type", defaultValue = "DES", required = false) String type,
+            @RequestParam(value = "type", defaultValue = "WED", required = false) String type,
             @RequestParam(value = "offset", defaultValue = "1", required = false) int offset,
             @RequestParam(value = "limit", defaultValue = "10", required = false) int limit) {
 
-        /*String count_total = "SELECT COUNT(pro_id) as count FROM td_product WHERE TYPE = " + type;
-        long count = productEntityService.executeSQL(count_total);*/
+        String count_total = "SELECT * FROM td_product WHERE pro_type = '"+ type +"'";
+        List<Product> count = productEntityService.getList(count_total, Product.class);
 
         String sql = "SELECT * FROM td_product WHERE pro_type = '" + type + "' ORDER BY pro_id DESC OFFSET " + ((offset - 1) * limit) + " LIMIT " + limit;
-        //SELECT * from td_product WHERE pro_type = 'DES''" + userName + "'
-        Product productsType = productEntityService.getSingle(sql, Product.class);
+        List<Product> productsType = productEntityService.getList(sql, Product.class);
 
         JResponseEntity<Object> responseEntity = ResponseFactory.build();
         responseEntity.addBody(productsType);
-        //responseEntity.addBody("COUNT", count);
+        responseEntity.addBody("COUNT", count.size());
         responseEntity.setCode(200);
         responseEntity.setStatus(HttpStatus.OK);
         responseEntity.setMessage("SUCCESS");
         return responseEntity;
     }
 
+    @ApiOperation(
+            httpMethod = "PATH",
+            value = "Update customer by id",
+            notes = "This url does update customer to deactive",
+            response = JResponseEntity.class,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiResponses(value = {
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")})
+    @GetMapping(value = "/customer/status/{id}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public JResponseEntity<Object> deActiveCustomerStatus(@RequestParam(value = "id") long id) {
+
+        try {
+            AbstractEntity entity = null;
+            entity = customerEntityService.getEntityById(id, Customer.class);
+            if (entity != null) {
+                if (entity instanceof Customer) {
+                    String sql = "UPDATE td_customer SET is_cus_act = 'f' WHERE cus_id =" + id;
+                    customerEntityService.executeQuery(sql);
+                }
+                customerEntityService.saveOrUpdate(entity);
+                return ResponseFactory.build("Delete entity successful", HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            e.printStackTrace();
+            return ResponseFactory.build("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+        return ResponseFactory.build("There is no entity with id " + id + " in database!", HttpStatus.BAD_REQUEST);
+    }
 }

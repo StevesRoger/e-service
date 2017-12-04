@@ -458,6 +458,10 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
     };
 
     $scope.deActiveCustomer = function () {
+        $scope.updateStatusCustomer();
+    }
+
+    $scope.updateStatusCustomer = function () {
         spinner.appendTo("body");
         $http({
             method: 'POST',
@@ -478,11 +482,17 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
             });
     };
 
+    $scope.onchangeType = function () {
+        if ($scope.productType != null){
+            $scope.fetchProductType();
+        }
+    };
+
     $scope.fetchProductType = function () {
         spinner.appendTo("body");
         $http({
             method: 'POST',
-            url: baseUrl + '/products/fetch'+'?offset='+$scope.currentPage+'&limit='+$scope.itemPerPage,
+            url: baseUrl + '/products/fetch/type'+'?type='+$scope.productType+'&offset='+$scope.currentPage+'&limit='+$scope.itemPerPage,
         }).then(function (response) {
             console.log(" fetch product response : ", response.data);
             $scope.products = response.data["DATA"];

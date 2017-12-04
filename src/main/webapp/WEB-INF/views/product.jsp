@@ -101,10 +101,12 @@
                             <div class="row">
                                 <div class="col-md-12"><br/>
                                     <div class="row">
-                                        <div class="col-sm-8"></div>
-                                        <div class="col-sm-4 pull-right">
+                                        <div class="col-md-4 offset-md-8">
                                             <div class="filter-product-type">
-                                                <select ng-change="onChangeSize()" ng-model="itemPerPage" ng-options="item for item in pageSizes" style="width: 346px;"></select>
+                                                <select class="form-control" ng-model="productType" ng-change="onchangeType()">
+                                                    <option></option>
+                                                    <option ng-repeat="(key, value) in types" value="{{key}}">{{value}}</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
