@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.code.jarvis.component.FCMNotification;
+import org.code.jarvis.hql.BaseCriteria;
 import org.code.jarvis.model.core.*;
 import org.code.jarvis.model.response.JResponseEntity;
 import org.code.jarvis.service.CustomerEntityService;
@@ -13,7 +14,6 @@ import org.code.jarvis.service.PromotionEntityService;
 import org.code.jarvis.util.Constant;
 import org.code.jarvis.util.EntityConvertor;
 import org.code.jarvis.util.ResponseFactory;
-import org.hibernate.Criteria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -143,7 +143,7 @@ public class WebController {
             @RequestParam(value = "limit", defaultValue = "10", required = false) int limit) {
 
         String count_total = "SELECT COUNT(pro_id) as count FROM td_promotion";
-        long count =  productEntityService.getCount(count_total);
+        long count = productEntityService.getCount(count_total);
 
         String sql = "SELECT * FROM td_promotion ORDER BY pro_id DESC OFFSET " + ((offset - 1) * limit) + " LIMIT " + limit;
         List<Promotion> promotions = promotionEntityService.getList(sql, Promotion.class);
@@ -467,7 +467,7 @@ public class WebController {
             @RequestParam(value = "offset", defaultValue = "1", required = false) int offset,
             @RequestParam(value = "limit", defaultValue = "10", required = false) int limit) {
 
-        String count_total = "SELECT * FROM td_product WHERE pro_type = '"+ type +"'";
+        String count_total = "SELECT * FROM td_product WHERE pro_type = '" + type + "'";
         List<Product> count = productEntityService.getList(count_total, Product.class);
 
         String sql = "SELECT * FROM td_product WHERE pro_type = '" + type + "' ORDER BY pro_id DESC OFFSET " + ((offset - 1) * limit) + " LIMIT " + limit;
@@ -495,23 +495,16 @@ public class WebController {
             @ApiResponse(code = 500, message = "Internal Server Error")})
     @GetMapping(value = "/customer/status/{id}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public JResponseEntity<Object> deActiveCustomerStatus(@RequestParam(value = "id") long id) {
-
         try {
-            AbstractEntity entity = null;
-            entity = customerEntityService.getEntityById(id, Customer.class);
-            if (entity != null) {
-                if (entity instanceof Customer) {
-                    String sql = "UPDATE td_customer SET is_cus_act = 'f' WHERE cus_id =" + id;
-                    customerEntityService.executeQuery(sql);
-                }
-                customerEntityService.saveOrUpdate(entity);
-                return ResponseFactory.build("Delete entity successful", HttpStatus.OK);
-            }
+            BaseCriteria<Customer>criteria=new BaseCriteria(Customer.class);
+            customerEntityService.list(criteria);
+            String sql = "UPDATE td_customer SET is_cus_act = false WHERE cus_id =" + id;
+            customerEntityService.executeSQL(sql);
+            return ResponseFactory.build("Delete entity successful", HttpStatus.OK);
         } catch (Exception e) {
             log.error(e.getMessage());
             e.printStackTrace();
             return ResponseFactory.build("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
-        return ResponseFactory.build("There is no entity with id " + id + " in database!", HttpStatus.BAD_REQUEST);
     }
 }

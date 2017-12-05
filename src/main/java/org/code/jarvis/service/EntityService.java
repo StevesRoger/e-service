@@ -1,10 +1,15 @@
 package org.code.jarvis.service;
 
+import org.code.jarvis.hql.Association;
+import org.code.jarvis.hql.BaseCriteria;
 import org.code.jarvis.model.core.AbstractEntity;
 import org.code.jarvis.repository.EntityDao;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projection;
 
 import java.math.BigInteger;
 import java.sql.Connection;
@@ -54,6 +59,10 @@ public interface EntityService {
     int executeSQL(String sql);
 
     ResultSet executeQuery(String sql)throws Exception;
+
+    <T> List<T> list(BaseCriteria<T> criteria);
+
+    <T> List<T> list(Class<T> clazz, boolean isDistinctRootEntity, List<Association> associations, List<Criterion> criterions, List<Projection> projections, Integer firstResult, Integer maxResults, List<Order> orders);
 
     long getCount(String sql);
 

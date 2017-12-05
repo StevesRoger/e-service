@@ -1,13 +1,14 @@
 package org.code.jarvis.repository.impl;
 
+import org.code.jarvis.hql.Association;
+import org.code.jarvis.hql.BaseCriteria;
 import org.code.jarvis.model.core.AbstractEntity;
 import org.code.jarvis.repository.EntityDao;
 import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.*;
 import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 import org.hibernate.internal.SessionImpl;
 import org.slf4j.Logger;
@@ -184,6 +185,79 @@ public abstract class AbstractEntityDao implements EntityDao {
     @Override
     public <T> T getSingle(String sql, Class<T> clazz) {
         return (T) entityManager.createNativeQuery(sql,clazz).getSingleResult();
+    }
+
+    @Override
+    public <T> List<T> list(BaseCriteria<T> criteria) {
+        List<T> lst = list(
+                criteria.getEntityClass(),
+                criteria.isDistinctRootEntity(),
+                criteria.getAssociations(),
+                criteria.getCriterions(),
+                criteria.getProjections(),
+                criteria.getFirstResult(),
+                criteria.getMaxResults(),
+                criteria.getOrders());
+        return lst;
+    }
+
+    @Override
+    public <T> List<T> list(Class<T> clazz, boolean isDistinctRootEntity, List<Association> associations, List<Criterion> criterions, List<Projection> projections, Integer firstResult, Integer maxResults, List<Order> orders) {
+
+        Criteria criteria = getCurrentSession().createCriteria(clazz);
+        if (isDistinctRootEntity) {
+            criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        }
+        if (associations != null) {
+            for (Association association : associations) {
+                if (association != null) {
+                    criteria.createAlias(
+                            association.getAssociationPath(),
+                            association.getAlias(),
+                            association.getJoinType(),
+                            association.getWithClause());
+                }
+            }
+        }
+
+        if (criterions != null) {
+            for (Criterion criterion : criterions) {
+                if (criterion != null) {
+                    criteria = criteria.add(criterion);
+                }
+            }
+        }
+
+        if (projections != null) {
+            ProjectionList projList = Projections.projectionList();
+            for (Projection proj : projections) {
+                if (proj != null) {
+                    projList.add(proj);
+                }
+            }
+            if (projList != null && projList.getLength() > 0) {
+                criteria.setProjection(projList);
+            }
+        }
+
+
+        if (orders != null) {
+            for (Order order : orders) {
+                if (order != null) {
+                    criteria = criteria.addOrder(order);
+                }
+            }
+        }
+
+        if (firstResult != null) {
+            criteria.setFirstResult(firstResult);
+        }
+
+        if (maxResults != null) {
+            criteria.setMaxResults(maxResults);
+        }
+
+        return criteria.list();
     }
 
     @Override

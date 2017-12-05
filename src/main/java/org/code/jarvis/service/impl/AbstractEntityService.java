@@ -1,10 +1,15 @@
 package org.code.jarvis.service.impl;
 
+import org.code.jarvis.hql.Association;
+import org.code.jarvis.hql.BaseCriteria;
 import org.code.jarvis.model.core.AbstractEntity;
 import org.code.jarvis.repository.EntityDao;
 import org.code.jarvis.service.EntityService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projection;
 
 import java.math.BigInteger;
 import java.sql.Connection;
@@ -107,6 +112,16 @@ public abstract class AbstractEntityService implements EntityService {
     @Override
     public <T> T getSingle(String sql, Class<T> clzz) {
         return getDao().getSingle(sql, clzz);
+    }
+
+    @Override
+    public <T> List<T> list(BaseCriteria<T> criteria) {
+        return getDao().list(criteria);
+    }
+
+    @Override
+    public <T> List<T> list(Class<T> clazz, boolean isDistinctRootEntity, List<Association> associations, List<Criterion> criterions, List<Projection> projections, Integer firstResult, Integer maxResults, List<Order> orders) {
+        return getDao().list(clazz, isDistinctRootEntity, associations, criterions, projections, firstResult, maxResults, orders);
     }
 
     @Override
