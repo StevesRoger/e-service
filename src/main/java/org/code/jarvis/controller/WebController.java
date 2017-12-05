@@ -14,13 +14,11 @@ import org.code.jarvis.service.PromotionEntityService;
 import org.code.jarvis.util.Constant;
 import org.code.jarvis.util.EntityConvertor;
 import org.code.jarvis.util.ResponseFactory;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -221,17 +219,14 @@ public class WebController {
             @ApiResponse(code = 500, message = "Internal Server Error")})
     @PostMapping(value = "/customer/fetch", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public JResponseEntity<Object> fetchCustomers() {
-        List<Customer> list = new ArrayList<>();
-        try {
-            list = customerEntityService.list(Customer.class);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            e.printStackTrace();
-            return ResponseFactory.build("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        BaseCriteria<Customer> customerBaseCriteria = new BaseCriteria<>(Customer.class);
+        customerBaseCriteria.addCriterion(Restrictions.ne("status", false));
+        List<Customer> list = customerEntityService.list(customerBaseCriteria);
+        if (list != null && !list.isEmpty()){
+            return ResponseFactory.build("Success", HttpStatus.OK, list);
         }
-        return ResponseFactory.build("Success", HttpStatus.OK, list);
+        return null;
     }
-
 
     @ApiOperation(
             httpMethod = "POST",
@@ -483,7 +478,7 @@ public class WebController {
     }
 
     @ApiOperation(
-            httpMethod = "PATH",
+            httpMethod = "PUT",
             value = "Update customer by id",
             notes = "This url does update customer to deactive",
             response = JResponseEntity.class,
@@ -493,11 +488,9 @@ public class WebController {
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")})
-    @GetMapping(value = "/customer/status/{id}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public JResponseEntity<Object> deActiveCustomerStatus(@RequestParam(value = "id") long id) {
+    @RequestMapping(value = "/customer/status/{id}",produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}, method ={RequestMethod.PUT})
+    public JResponseEntity<Object> deActiveCustomerStatus(@PathVariable(value = "id") long id) {
         try {
-            BaseCriteria<Customer>criteria=new BaseCriteria(Customer.class);
-            customerEntityService.list(criteria);
             String sql = "UPDATE td_customer SET is_cus_act = false WHERE cus_id =" + id;
             customerEntityService.executeSQL(sql);
             return ResponseFactory.build("Delete entity successful", HttpStatus.OK);

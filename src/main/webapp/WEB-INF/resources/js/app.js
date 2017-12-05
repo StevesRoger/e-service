@@ -9,7 +9,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
 
     $scope.pageSizes = [10, 20, 30, 40, 50, 100];
     $scope.perPage = {
-        pageSizes : 10
+        pageSizes: 10
     };
 
     $scope.currentPage = 1;
@@ -457,23 +457,16 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
         }
     };
 
-    $scope.deActiveCustomer = function () {
-        $scope.updateStatusCustomer();
-    }
-
-    $scope.updateStatusCustomer = function () {
+    $scope.updateStatusCustomer = function (ID) {
         spinner.appendTo("body");
         $http({
-            method: 'POST',
-            url: baseUrl + '/customer/submit/status',
-            data: formData,
-            transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}
+            method: 'PUT',
+            url: baseUrl + '/customer/status/'+ID,
         }).then(function (response) {  // success
                 console.log(response);
                 $scope.fetchCustomer();
                 spinner.remove();
-                alertify.log("Submit product successful.", "success", 2000);
+                alertify.log("Customer has been removed successful.", "success", 200);
             },
             function (response) {  // failed
                 console.log(response);
@@ -483,7 +476,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
     };
 
     $scope.onchangeType = function () {
-        if ($scope.productType != null){
+        if ($scope.productType != null) {
             $scope.fetchProductType();
         }
     };
@@ -492,7 +485,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
         spinner.appendTo("body");
         $http({
             method: 'POST',
-            url: baseUrl + '/products/fetch/type'+'?type='+$scope.productType+'&offset='+$scope.currentPage+'&limit='+$scope.itemPerPage,
+            url: baseUrl + '/products/fetch/type' + '?type=' + $scope.productType + '&offset=' + $scope.currentPage + '&limit=' + $scope.itemPerPage,
         }).then(function (response) {
             console.log(" fetch product response : ", response.data);
             $scope.products = response.data["DATA"];
