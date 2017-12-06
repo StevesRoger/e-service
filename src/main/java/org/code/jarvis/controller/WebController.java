@@ -225,7 +225,7 @@ public class WebController {
         if (list != null && !list.isEmpty()){
             return ResponseFactory.build("Success", HttpStatus.OK, list);
         }
-        return null;
+         return ResponseFactory.build("No customer record", HttpStatus.OK);
     }
 
     @ApiOperation(

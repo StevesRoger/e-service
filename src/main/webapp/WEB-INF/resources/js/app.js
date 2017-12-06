@@ -379,6 +379,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
         $("#fFatName").text("Father Name: " + customer.BRIDE_DAD_NAME);
         $("#fMomName").text("Mother Name: " + customer.BRIDE_MOM_NAME);
         $("#home").text("Home : " + customer.HOME);
+        $("#time").text("Time : " + customer.TIME);
         $("#date").text("Date: " + customer.DATE);
         $("#address").text("Address: " + customer.ADDRESS);
         $("#tel").text("Tel: " + customer.PHONE);

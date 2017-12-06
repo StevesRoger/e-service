@@ -154,22 +154,24 @@ public class MobileController {
     @PostMapping(value = "/customer/submit", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public JResponseEntity<Object> submitCustomer(@RequestPart(required = false) MultipartFile[] files,
                                                   @RequestPart String json) throws IOException {
+        Customer customer = null;
         try {
-            Customer customer = objectMapper.readValue(json, Customer.class);
+            customer = objectMapper.readValue(json, Customer.class);
             if (customer != null) {
                 Product product = customerEntityService.getEntityById(customer.getProductId(), Product.class);
                 if (product != null) {
                     customer.setProduct(product);
                     customerEntityService.saveOrUpdateCustomer(files, customer);
                 } else
-                    return ResponseFactory.build("Submit failed there is no product with id " + customer.getProductId(), HttpStatus.BAD_REQUEST);
-            }
+                    return ResponseFactory.build("Submit failed there is no product with id " + customer.getProductId(), HttpStatus.BAD_REQUEST, "Customer invalid product id");
+            } else
+                return ResponseFactory.build("Submit customer failed", HttpStatus.BAD_REQUEST, "Customer invalid data");
         } catch (Exception e) {
             log.error(e.getMessage());
             e.printStackTrace();
             return ResponseFactory.build("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
-        return ResponseFactory.build("Submit customer successful", HttpStatus.OK, objectMapper.readValue(json, Map.class));
+        return ResponseFactory.build("Submit customer successful", HttpStatus.OK);
 
     }
 

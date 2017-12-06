@@ -34,6 +34,8 @@ public class Customer extends AbstractEntity {
     private String address;
     @JsonProperty("DATE")
     private String date;
+    @JsonProperty("TIME")
+    private String time;
     @JsonProperty("PHONE")
     private String phone;
     @JsonProperty("EMAIL")
@@ -48,10 +50,14 @@ public class Customer extends AbstractEntity {
     private Product product;
     @JsonProperty("PRODUCT_ID")
     private Long productId;
+    @JsonProperty("COLOR")
+    private String color;
+    @JsonProperty("QTY")
+    private Integer qty;
     @JsonIgnore
     private List<Image> images;
     @JsonProperty("IS_ACTIVE_CUSTOMER")
-    private Boolean status;
+    private Boolean status = true;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -210,6 +216,33 @@ public class Customer extends AbstractEntity {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    @Column(name = "cus_time")
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    @Column(name = "pro_color")
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    @Column(name = "pro_qty")
+    public Integer getQty() {
+        return qty;
+    }
+
+    public void setQty(Integer qty) {
+        this.qty = qty;
     }
 
     @Transient

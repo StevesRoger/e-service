@@ -1,3 +1,40 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>V-Printing</title>
+    <link rel="icon" type="image/ico" href="./resources/img/icons/v_printing_logo.ico">
+    <!-- Bootstrap Styles-->
+    <link rel="stylesheet" href="./resources/css/bootstrap.min.css">
+
+    <!-- Google Fonts-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" href="./resources/css/main.css"/>
+
+    <link rel="stylesheet" href="./resources/css/zoom.css" media="all"/>
+
+    <link rel="stylesheet" href="./resources/css/sweetalert2.min.css"/>
+
+    <link rel="stylesheet" href="./resources/css/alertify.core.css"/>
+
+    <link rel="stylesheet" href="./resources/css/alertify.default.css"/>
+    <script src="./resources/js/jquery-1.11.3.min.js"></script>
+
+    <!-- Custom Styles-->
+    <link href="./resources/css/custom-styles.css" rel="stylesheet"/>
+
+    <%-- color --%>
+
+    <script src="./resources/js/spectrum.js"></script>
+    <link rel="stylesheet" href="./resources/css/spectrum.css"/>
+
+</head>
 <jsp:include page="header.jsp"/>
 <jsp:include page="navigationbar.jsp"/>
 
@@ -37,6 +74,8 @@
                                                         <th ng-click="sort('PRODUCT.TYPE')">Type
                                                             <span class="glyphicon sort-icon" ng-show="sortKey=='PRODUCT.TYPE'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                                                         </th>
+                                                        <th>Quantity</th>
+                                                        <th>Color</th>
                                                         <th ng-click="sort('GROOM_NAME')">Groom Name
                                                             <span class="glyphicon sort-icon" ng-show="sortKey=='GROOM_NAME'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                                                         </th>
@@ -54,6 +93,8 @@
                                                     <tr ng-repeat="customer in customers|orderBy:sortKey:reverse|filter:search">
                                                         <td>{{customer.PRODUCT.CODE}}</td>
                                                         <td>{{types[customer.PRODUCT.TYPE]}}</td>
+                                                        <td>{{customer.QTY}}</td>
+                                                        <td><span class="color-box" ng-style="{'background-color': customer.COLOR}"></span></td>
                                                         <td>{{customer.GROOM_NAME}}</td>
                                                         <td>{{customer.BRIDE_NAME}}</td>
                                                         <td>{{customer.PHONE}}</td>
@@ -148,6 +189,9 @@
                                     </div>
                                     <div class="form-group">
                                         <label id="home"></label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label id="time"></label>
                                     </div>
                                     <div class="form-group">
                                         <label id="tel"></label>
