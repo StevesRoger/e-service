@@ -459,21 +459,35 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
     };
 
     $scope.updateStatusCustomer = function (ID) {
-        spinner.appendTo("body");
-        $http({
-            method: 'PUT',
-            url: baseUrl + '/customer/status/'+ID,
-        }).then(function (response) {  // success
-                console.log(response);
-                $scope.fetchCustomer();
-                spinner.remove();
-                alertify.log("Customer has been removed successful.", "success", 200);
-            },
-            function (response) {  // failed
-                console.log(response);
-                spinner.remove();
-                swal('Oops...', 'Something went wrong please contact to developer!', 'error').catch(swal.noop);
-            });
+        swal({
+            title: 'Are you sure?',
+            text: "You won't be able to get it back!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Okay'
+        }).then(function () {
+            spinner.appendTo("body");
+            $http({
+                method: 'PUT',
+                url: baseUrl + '/customer/status/' + ID,
+            }).then(function (response) {  // success
+                    console.log(response);
+                    $scope.fetchCustomer();
+                    spinner.remove();
+                    alertify.log("Customer has been removed successful.", "success", 200);
+                },
+                function (response) {  // failed
+                    console.log(response);
+                    spinner.remove();
+                    swal('Oops...', 'Something went wrong please contact to developer!', 'error').catch(swal.noop);
+                });
+        }, function (dismiss) {
+            if (dismiss == 'cancel') {
+                $('#' + ID).prop('checked', true);
+            }
+        }).catch(swal.noop);
     };
 
     $scope.onchangeType = function () {

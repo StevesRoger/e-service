@@ -114,7 +114,7 @@
 
                                                         </td>
                                                         <td>
-                                                            <input id="checkboxes-0" ng-click="updateStatusCustomer(customer.ID)" type="checkbox" ng-model="status" ng-checked="true">
+                                                            <input id="{{customer.ID}}" ng-click="updateStatusCustomer(customer.ID)" type="checkbox" ng-model="status" ng-checked="true">
                                                         </td>
                                                     </tr>
                                                     </tbody>
