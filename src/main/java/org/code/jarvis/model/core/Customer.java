@@ -34,6 +34,8 @@ public class Customer extends AbstractEntity {
     private String address;
     @JsonProperty("DATE")
     private String date;
+    @JsonProperty("KH_DATE")
+    private String khdate;
     @JsonProperty("TIME")
     private String time;
     @JsonProperty("PHONE")
@@ -243,6 +245,15 @@ public class Customer extends AbstractEntity {
 
     public void setQty(Integer qty) {
         this.qty = qty;
+    }
+
+    @Column(name = "cus_kh_date")
+    public String getKhdate() {
+        return khdate;
+    }
+
+    public void setKhdate(String khdate) {
+        this.khdate = khdate;
     }
 
     @Transient

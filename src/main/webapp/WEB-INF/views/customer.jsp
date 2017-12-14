@@ -185,6 +185,9 @@
                                         <label id="date"></label>
                                     </div>
                                     <div class="form-group">
+                                        <label id="kh-date"></label>
+                                    </div>
+                                    <div class="form-group">
                                         <label id="address"></label>
                                     </div>
                                     <div class="form-group">
@@ -193,11 +196,11 @@
                                     <div class="form-group">
                                         <label id="time"></label>
                                     </div>
+                                </div>
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label id="tel"></label>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label id="email"></label>
                                     </div>

@@ -5,12 +5,10 @@ import org.code.jarvis.hql.BaseCriteria;
 import org.code.jarvis.model.core.AbstractEntity;
 import org.code.jarvis.repository.EntityDao;
 import org.hibernate.Criteria;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.*;
 import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
-import org.hibernate.internal.SessionImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -179,12 +177,20 @@ public abstract class AbstractEntityDao implements EntityDao {
 
     @Override
     public <T> List<T> getList(String sql, Class<T> clazz) {
-        return entityManager.createNativeQuery(sql,clazz).getResultList();
+        try {
+            return entityManager.createNativeQuery(sql, clazz).getResultList();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override
     public <T> T getSingle(String sql, Class<T> clazz) {
-        return (T) entityManager.createNativeQuery(sql,clazz).getSingleResult();
+        try {
+            return (T) entityManager.createNativeQuery(sql, clazz).getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override

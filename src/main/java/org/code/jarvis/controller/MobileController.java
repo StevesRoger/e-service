@@ -4,11 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.code.jarvis.hql.BaseCriteria;
 import org.code.jarvis.model.core.*;
 import org.code.jarvis.model.response.JResponseEntity;
 import org.code.jarvis.service.CustomerEntityService;
 import org.code.jarvis.service.ProductEntityService;
 import org.code.jarvis.util.ResponseFactory;
+import org.hibernate.criterion.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -263,6 +265,69 @@ public class MobileController {
         map.put("OTHER", "Other information");
         map.put("PRODUCT_ID", "1");
         return map;
+    }
+
+    @ApiOperation(
+            httpMethod = "GET",
+            value = "List all app version",
+            notes = "Try out to get all app version")
+    @GetMapping(value = "/version/fetch", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public JResponseEntity<Object> getListAppVersion() {
+        List<AppVersion> list = new ArrayList<>();
+        try {
+            BaseCriteria<AppVersion> baseCriteria = new BaseCriteria<>(AppVersion.class);
+            baseCriteria.addOrder(Order.desc("id"));
+            list = productEntityService.list(baseCriteria);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            e.printStackTrace();
+            return ResponseFactory.build("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+        return ResponseFactory.build("Success", HttpStatus.OK, list);
+    }
+
+    @ApiOperation(
+            httpMethod = "GET",
+            value = "Get lastest app version",
+            notes = "Try out to get lastest app version")
+    @GetMapping(value = "/version/last", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public JResponseEntity<Object> getLastestAppVersion() {
+        String version = "";
+        try {
+            BaseCriteria<AppVersion> baseCriteria = new BaseCriteria<>(AppVersion.class);
+            baseCriteria.addOrder(Order.desc("id"));
+            List<AppVersion> list = productEntityService.list(baseCriteria);
+            version = list != null && !list.isEmpty() ? list.get(0).getVersion() : "";
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            e.printStackTrace();
+            return ResponseFactory.build("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+        return ResponseFactory.build("Success", HttpStatus.OK, version);
+    }
+
+    @ApiOperation(
+            httpMethod = "POST",
+            value = "Add new release app version",
+            notes = "Try out to add new release app version")
+    @PostMapping(value = "/version/submit", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public JResponseEntity<Object> addAppVersion(@RequestParam(value = "code", required = false) String code, @RequestParam(value = "version") String version, @RequestParam(value = "desc", required = false) String desc) {
+        try {
+            AppVersion appVersion = productEntityService.getSingle("SELECT * FROM td_app_detail WHERE app_version='" + version + "'", AppVersion.class);
+            if (appVersion == null) {
+                appVersion = new AppVersion();
+                appVersion.setCode(code);
+                appVersion.setDesc(desc);
+                appVersion.setVersion(version);
+                productEntityService.saveOrUpdate(appVersion);
+                return ResponseFactory.build("Success save release app version", HttpStatus.OK);
+            } else
+                return ResponseFactory.build("Release app version '" + version + "' already exist!", HttpStatus.OK);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            e.printStackTrace();
+            return ResponseFactory.build("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
     }
 
 }

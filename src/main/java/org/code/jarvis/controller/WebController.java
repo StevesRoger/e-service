@@ -64,7 +64,7 @@ public class WebController {
         try {
             Product product = objectMapper.readValue(json, Product.class);
             productEntityService.saveOrUpdateProduct(files, product);
-            fcmNotification.pushNotification("new product", Constant.PRODUCT, Constant.UPDATE, EntityConvertor.getProduct(product));
+            fcmNotification.pushNotification("new product", product.getProductType().desc, Constant.UPDATE, EntityConvertor.getProduct(product));
         } catch (Exception e) {
             log.error(e.getMessage());
             e.printStackTrace();

@@ -381,6 +381,7 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
         $("#home").text("Home : " + customer.HOME);
         $("#time").text("Time : " + customer.TIME);
         $("#date").text("Date: " + customer.DATE);
+        $("#kh-date").text("KH-Date: " + customer.KH_DATE);
         $("#address").text("Address: " + customer.ADDRESS);
         $("#tel").text("Tel: " + customer.PHONE);
         $("#email").text("Email: " + customer.EMAIL);
