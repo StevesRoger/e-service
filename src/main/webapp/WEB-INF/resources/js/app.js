@@ -449,7 +449,11 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
     };
 
     $scope.getColors = function (colors) {
-        return colors.split(",");
+        var str = "";
+        if (colors.includes("#"))
+            str = colors.split(",");
+        return str;
+
     };
 
     $scope.nexPromotion = function () {
