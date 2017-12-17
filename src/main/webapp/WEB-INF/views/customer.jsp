@@ -143,14 +143,14 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Customer Detail
+                    <div class="panel-heading">ពត៏មានលំអិតអំពីអតិថិជន
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label style="color:#0866C6">Groom</label>
+                                    <label style="color:#0866C6">កូនកំលោះ</label>
                                 </div>
                                 <div class="form-group">
                                     <label id="mName"></label>
@@ -164,7 +164,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label style="color:#0866C6">Bride</label>
+                                    <label style="color:#0866C6">កូនក្រមុំ</label>
                                 </div>
                                 <div class="form-group">
                                     <label id="fName"></label>
@@ -178,7 +178,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label style="color:#0866C6">More Information</label>
+                                    <label style="color:#0866C6">ពត៏មានបន្តែម</label>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
