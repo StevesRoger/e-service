@@ -750,6 +750,27 @@ div#page-inner {
 
 }
 
+/*-----sub --- menu ---------*/
+
+.sub > li > a {
+    color:white;
+    text-decoration: none;
+}
+
+.sub > li > a:hover{
+    background-color: rgb(224, 69, 140);
+}
+
+
+.sub > li {
+    list-style: none;
+    padding: 12px 10px;
+}
+
+.sidebar-collapse > .nav > li > ul > li > a {
+    padding: 12px 10px;
+}
+
 
 /*----------------------------------------------
     MEDIA QUERIES     

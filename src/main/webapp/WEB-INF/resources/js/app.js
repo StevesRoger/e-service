@@ -372,22 +372,22 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
     };
 
     $scope.viewCustomer = function (customer) {
-        $("#mName").text("Name: " + customer.GROOM_NAME);
-        $("#mFatName").text("Father Name: " + customer.GROOM_DAD_NAME);
-        $("#mMomName").text("Mother Name: " + customer.GROOM_MOM_NAME);
-        $("#fName").text("Name: " + customer.BRIDE_NAME);
-        $("#fFatName").text("Father Name: " + customer.BRIDE_DAD_NAME);
-        $("#fMomName").text("Mother Name: " + customer.BRIDE_MOM_NAME);
-        $("#home").text("Home : " + customer.HOME);
-        $("#time").text("Time : " + customer.TIME);
-        $("#date").text("Date: " + customer.DATE);
-        $("#kh-date").text("KH-Date: " + customer.KH_DATE);
-        $("#address").text("Address: " + customer.ADDRESS);
-        $("#tel").text("Tel: " + customer.PHONE);
-        $("#email").text("Email: " + customer.EMAIL);
-        $("#fb").text("Facebook: " + customer.FACEBOOK);
+        $("#mName").text("ឈ្មោះ: " + customer.GROOM_NAME);
+        $("#mFatName").text("ឈ្មោះ​ឪពុក: " + customer.GROOM_DAD_NAME);
+        $("#mMomName").text("ឈ្មោះម្តាយ: " + customer.GROOM_MOM_NAME);
+        $("#fName").text("ឈ្មោះ: " + customer.BRIDE_NAME);
+        $("#fFatName").text("ឈ្មោះ​ឪពុក " + customer.BRIDE_DAD_NAME);
+        $("#fMomName").text("ឈ្មោះម្តាយ: " + customer.BRIDE_MOM_NAME);
+        $("#home").text("នៅគេហដ្ឋានខាង : " + customer.HOME);
+        $("#time").text("នៅវេលាម៉ោង : " + customer.TIME);
+        $("#date").text("កាលបរិច្ឆេទ: " + customer.DATE);
+        $("#kh-date").text("កាលបរិច្ឆេទ: " + customer.KH_DATE);
+        $("#address").text("អាស័យដ្ឋាន: " + customer.ADDRESS);
+        $("#tel").text("លេខទូរសព្វ: " + customer.PHONE);
+        $("#email").text("សាអេឡិចត្រូនិច: " + customer.EMAIL);
+        $("#fb").text("ហ្វេសប៊ុក: " + customer.FACEBOOK);
         $("#map").attr({"href": customer.MAP, "target": "_blank"});
-        $("#other").text("Other: " + customer.OTHER);
+        $("#other").text("ផ្សេង‌ៗ: " + customer.OTHER);
     };
 
     $scope.reset = function () {
