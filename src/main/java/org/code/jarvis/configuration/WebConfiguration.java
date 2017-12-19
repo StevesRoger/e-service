@@ -3,6 +3,7 @@ package org.code.jarvis.configuration;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -22,8 +23,7 @@ import java.util.Properties;
  */
 @Configuration
 @EnableTransactionManagement
-@PropertySource(value = {"classpath:/config/database.properties",
-        "classpath:/config/hibernate.properties", "classpath:/fcm/fcm.properties"})
+@PropertySource(value = {"classpath:/config/database.properties", "classpath:/config/hibernate.properties", "classpath:/fcm/fcm.properties"})
 public class WebConfiguration {
 
     @Autowired

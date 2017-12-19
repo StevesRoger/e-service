@@ -763,13 +763,13 @@ div#page-inner {
 
 
 .sub > li {
+    border-bottom: 1px solid rgba(107, 108, 109, 0.19);
     list-style: none;
-    padding: 12px 10px;
 }
 
-.sidebar-collapse > .nav > li > ul > li > a {
+/*.sidebar-collapse > .nav > li > ul > li > a {
     padding: 12px 10px;
-}
+}*/
 
 
 /*----------------------------------------------
