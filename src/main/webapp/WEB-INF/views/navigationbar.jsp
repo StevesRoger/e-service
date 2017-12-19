@@ -18,25 +18,30 @@
             <li>
                 <a href="advertisement"><i class="fa fa-buysellads"></i> Advertisement</a>
             </li>
-            <li class="sub-menu">
-                <a href="javascript:;" class="">
-                    <i class="fa fa-user"></i> Customer<i class="fa fa-caret-down pull-right"></i>
-                </a>
-                <ul class="nav sub">
+            <li>
+                <a href="#"><i class="fa fa-user"></i> Customer <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
                     <li>
-                        <a href="customer"> <i class="fa fa-plus"></i> New Customer</a>
+                        <a href="customer"><i class="fa fa-plus"></i>New customer</a>
                     </li>
                     <li>
-                        <a href="#"> <i class="fa fa-th-list"> </i> Customer M</a>
+                        <a href="#"><i class="fa fa-list-ul"></i>Wedding customer</a>
                     </li>
                     <li>
-                        <a href="#"> <i class="fa fa-th-list"> </i> Customer W</a>
+                        <a href="#"><i class="fa fa-list-ul"></i>Warming house customer</a>
                     </li>
                     <li>
-                        <a href="#"> <i class="fa fa-th-list"> </i> Customer C</a>
+                        <a href="#"><i class="fa fa-list-ul"></i>Birthday customer</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-list-ul"></i>Ceremony customer</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-list-ul"></i>Invoice customer</a>
                     </li>
                 </ul>
             </li>
+
         </ul>
     </div>
 </nav>

@@ -71,7 +71,7 @@ p {
 .navbar-side .nav > li > a > i {
     color: #FFFFFF;
     padding: 8px;
-    width: 30px;
+    width: 27px;
     text-align: center;
 }
 
@@ -588,6 +588,7 @@ footer p {
     color: #FFFFFF;
     background: transparent;
     text-shadow: none;
+    border-bottom: 1px solid rgba(107, 108, 109, 0.19);
 }
 
 .sidebar-collapse > .nav > li > a {
@@ -602,8 +603,12 @@ footer p {
     border-bottom: 1px solid rgba(107, 108, 109, 0.19);
 }
 
+.sidebar-collapse > .nav > li a:hover{
+    background-color: rgb(224, 69, 140);
+}
+
 ul.nav.nav-second-level.collapse.in {
-    background: #000000;
+    background: #cb1363;
 }
 
 .sidebar-collapse .nav > li > a:hover,
@@ -749,28 +754,6 @@ div#page-inner {
     padding: 0px 15px;
 
 }
-
-/*-----sub --- menu ---------*/
-
-.sub > li > a {
-    color:white;
-    text-decoration: none;
-}
-
-.sub > li > a:hover{
-    background-color: rgb(224, 69, 140);
-}
-
-
-.sub > li {
-    border-bottom: 1px solid rgba(107, 108, 109, 0.19);
-    list-style: none;
-}
-
-/*.sidebar-collapse > .nav > li > ul > li > a {
-    padding: 12px 10px;
-}*/
-
 
 /*----------------------------------------------
     MEDIA QUERIES     
