@@ -5,14 +5,19 @@ package org.code.jarvis.model.core;
  */
 public enum EProductType {
 
-    WED("Wedding", "សំបុត្រការ"),
-    CER("Ceremony", "សំបុត្របុណ្យ"),
-    DES("Design", "សំបុត្រច្នៃ");
+    WED("WED", "Wedding", "សំបុត្រការ"),
+    CER("CER", "Ceremony", "សំបុត្របុណ្យ"),
+    HOM("HOM", "Home Party", "ទ្បើងផ្ទះ"),
+    INV("INV", "Invoice", "វិក័យប័ត្រ"),
+    HDB("HDB", "Happy Birthday", "សំបុត្រខួបកំណើត"),
+    DES("DES", "Design", "សំបុត្រច្នៃ");
 
     public String desc;
     public String descKh;
+    public String code;
 
-    EProductType(String desc, String descKh) {
+    EProductType(String code, String desc, String descKh) {
+        this.code = code;
         this.desc = desc;
         this.descKh = descKh;
     }

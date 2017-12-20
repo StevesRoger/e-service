@@ -11,6 +11,7 @@ import org.code.jarvis.service.CustomerEntityService;
 import org.code.jarvis.service.ProductEntityService;
 import org.code.jarvis.util.ResponseFactory;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,28 +58,31 @@ public class MobileController {
     @PostMapping(value = "/product/fetch", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public JResponseEntity<Object> fetchProducts(@RequestParam(value = "offset", defaultValue = "1") int offset,
                                                  @RequestParam(value = "limit", defaultValue = "10") int limit,
-                                                 @RequestParam(value = "type", required = false, defaultValue = "WED") String type) {
+                                                 @RequestParam(value = "type", required = false, defaultValue = "GEN") String type) {
         List<Product> response = null;
         try {
-            EProductType productType = null;
+            EProductType productType = EProductType.WED;
             switch (type) {
-                case "WED":
-                    productType = EProductType.WED;
-                    break;
-                case "CER":
-                    productType = EProductType.CER;
-                    break;
                 case "DES":
                     productType = EProductType.DES;
                     break;
-                default:
-                    productType = EProductType.WED;
+                case "GEN":
+                    productType = null;
                     break;
             }
-            log.info("Client mobile requested fetch product " + productType.desc);
-            response = productEntityService.fetchProducts(offset, limit, productType);
-            if (response == null) response = new ArrayList<>();
-            log.info("product " + productType.desc + " size:" + response.size());
+            if (productType != null) {
+                log.info("Client mobile requested fetch product " + productType.desc);
+                response = productEntityService.fetchProducts(offset, limit, productType);
+                log.info("product " + productType.desc + " size:" + response.size());
+            } else {
+                BaseCriteria<Product> criteria = new BaseCriteria(Product.class);
+                criteria.addCriterion(Restrictions.not(Restrictions.in("productType", new EProductType[]{EProductType.WED, EProductType.DES})));
+                criteria.addOrder(Order.desc("updateDate"));
+                criteria.setFirstResult((offset - 1) * limit);
+                criteria.setMaxResults(limit);
+                response = productEntityService.list(criteria);
+            }
+            if (response == null || response.isEmpty()) response = new ArrayList<>();
         } catch (Exception e) {
             log.error(e.getMessage());
             e.printStackTrace();
@@ -174,7 +178,41 @@ public class MobileController {
             return ResponseFactory.build("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
         return ResponseFactory.build("Submit customer successful", HttpStatus.OK);
+    }
 
+    @ApiOperation(
+            httpMethod = "POST",
+            value = "Submit customer and images",
+            notes = "The client have to submit json customer and images using form data",
+            response = JResponseEntity.class,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @ApiResponses(value = {
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")})
+    @PostMapping(value = "/entities/submit", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public JResponseEntity<Object> submitEntities(@RequestPart(required = false) MultipartFile[] files,
+                                                  @RequestPart String json) throws IOException {
+        Entities entities = null;
+        try {
+            entities = objectMapper.readValue(json, Entities.class);
+            if (entities != null) {
+                Product product = customerEntityService.getEntityById(new Long(entities.getByKey("PRO").toString()), Product.class);
+                if (product != null) {
+                    entities.setProduct(product);
+                    customerEntityService.saveOrUpdateCustomer(files, entities);
+                } else
+                    return ResponseFactory.build("Submit failed there is no product with id " + entities.getByKey("PRO"), HttpStatus.BAD_REQUEST, "Customer invalid product id");
+            } else
+                return ResponseFactory.build("Submit customer failed", HttpStatus.BAD_REQUEST, "Customer invalid data");
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            e.printStackTrace();
+            return ResponseFactory.build("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+        return ResponseFactory.build("Submit customer successful", HttpStatus.OK);
     }
 
     @ApiOperation(

@@ -42,10 +42,9 @@ public class Promotion extends AbstractEntity {
         return this.desc;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "td_promotion_image", joinColumns = {@JoinColumn(name = "pro_id")},
             inverseJoinColumns = {@JoinColumn(name = "img_id")})
-    @Fetch(value = FetchMode.SUBSELECT)
     public List<Image> getImages() {
         return images;
     }

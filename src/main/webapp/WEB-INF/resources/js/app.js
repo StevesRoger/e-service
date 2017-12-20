@@ -5,7 +5,14 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.products = [];
     $scope.promotions = [];
     $scope.customers = [];
-    $scope.types = {"WED": "សំបុត្រការ", "CER": "សំបុត្របុណ្យ", "DES": "សំបុត្រច្នៃ"};
+    $scope.types = {
+        "WED": "សំបុត្រការ",
+        "CER": "សំបុត្របុណ្យ",
+        "DES": "សំបុត្រច្នៃ",
+        "HOM": "សំបុត្រទ្បើងផ្ទះ",
+        "INV": "វិក័យប័ត្រ",
+        "HBD": "សំបុត្រខួបកំណើត"
+    };
 
     $scope.pageSizes = [10, 20, 30, 40, 50, 100];
     $scope.perPage = {

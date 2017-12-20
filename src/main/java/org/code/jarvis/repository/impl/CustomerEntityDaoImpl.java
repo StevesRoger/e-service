@@ -1,6 +1,6 @@
 package org.code.jarvis.repository.impl;
 
-import org.code.jarvis.model.core.Customer;
+import org.code.jarvis.model.core.ICustomer;
 import org.code.jarvis.model.core.Image;
 import org.code.jarvis.repository.CustomerEntityDao;
 import org.springframework.http.MediaType;
@@ -20,7 +20,7 @@ public class CustomerEntityDaoImpl extends AbstractEntityDao implements Customer
 
 
     @Override
-    public Customer saveOrUpdateCustomer(MultipartFile[] files, Customer customer) throws Exception {
+    public ICustomer saveOrUpdateCustomer(MultipartFile[] files, ICustomer customer) throws Exception {
         if (customer != null) {
             if (customer.getCreateDate() == null) customer.setCreateDate(new Date());
             if (customer.getUpdateDate() == null) customer.setUpdateDate(new Date());
@@ -38,4 +38,5 @@ public class CustomerEntityDaoImpl extends AbstractEntityDao implements Customer
         }
         return customer;
     }
+
 }
