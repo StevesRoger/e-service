@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: dangdim
+  Date: 12/19/17
+  Time: 10:33 PM
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -41,50 +48,52 @@
 <div ng-app="ngApp" ng-controller="ngCtrl" data-ng-init="fetchCustomer()">
     <div id="page-wrapper">
         <div class="header">
-            <ol class="breadcrumb"></ol>
+            <ol class="breadcrumb">
+            </ol>
         </div>
         <div id="page-inner">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">Customer</div>
+                        <div class="panel-heading">អតិថិជនជាវធៀបឡើងផ្ទះ</div>
                         <div class="panel-body">
                             <div class="row">
                                 <form class="form-inline"​ style="margin-left: 15px">
                                     <div class="form-group">
-                                        <label >Search</label>
+                                        <label >ស្វែងរក​</label>
                                         <input type="text" ng-model="search" class="form-control" placeholder="Search">
                                     </div>
                                 </form>
                                 <div class="col-md-12"><br/>
                                     <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            Table Customer
-                                        </div>
+
                                         <div class="panel-body">
                                             <div class="table-responsive">
                                                 <table class="table table-striped table-bordered table-hover">
                                                     <thead>
                                                     <tr>
-                                                        <th ng-click="sort('PRODUCT.CODE')">Product Code
+                                                        <th ng-click="sort('PRODUCT.CODE')">លេខកូដទំនិញ
                                                             <span class="glyphicon sort-icon" ng-show="sortKey=='PRODUCT.CODE'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                                                         </th>
-                                                        <th ng-click="sort('PRODUCT.TYPE')">Type
+                                                        <th ng-click="sort('PRODUCT.TYPE')">ប្រភេទទំនិញ
                                                             <span class="glyphicon sort-icon" ng-show="sortKey=='PRODUCT.TYPE'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                                                         </th>
-                                                        <th>Quantity</th>
-                                                        <th>Color</th>
-                                                        <th ng-click="sort('GROOM_NAME')">Groom Name
+                                                        <th>ចំនួនទំនិញ</th>
+                                                        <th>ពត៏ទំនិញ</th>
+                                                        <th ng-click="sort('GROOM_NAME')">ឈ្មោះម្ចាស់ផ្ទះ
                                                             <span class="glyphicon sort-icon" ng-show="sortKey=='GROOM_NAME'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                                                         </th>
-                                                        <th ng-click="sort('BRIDE_NAME')">Bride Name
+                                                        <th ng-click="sort('BRIDE_NAME')">ប្តី
                                                             <span class="glyphicon sort-icon" ng-show="sortKey=='BRIDE_NAME'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                                                         </th>
-                                                        <th ng-click="sort('PHONE')">Phone
+                                                        <th ng-click="sort('BRIDE_NAME')">ប្រពន្ធ
+                                                            <span class="glyphicon sort-icon" ng-show="sortKey=='BRIDE_NAME'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                                        </th>
+                                                        <th ng-click="sort('PHONE')">លេខទូរស័ព្វ
                                                             <span class="glyphicon sort-icon" ng-show="sortKey=='PHONE'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                                                         </th>
-                                                        <th>Action</th>
-                                                        <th>Active</th>
+                                                        <th>សកម្មភាព</th>
+                                                        <th>សកម្ម</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -95,6 +104,7 @@
                                                         <td><span class="color-box" ng-style="{'background-color': customer.COLOR}"></span></td>
                                                         <td>{{customer.GROOM_NAME}}</td>
                                                         <td>{{customer.BRIDE_NAME}}</td>
+                                                        <td>{{customer.PHONE}}</td>
                                                         <td>{{customer.PHONE}}</td>
                                                         <td width="100px">
                                                             <button class="btn btn-info btn-xs"
@@ -229,4 +239,5 @@
 <jsp:include page="footer.jsp"/>
 
 </div>
+
 

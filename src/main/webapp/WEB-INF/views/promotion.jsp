@@ -42,16 +42,14 @@
 
     <div id="page-wrapper">
         <div class="header">
-            <ol class="breadcrumb">
-                <h3>Promotions</h3>
-            </ol>
+            <ol class="breadcrumb"></ol>
         </div>
 
         <div id="page-inner">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">Promotions
+                        <div class="panel-heading">កម្មវិធីពិសេស
                         </div>
                         <div id="panel-body" class="panel-body">
                             <div class="row">
@@ -59,19 +57,19 @@
                                     <form role="form" name="myForm">
                                         <div class="form-group">
                                             <input class="ng-hide" ng-model="txtId"/>
-                                            <label>Code</label>
+                                            <label>លេខកូដ</label>
                                             <input class="form-control" placeholder="Enter Code"
                                                    ng-model="txtCode" name="txtCode"/>
                                         </div>
                                         <div class="form-group">
-                                            <label>Description</label>
+                                            <label>ពិពណ៏នា</label>
                                             <input class="form-control" placeholder="Enter Description"
                                                    ng-model="txtDesc" name="txtDesc"/>
                                         </div>
                                         <button type="submit" class="btn btn-primary" ng-click="submitPromotion()">
-                                            Submit
+                                            បញ្ជូន
                                         </button>
-                                        <button type="reset" class="btn btn-default" ng-click="reset()">Clear
+                                        <button type="reset" class="btn btn-default" ng-click="reset()">លុប
                                         </button>
                                     </form>
                                 </div>
@@ -80,7 +78,7 @@
                                     <div class="form-group">
                                         <div class="imgupload panel panel-default">
                                             <div class="panel-heading clearfix">
-                                                <h3 class="panel-title pull-left">Upload images</h3>
+                                                <h3 class="panel-title pull-left">ទាញរូបភាព</h3>
                                             </div>
                                             <div class="file-tab panel-body">
                                                 <input type="file" id="files" name="files[]" accept="image/*" multiple/>
@@ -95,18 +93,16 @@
                             <div class="row">
                                 <div class="col-md-12"><br/>
                                     <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            Table Promotions
-                                        </div>
+                                        <div class="panel-heading">បញ្ចីកម្មវិធីពិសេស</div>
                                         <div class="panel-body">
                                             <div class="table-responsive">
                                                 <table class="table table-striped table-bordered table-hover">
                                                     <thead>
                                                     <tr>
                                                         <th class="ng-hide">Id</th>
-                                                        <th>Code</th>
-                                                        <th>Description</th>
-                                                        <th>Action</th>
+                                                        <th>កូដ</th>
+                                                        <th>ពិពណ៏នា</th>
+                                                        <th>សកម្មភាព</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>

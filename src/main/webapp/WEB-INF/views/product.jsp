@@ -42,7 +42,6 @@
     <div id="page-wrapper">
         <div class="header">
             <ol class="breadcrumb">
-                <h3>Products</h3>
             </ol>
         </div>
 
@@ -50,39 +49,39 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">Product</div>
+                        <div class="panel-heading">ទំនិញ</div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <form role="form" name="myForm">
                                         <div class="form-group required">
                                             <input class="ng-hide" ng-model="txtId"/>
-                                            <label class="control-label">Code</label>
+                                            <label class="control-label">លេខកូដ</label>
                                             <input class="form-control" placeholder="Enter Code" ng-model="txtCode"
                                                    name="txtCode" required/>
                                         </div>
 
                                         <div class="form-group required">
-                                            <label class="control-label">Color </label>
+                                            <label class="control-label">ពណ៏</label>
                                             <input type='text' id="full"/>
                                             <span id="selectColor"></span>
 
                                         </div>
 
                                         <div class="form-group required">
-                                            <label class="control-label">Size</label>
+                                            <label class="control-label">ទំហំ</label>
                                             <input class="form-control" placeholder="Enter Size"
                                                    ng-model="txtSize" name="txtSize" required/>
                                         </div>
                                         <div class="form-group required">
-                                            <label class="control-label">Price</label>
+                                            <label class="control-label">តំលៃ</label>
                                             <input class="form-control" placeholder="Enter Price"
                                                    ng-model="txtPrice" name="txtPrice" required/>
                                         </div>
                                         <div class="form-group">
                                             <div class="imgupload panel panel-default">
                                                 <div class="panel-heading clearfix">
-                                                    <h3 class="panel-title pull-left">Upload images</h3>
+                                                    <h3 class="panel-title pull-left">ដាក់រូបភាព</h3>
                                                 </div>
                                                 <div class="file-tab panel-body">
                                                     <input type="file" id="files" name="files[]" accept="image/*"
@@ -92,9 +91,9 @@
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary" ng-click="submitProduct()">
-                                            Submit
+                                            បញ្ជូន
                                         </button>
-                                        <button type="reset" class="btn btn-default" ng-click="reset()">Clear</button>
+                                        <button type="reset" class="btn btn-default" ng-click="reset()">លុប</button>
                                     </form>
                                 </div>
 
@@ -102,24 +101,24 @@
                                 <div class="col-lg-6">
                                     <form role="form">
                                         <div class="form-group required">
-                                            <label class="control-label">Type</label>
+                                            <label class="control-label">ប្រភេទ</label>
                                             <select class="form-control" ng-model="selectType" required>
                                                 <option></option>
                                                 <option ng-repeat="(key, value) in types" value="{{key}}">{{value}}</option>
                                             </select>
                                         </div>
                                         <div class="form-group required">
-                                            <label class="control-label">Phone1</label>
+                                            <label class="control-label">លេខទូរសព្វទី1</label>
                                             <input class="form-control" placeholder="Enter Phone Number"
                                                    ng-model="txtPhone1" required>
                                         </div>
                                         <div class="form-group">
-                                            <label>Phone2</label>
+                                            <label>លេខទូរសព្វទី2</label>
                                             <input class="form-control" placeholder="Enter Phone Number"
                                                    ng-model="txtPhone2">
                                         </div>
                                         <div class="form-group">
-                                            <label>Email</label>
+                                            <label>សាអេឡិចត្រូនិច</label>
                                             <input class="form-control" placeholder="Enter Email"
                                                    ng-model="txtEmail">
                                         </div>
@@ -149,7 +148,7 @@
                                     </div>
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
-                                            Table Products
+                                            បញ្ចីទំនិញ
                                         </div>
 
                                         <div class="pull-right ">
@@ -161,15 +160,15 @@
                                                     <thead>
                                                     <tr>
                                                         <th class="ng-hide">Id</th>
-                                                        <th>Code</th>
-                                                        <th>Size</th>
-                                                        <th>Price</th>
-                                                        <th>Color</th>
-                                                        <th>Type</th>
-                                                        <th>Phone</th>
-                                                        <th>Email</th>
+                                                        <th>លេខកូដ</th>
+                                                        <th>ទំហំ</th>
+                                                        <th>ដំលៃ</th>
+                                                        <th>ពណ៏</th>
+                                                        <th>ប្រភេទ</th>
+                                                        <th>លេខទូរសព្វ</th>
+                                                        <th>សារអេឡិចត្រូនិច</th>
                                                         <th>Facebook</th>
-                                                        <th>Action</th>
+                                                        <th>សកម្មភាព</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>

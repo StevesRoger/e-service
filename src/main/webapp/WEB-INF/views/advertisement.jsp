@@ -30,7 +30,6 @@
     <link href="./resources/css/custom-styles.css" rel="stylesheet"/>
 
     <%-- color --%>
-
     <script src="./resources/js/spectrum.js"></script>
     <link rel="stylesheet" href="./resources/css/spectrum.css"/>
 
@@ -43,7 +42,6 @@
     <div id="page-wrapper">
         <div class="header">
             <ol class="breadcrumb">
-                <h3>Advertisement</h3>
             </ol>
         </div>
 
@@ -51,7 +49,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">Advertisement
+                        <div class="panel-heading">ដៃគូផ្សព្វផ្សាយ
                         </div>
                         <div id="panel-body" class="panel-body">
                             <div class="row">
@@ -60,7 +58,7 @@
                                         <div class="form-group">
                                             <div class="imgupload panel panel-default">
                                                 <div class="panel-heading clearfix">
-                                                    <h3 class="panel-title pull-left">Upload images</h3>
+                                                    <h3 class="panel-title pull-left">ទាញរូបភាព</h3>
                                                 </div>
                                                 <div class="file-tab panel-body">
                                                     <input type="file" id="files" name="files[]" accept="image/*"
@@ -70,9 +68,9 @@
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary" ng-click="submitAdvertisement()">
-                                            Submit
+                                            បញ្ជូន
                                         </button>
-                                        <button type="reset" class="btn btn-default" ng-click="reset()">Clear
+                                        <button type="reset" class="btn btn-default" ng-click="reset()">សាឡើងវិញ
                                         </button>
                                     </form>
                                 </div>
@@ -83,7 +81,6 @@
                                     <div class="panel panel-default">
                                         <div class="panel-body">
                                             <div id="grid" style="margin-top: 5px">
-
                                             </div>
                                         </div>
                                     </div>
@@ -114,5 +111,6 @@
 <jsp:include page="footer.jsp"/>
 
 </div>
+​</html>
 
 

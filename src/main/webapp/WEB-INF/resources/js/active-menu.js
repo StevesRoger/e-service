@@ -7,6 +7,10 @@ jQuery(document).ready(function ($) {
         path = 'index.jsp';
     }
 
-    var taget = $('nav a[href="'+path+'"]');
-    taget.addClass("active-menu");
+    var target = $('nav a[href="'+path+'"]');
+    target.addClass("active-menu");
+
+    if (path == 'wed-customer'){
+        $('ul.nav.nav-second-level.collapse.in').attr('aria-expanded','true');
+    }
 });

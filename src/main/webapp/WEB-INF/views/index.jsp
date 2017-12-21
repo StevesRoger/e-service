@@ -41,7 +41,6 @@
     <div id="page-wrapper">
         <div class="header">
             <ol class="breadcrumb">
-                <h3>Dash board</h3>
             </ol>
         </div>
         <div id="page-inner">
@@ -51,7 +50,6 @@
                     <div class="panel panel-primary text-center no-boder blue">
                         <div class="panel-left pull-left blue">
                             <i class="fa fa-eye fa-5x"></i>
-
                         </div>
                         <div class="panel-right">
                             <h3>10,253</h3>

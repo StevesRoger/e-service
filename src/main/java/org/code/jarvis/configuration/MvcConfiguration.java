@@ -17,12 +17,18 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/index").setViewName("index");
         registry.addViewController("/product").setViewName("product");
-        registry.addViewController("/customer").setViewName("customer");
         registry.addViewController("/promotion").setViewName("promotion");
         registry.addViewController("/advertisement").setViewName("advertisement");
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/swagger").setViewName("swagger");
         registry.addViewController("/403").setViewName("403");
+        //registry.addViewController("/customer").setViewName("customer");
+        registry.addViewController("/wed-customer").setViewName("wed-customer");
+        registry.addViewController("/warm-customer").setViewName("warm-customer");
+        registry.addViewController("/birth-customer").setViewName("birth-customer");
+        registry.addViewController("/ceremony-customer").setViewName("ceremony-customer");
+        registry.addViewController("/invoice-customer").setViewName("invoice-customer");
+
     }
 
   @Override
