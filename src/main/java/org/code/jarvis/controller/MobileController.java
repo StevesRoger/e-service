@@ -92,7 +92,7 @@ public class MobileController {
     }
 
     @ApiOperation(
-            httpMethod = "POST",
+            httpMethod = "GET",
             value = "Fetch promotion with pagination",
             notes = "This url does fetch products with pagination.",
             response = JResponseEntity.class,
@@ -102,13 +102,12 @@ public class MobileController {
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")})
-    @PostMapping(value = "/promotion/fetch", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public JResponseEntity<Object> fetchPromotion(@RequestParam(value = "offset", defaultValue = "1") int offset,
-                                                  @RequestParam(value = "limit", defaultValue = "1") int limit) {
+    @GetMapping(value = "/promotion/fetch", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public JResponseEntity<Object> fetchPromotion() {
         List<Promotion> response = null;
         try {
             log.info("Client mobile requested fetch promotion");
-            response = productEntityService.fetchPromotion(offset, limit);
+            response = productEntityService.list(Promotion.class);
             if (response == null) response = new ArrayList<>();
             log.info("promotion size:" + response.size());
         } catch (Exception e) {
@@ -121,7 +120,7 @@ public class MobileController {
 
 
     @ApiOperation(
-            httpMethod = "POST",
+            httpMethod = "GET",
             value = "Fetch advertisement",
             notes = "This url does fetch advertisement",
             response = JResponseEntity.class,
@@ -131,7 +130,7 @@ public class MobileController {
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")})
-    @PostMapping(value = "/advertisement/fetch", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/advertisement/fetch", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public JResponseEntity<Object> fetchAdvertisement() {
         List<Advertisement> response = new ArrayList<>();
         try {
