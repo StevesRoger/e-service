@@ -62,7 +62,7 @@
                 <a href="advertisement"><i class="fa fa-buysellads"></i>ដែគូផ្សព្វផ្សាយ</a>
             </li>
             <li>
-                <a href="#"><i class="fa fa-user"></i>អតិថិជន <span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-user"></i>អតិថិជន<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
                         <a href="wed-customer"><i class="fa fa-list-ul"></i>អតិថិជនជាវធៀបការ</a>
@@ -78,9 +78,13 @@
                     </li>
                     <li>
                         <a href="invoice-customer"><i class="fa fa-list-ul"></i>អតិថិជនជាវវិក័យប័ត្រ</a>
+
                     </li>
+                    <li><a href="#">${controllerName}</a></li>
                 </ul>
             </li>
+
+
 
         </ul>
     </div>

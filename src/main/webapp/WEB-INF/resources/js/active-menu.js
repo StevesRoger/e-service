@@ -10,7 +10,13 @@ jQuery(document).ready(function ($) {
     var target = $('nav a[href="'+path+'"]');
     target.addClass("active-menu");
 
-    if (path == 'wed-customer'){
-        $('ul.nav.nav-second-level.collapse.in').attr('aria-expanded','true');
+    switch (path) {
+        case 'wed-customer':
+        case 'warm-customer':
+        case 'birth-customer':
+        case 'ceremony-customer':
+        case 'invoice-customer':
+            $('.sidebar-collapse .nav-second-level').attr('aria-expanded', true).addClass('in');
+            break;
     }
 });

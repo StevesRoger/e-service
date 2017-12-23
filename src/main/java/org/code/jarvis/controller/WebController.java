@@ -18,7 +18,10 @@ import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -222,10 +225,10 @@ public class WebController {
         BaseCriteria<Customer> customerBaseCriteria = new BaseCriteria<>(Customer.class);
         customerBaseCriteria.addCriterion(Restrictions.ne("status", false));
         List<Customer> list = customerEntityService.list(customerBaseCriteria);
-        if (list != null && !list.isEmpty()){
+        if (list != null && !list.isEmpty()) {
             return ResponseFactory.build("Success", HttpStatus.OK, list);
         }
-         return ResponseFactory.build("No customer record", HttpStatus.OK);
+        return ResponseFactory.build("No customer record", HttpStatus.OK);
     }
 
     @ApiOperation(
@@ -240,10 +243,21 @@ public class WebController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")})
     @PostMapping(value = "/entities/fetch", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public JResponseEntity<Object> fetchEntities() {
+    public JResponseEntity<Object> fetchEntities(@RequestParam(value = "type") String type) {
         BaseCriteria<Customer> customerBaseCriteria = new BaseCriteria(Entities.class);
+        switch (type) {
+            case "HOM":
+                customerBaseCriteria.addCriterion(Restrictions.eq("productType", EProductType.HOM));
+                break;
+            case "INV":
+                customerBaseCriteria.addCriterion(Restrictions.eq("productType", EProductType.INV));
+                break;
+            case "HDB":
+                customerBaseCriteria.addCriterion(Restrictions.eq("productType", EProductType.INV));
+                break;
+        }
         List<Customer> list = customerEntityService.list(customerBaseCriteria);
-        if (list != null && !list.isEmpty()){
+        if (list != null && !list.isEmpty()) {
             return ResponseFactory.build("Success", HttpStatus.OK, list);
         }
         return ResponseFactory.build("No customer record", HttpStatus.OK);
@@ -509,7 +523,7 @@ public class WebController {
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")})
-    @RequestMapping(value = "/customer/status/{id}",produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}, method ={RequestMethod.PUT})
+    @RequestMapping(value = "/customer/status/{id}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}, method = {RequestMethod.PUT})
     public JResponseEntity<Object> deActiveCustomerStatus(@PathVariable(value = "id") long id) {
         try {
             String sql = "UPDATE td_customer SET is_cus_act = false WHERE cus_id =" + id;

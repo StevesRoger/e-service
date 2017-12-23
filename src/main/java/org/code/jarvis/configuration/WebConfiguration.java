@@ -1,6 +1,7 @@
 package org.code.jarvis.configuration;
 
 import org.apache.commons.dbcp.BasicDataSource;
+import org.code.jarvis.util.interceptor.BaseInterceptor;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,6 +13,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -22,7 +25,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @PropertySource(value = {"classpath:/config/database.properties", "classpath:/config/hibernate.properties", "classpath:/fcm/fcm.properties"})
-public class WebConfiguration {
+public class WebConfiguration extends WebMvcConfigurerAdapter {
 
     @Autowired
     private Environment environment;
@@ -80,5 +83,10 @@ public class WebConfiguration {
         //hibernateProperties.put("hibernate.generate_statistics", environment.getProperty("jarvis.hibernate.generate_statistics"));
         //hibernateProperties.put("hibernate.format_sql",environment.getProperty("jarvis.hibernate.format_sql"));
         return hibernateProperties;
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new BaseInterceptor());
     }
 }
