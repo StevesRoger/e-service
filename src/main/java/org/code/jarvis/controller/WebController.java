@@ -230,6 +230,27 @@ public class WebController {
 
     @ApiOperation(
             httpMethod = "POST",
+            value = "Fetch all customers",
+            notes = "This url does fetch all customers",
+            response = JResponseEntity.class,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiResponses(value = {
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error")})
+    @PostMapping(value = "/entities/fetch", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public JResponseEntity<Object> fetchEntities() {
+        BaseCriteria<Customer> customerBaseCriteria = new BaseCriteria(Entities.class);
+        List<Customer> list = customerEntityService.list(customerBaseCriteria);
+        if (list != null && !list.isEmpty()){
+            return ResponseFactory.build("Success", HttpStatus.OK, list);
+        }
+        return ResponseFactory.build("No customer record", HttpStatus.OK);
+    }
+
+    @ApiOperation(
+            httpMethod = "POST",
             value = "Fetch all advertisement",
             notes = "This url does fetch all advertisement",
             response = JResponseEntity.class,

@@ -3,8 +3,6 @@ package org.code.jarvis.model.core;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -92,10 +90,9 @@ public class Product extends AbstractEntity {
         this.contact = contact;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "td_product_image", joinColumns = {@JoinColumn(name = "pro_id")},
             inverseJoinColumns = {@JoinColumn(name = "img_id")})
-    @Fetch(value = FetchMode.SUBSELECT)
     public List<Image> getImages() {
         return images;
     }
@@ -131,17 +128,10 @@ public class Product extends AbstractEntity {
         }
     }
 
-    /* @JsonProperty("IMAGES")
+    @JsonProperty("TYPE")
     @Transient
-    public List<Long> getImageId() {
-        List<Long> list = new ArrayList<>();
-        if (images != null && !images.isEmpty()) {
-            for (Image image : images) {
-                list.add(image.getId());
-            }
-        }
-        return list;
-    }*/
-
+    public String getType() {
+        return productType.code;
+    }
 
 }

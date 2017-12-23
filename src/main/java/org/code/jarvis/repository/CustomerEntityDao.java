@@ -1,6 +1,6 @@
 package org.code.jarvis.repository;
 
-import org.code.jarvis.model.core.Customer;
+import org.code.jarvis.model.core.ICustomer;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -8,7 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface CustomerEntityDao extends EntityDao {
 
-    Customer saveOrUpdateCustomer(MultipartFile[] files, Customer customer) throws Exception;
-
+    ICustomer saveOrUpdateCustomer(MultipartFile[] files, ICustomer customer) throws Exception;
 
 }

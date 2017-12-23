@@ -1,6 +1,6 @@
 package org.code.jarvis.service;
 
-import org.code.jarvis.model.core.Customer;
+import org.code.jarvis.model.core.ICustomer;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -8,7 +8,5 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface CustomerEntityService extends EntityService {
 
-    Customer saveOrUpdateCustomer(MultipartFile[] files, Customer customer) throws Exception;
-
-
+    ICustomer saveOrUpdateCustomer(MultipartFile[] files, ICustomer customer) throws Exception;
 }

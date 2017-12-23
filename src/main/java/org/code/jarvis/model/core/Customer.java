@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "td_customer")
-public class Customer extends AbstractEntity {
+public class Customer extends AbstractEntity implements ICustomer {
 
     @JsonProperty("GROOM_NAME")
     private String groomName;
@@ -265,10 +265,9 @@ public class Customer extends AbstractEntity {
         this.productId = productId;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "td_customer_image", joinColumns = {@JoinColumn(name = "cus_id")},
             inverseJoinColumns = {@JoinColumn(name = "img_id")})
-    @Fetch(value = FetchMode.SUBSELECT)
     public List<Image> getImages() {
         return images;
     }

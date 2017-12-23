@@ -5,11 +5,9 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -65,7 +63,7 @@ public class WebConfiguration {
     }
 
     @Bean
-    public String fcmUrl(){
+    public String fcmUrl() {
         return environment.getProperty("fcm.url");
     }
 
@@ -74,6 +72,7 @@ public class WebConfiguration {
         hibernateProperties.put("hibernate.dialect", environment.getProperty("jarvis.hibernate.dialect"));
         hibernateProperties.put("hibernate.hbm2ddl.auto", environment.getProperty("jarvis.hibernate.hbm2ddl.auto"));
         hibernateProperties.put("hibernate.show_sql", environment.getProperty("jarvis.hibernate.show_sql"));
+        hibernateProperties.put("hibernate.enable_lazy_load_no_trans", true);
         //hibernateProperties.put("hibernate.current_session_context_class", environment.getProperty("jarvis.hibernate.current_session_context_class"));
         //hibernateProperties.put("hibernate.autocommit", environment.getProperty("jarvis.hibernate.autocommit"));
         //hibernateProperties.put("org.hibernate.flushMode", environment.getProperty("jarvis.org.hibernate.flushMode"));
