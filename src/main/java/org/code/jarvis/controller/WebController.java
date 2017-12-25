@@ -253,7 +253,16 @@ public class WebController {
                 customerBaseCriteria.addCriterion(Restrictions.eq("productType", EProductType.INV));
                 break;
             case "HDB":
-                customerBaseCriteria.addCriterion(Restrictions.eq("productType", EProductType.INV));
+                customerBaseCriteria.addCriterion(Restrictions.eq("productType", EProductType.HDB));
+                break;
+            case "CER":
+                customerBaseCriteria.addCriterion(Restrictions.eq("productType", EProductType.CER));
+                break;
+            case "WED":
+                customerBaseCriteria.addCriterion(Restrictions.eq("productType", EProductType.WED));
+                break;
+            case "DES":
+                customerBaseCriteria.addCriterion(Restrictions.eq("productType", EProductType.DES));
                 break;
         }
         List<Customer> list = customerEntityService.list(customerBaseCriteria);

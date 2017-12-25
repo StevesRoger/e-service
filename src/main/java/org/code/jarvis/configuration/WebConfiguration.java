@@ -1,7 +1,6 @@
 package org.code.jarvis.configuration;
 
 import org.apache.commons.dbcp.BasicDataSource;
-import org.code.jarvis.util.interceptor.BaseInterceptor;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,8 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -22,10 +20,11 @@ import java.util.Properties;
 /**
  * Created by KimChheng on 5/8/2017.
  */
+
 @Configuration
 @EnableTransactionManagement
 @PropertySource(value = {"classpath:/config/database.properties", "classpath:/config/hibernate.properties", "classpath:/fcm/fcm.properties"})
-public class WebConfiguration extends WebMvcConfigurerAdapter {
+public class WebConfiguration {
 
     @Autowired
     private Environment environment;
@@ -85,8 +84,4 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
         return hibernateProperties;
     }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new BaseInterceptor());
-    }
 }

@@ -526,6 +526,20 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
         });
     };
 
-
+    $scope.fetchEntity = function (type) {
+        spinner.appendTo("body");
+        $http({
+            method: 'POST',
+            url: baseUrl + '/entities/fetch' + '?type='+ type,
+        }).then(function (response) {
+            console.log(response);
+            $scope.customers = response.data["DATA"];
+            spinner.remove();
+        }, function (response) {
+            console.log(response);
+            spinner.remove();
+            swal('Oops...', 'Something went wrong please contact to developer!', 'error').catch(swal.noop);
+        });
+    };
 
 }]);

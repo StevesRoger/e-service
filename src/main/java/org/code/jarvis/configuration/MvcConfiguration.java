@@ -22,12 +22,12 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/swagger").setViewName("swagger");
         registry.addViewController("/403").setViewName("403");
-        //registry.addViewController("/customer").setViewName("customer");
         registry.addViewController("/wed-customer").setViewName("wed-customer");
         registry.addViewController("/warm-customer").setViewName("warm-customer");
         registry.addViewController("/birth-customer").setViewName("birth-customer");
         registry.addViewController("/ceremony-customer").setViewName("ceremony-customer");
         registry.addViewController("/invoice-customer").setViewName("invoice-customer");
+        registry.addViewController("/des-customer").setViewName("des-customer");
 
     }
 

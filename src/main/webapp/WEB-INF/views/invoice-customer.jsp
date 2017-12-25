@@ -37,7 +37,6 @@
     <link href="./resources/css/custom-styles.css" rel="stylesheet"/>
 
     <%-- color --%>
-
     <script src="./resources/js/spectrum.js"></script>
     <link rel="stylesheet" href="./resources/css/spectrum.css"/>
 
@@ -45,7 +44,7 @@
 <jsp:include page="header.jsp"/>
 <jsp:include page="navigationbar.jsp"/>
 
-<div ng-app="ngApp" ng-controller="ngCtrl" data-ng-init="fetchCustomer()">
+<div ng-app="ngApp" ng-controller="ngCtrl" data-ng-init="fetchEntity(INV)">
     <div id="page-wrapper">
         <div class="header">
             <ol class="breadcrumb"></ol>
@@ -234,4 +233,5 @@
 <jsp:include page="footer.jsp"/>
 
 </div>
+</html>
 

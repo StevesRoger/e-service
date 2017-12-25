@@ -78,14 +78,12 @@
                     </li>
                     <li>
                         <a href="invoice-customer"><i class="fa fa-list-ul"></i>អតិថិជនជាវវិក័យប័ត្រ</a>
-
                     </li>
-                    <li><a href="#">${controllerName}</a></li>
+                    <li>
+                        <a href="des-customer"><i class="fa fa-list-ul"></i>អតិថិជនជាវសំបុត្រកែច្នៃ</a>
+                    </li>
                 </ul>
             </li>
-
-
-
         </ul>
     </div>
 </nav>
