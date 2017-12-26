@@ -45,7 +45,7 @@
 <jsp:include page="header.jsp"/>
 <jsp:include page="navigationbar.jsp"/>
 
-<div ng-app="ngApp" ng-controller="ngCtrl" data-ng-init="fetchEntity(WED)">
+<div ng-app="ngApp" ng-controller="ngCtrl" data-ng-init="fetchEntity('WED')">
     <div id="page-wrapper">
         <div class="header">
             <ol class="breadcrumb"></ol>
@@ -59,7 +59,7 @@
                             <div class="row">
                                 <form class="form-inline"​ style="margin-left: 15px">
                                     <div class="form-group">
-                                        <label>ស្វែងរក</label>
+                                        <label> ស្វែងរក </label>
                                         <input type="text" ng-model="search" class="form-control" placeholder="Search">
                                     </div>
                                 </form>

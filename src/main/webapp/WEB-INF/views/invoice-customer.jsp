@@ -44,7 +44,7 @@
 <jsp:include page="header.jsp"/>
 <jsp:include page="navigationbar.jsp"/>
 
-<div ng-app="ngApp" ng-controller="ngCtrl" data-ng-init="fetchEntity(INV)">
+<div ng-app="ngApp" ng-controller="ngCtrl" data-ng-init="fetchEntity('INV')">
     <div id="page-wrapper">
         <div class="header">
             <ol class="breadcrumb"></ol>
