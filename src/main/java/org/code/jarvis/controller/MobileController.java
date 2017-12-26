@@ -92,7 +92,7 @@ public class MobileController {
     }
 
     @ApiOperation(
-            httpMethod = "POST",
+            httpMethod = "GET",
             value = "Fetch promotion with pagination",
             notes = "This url does fetch products with pagination.",
             response = JResponseEntity.class,
@@ -102,13 +102,14 @@ public class MobileController {
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")})
-    @PostMapping(value = "/promotion/fetch", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public JResponseEntity<Object> fetchPromotion(@RequestParam(value = "offset", defaultValue = "1") int offset,
-                                                  @RequestParam(value = "limit", defaultValue = "1") int limit) {
+    @GetMapping(value = "/promotion/fetch", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public JResponseEntity<Object> fetchPromotion() {
         List<Promotion> response = null;
         try {
             log.info("Client mobile requested fetch promotion");
-            response = productEntityService.fetchPromotion(offset, limit);
+            BaseCriteria<Promotion> criteria = new BaseCriteria(Promotion.class);
+            criteria.addCriterion(Restrictions.isNotEmpty("images"));
+            response = productEntityService.list(criteria);
             if (response == null) response = new ArrayList<>();
             log.info("promotion size:" + response.size());
         } catch (Exception e) {
@@ -121,7 +122,7 @@ public class MobileController {
 
 
     @ApiOperation(
-            httpMethod = "POST",
+            httpMethod = "GET",
             value = "Fetch advertisement",
             notes = "This url does fetch advertisement",
             response = JResponseEntity.class,
@@ -131,12 +132,14 @@ public class MobileController {
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")})
-    @PostMapping(value = "/advertisement/fetch", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/advertisement/fetch", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public JResponseEntity<Object> fetchAdvertisement() {
         List<Advertisement> response = new ArrayList<>();
         try {
             log.info("Client mobile requested view advertisement");
-            response = productEntityService.list(Advertisement.class);
+            BaseCriteria<Advertisement> criteria = new BaseCriteria(Advertisement.class);
+            criteria.addCriterion(Restrictions.isNotNull("image"));
+            response = productEntityService.list(criteria);
         } catch (Exception e) {
             log.error(e.getMessage());
             e.printStackTrace();
@@ -199,7 +202,7 @@ public class MobileController {
         try {
             entities = objectMapper.readValue(json, Entities.class);
             if (entities != null) {
-                Product product = customerEntityService.getEntityById(new Long(entities.getByKey("PRO").toString()), Product.class);
+                Product product = customerEntityService.getEntityById(new Long(entities.getByKey("PRO_ID").toString()), Product.class);
                 if (product != null) {
                     entities.setProduct(product);
                     customerEntityService.saveOrUpdateCustomer(files, entities);

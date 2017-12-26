@@ -244,28 +244,25 @@ public class WebController {
             @ApiResponse(code = 500, message = "Internal Server Error")})
     @PostMapping(value = "/entities/fetch", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public JResponseEntity<Object> fetchEntities(@RequestParam(value = "type") String type) {
-        BaseCriteria<Customer> customerBaseCriteria = new BaseCriteria(Entities.class);
+        BaseCriteria<Entities> criteria = new BaseCriteria(Entities.class);
         switch (type) {
+            case "CER":
+                criteria.addCriterion(Restrictions.eq("productType", EProductType.CER));
+                break;
             case "HOM":
-                customerBaseCriteria.addCriterion(Restrictions.eq("productType", EProductType.HOM));
+                criteria.addCriterion(Restrictions.eq("productType", EProductType.HOM));
                 break;
             case "INV":
-                customerBaseCriteria.addCriterion(Restrictions.eq("productType", EProductType.INV));
+                criteria.addCriterion(Restrictions.eq("productType", EProductType.INV));
                 break;
-            case "HDB":
-                customerBaseCriteria.addCriterion(Restrictions.eq("productType", EProductType.HDB));
+            case "HBD":
+                criteria.addCriterion(Restrictions.eq("productType", EProductType.HBD));
                 break;
-            case "CER":
-                customerBaseCriteria.addCriterion(Restrictions.eq("productType", EProductType.CER));
-                break;
-            case "WED":
-                customerBaseCriteria.addCriterion(Restrictions.eq("productType", EProductType.WED));
-                break;
-            case "DES":
-                customerBaseCriteria.addCriterion(Restrictions.eq("productType", EProductType.DES));
+            default:
+                criteria.addCriterion(Restrictions.eq("productType", EProductType.CER));
                 break;
         }
-        List<Customer> list = customerEntityService.list(customerBaseCriteria);
+        List<Entities> list = customerEntityService.list(criteria);
         if (list != null && !list.isEmpty()) {
             return ResponseFactory.build("Success", HttpStatus.OK, list);
         }
