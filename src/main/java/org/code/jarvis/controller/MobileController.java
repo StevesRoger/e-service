@@ -107,7 +107,9 @@ public class MobileController {
         List<Promotion> response = null;
         try {
             log.info("Client mobile requested fetch promotion");
-            response = productEntityService.list(Promotion.class);
+            BaseCriteria<Promotion> criteria = new BaseCriteria(Promotion.class);
+            criteria.addCriterion(Restrictions.isNotEmpty("images"));
+            response = productEntityService.list(criteria);
             if (response == null) response = new ArrayList<>();
             log.info("promotion size:" + response.size());
         } catch (Exception e) {
@@ -135,7 +137,9 @@ public class MobileController {
         List<Advertisement> response = new ArrayList<>();
         try {
             log.info("Client mobile requested view advertisement");
-            response = productEntityService.list(Advertisement.class);
+            BaseCriteria<Advertisement> criteria = new BaseCriteria(Advertisement.class);
+            criteria.addCriterion(Restrictions.isNotNull("image"));
+            response = productEntityService.list(criteria);
         } catch (Exception e) {
             log.error(e.getMessage());
             e.printStackTrace();
