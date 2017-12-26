@@ -202,7 +202,7 @@ public class MobileController {
         try {
             entities = objectMapper.readValue(json, Entities.class);
             if (entities != null) {
-                Product product = customerEntityService.getEntityById(new Long(entities.getByKey("PRO").toString()), Product.class);
+                Product product = customerEntityService.getEntityById(new Long(entities.getByKey("PRO_ID").toString()), Product.class);
                 if (product != null) {
                     entities.setProduct(product);
                     customerEntityService.saveOrUpdateCustomer(files, entities);

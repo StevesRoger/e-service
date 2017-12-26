@@ -9,7 +9,7 @@ public enum EProductType {
     CER("CER", "Ceremony", "សំបុត្របុណ្យ"),
     HOM("HOM", "Home Party", "ទ្បើងផ្ទះ"),
     INV("INV", "Invoice", "វិក័យប័ត្រ"),
-    HDB("HDB", "Happy Birthday", "សំបុត្រខួបកំណើត"),
+    HBD("HBD", "Happy Birthday", "សំបុត្រខួបកំណើត"),
     DES("DES", "Design", "សំបុត្រច្នៃ");
 
     public String desc;
