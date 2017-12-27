@@ -15,7 +15,6 @@ jQuery(document).ready(function ($) {
         case 'warm-customer':
         case 'birth-customer':
         case 'ceremony-customer':
-        case 'des-customer':
         case 'invoice-customer':
             $('.sidebar-collapse .nav-second-level').attr('aria-expanded', true).addClass('in');
             break;

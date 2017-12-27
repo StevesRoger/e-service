@@ -79,7 +79,7 @@
                                                         </th>
                                                         <th>ចំនួន</th>
                                                         <th>ពណ៏</th>
-                                                        <th ng-click="sort('GROOM_NAME')">ឈ្មោះកូន
+                                                        <th ng-click="sort('GROOM_NAME')">ឈ្មោះម្ចាស់ខួប
                                                             <span class="glyphicon sort-icon" ng-show="sortKey=='GROOM_NAME'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                                                         </th>
                                                         <th ng-click="sort('BRIDE_NAME')">ឈ្មោះអាណាព្យបាល
@@ -96,11 +96,11 @@
                                                     <tr ng-repeat="customer in customers|orderBy:sortKey:reverse|filter:search">
                                                         <td>{{customer.PRODUCT.CODE}}</td>
                                                         <td>{{types[customer.PRODUCT.TYPE]}}</td>
-                                                        <td>{{customer.QTY}}</td>
-                                                        <td><span class="color-box" ng-style="{'background-color': customer.COLOR}"></span></td>
-                                                        <td>{{customer.GROOM_NAME}}</td>
-                                                        <td>{{customer.BRIDE_NAME}}</td>
-                                                        <td>{{customer.PHONE}}</td>
+                                                        <td>{{customer.ENTITIES.QTY}}</td>
+                                                        <td><span class="color-box" ng-style="{'background-color': customer.ENTITIES.COLOR}"></span></td>
+                                                        <td>{{customer.ENTITIES.CHILD_NAME}}</td>
+                                                        <td>{{customer.ENTITIES.PARENT}}</td>
+                                                        <td>{{customer.ENTITIES.PHONE}}</td>
                                                         <td width="100px">
                                                             <button class="btn btn-info btn-xs"
                                                                     ng-click="viewImage(customer.IMAGES,customer.ID,'CUS')">
@@ -108,7 +108,7 @@
                                                             </button>
                                                             <button class="btn btn-primary btn-xs" data-title="Customer"
                                                                     data-toggle="modal" data-target="#myModal"
-                                                                    ng-click="viewCustomer(customer)"><span
+                                                                    ng-click="viewBirthday(customer)"><span
                                                                     class="glyphicon glyphicon-user"></span></button>
                                                             <button class="btn btn-danger btn-xs" data-title="Delete"
                                                                     data-toggle="modal" data-target="#delete"
@@ -151,67 +151,37 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label style="color:#0866C6">កូនកំលោះ</label>
+                                    <label style="color:#0866C6">​​អតិថិជន</label>
                                 </div>
                                 <div class="form-group">
-                                    <label id="mName"></label>
+                                    <label id="cusName"></label>
                                 </div>
                                 <div class="form-group">
-                                    <label id="mFatName"></label>
+                                    <label id="comName"></label>
                                 </div>
                                 <div class="form-group">
-                                    <label id="mMomName"></label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label style="color:#0866C6">កូនក្រមុំ</label>
+                                    <label id="caddress"></label>
                                 </div>
                                 <div class="form-group">
-                                    <label id="fName"></label>
+                                    <label id="iNDate"></label>
                                 </div>
                                 <div class="form-group">
-                                    <label id="fFatName"></label>
-                                </div>
-                                <div class="form-group">
-                                    <label id="fMomName"></label>
+                                    <label id="tel"></label>
                                 </div>
                             </div>
+
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label style="color:#0866C6">ពត៏មានបន្តែម</label>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label id="date"></label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label id="kh-date"></label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label id="address"></label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label id="home"></label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label id="time"></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label id="tel"></label>
-                                    </div>
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label id="email"></label>
                                     </div>
                                     <div class="form-group">
                                         <label id="fb"></label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label><a id="map" href="#">Google Map</a></label>
                                     </div>
                                     <div class="form-group">
                                         <label id="other"></label>

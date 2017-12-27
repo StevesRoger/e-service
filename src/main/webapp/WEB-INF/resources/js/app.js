@@ -526,6 +526,8 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
         });
     };
 
+    // ENTITY CUSTOMER
+
     $scope.fetchEntity = function (type) {
         spinner.appendTo("body");
         $http({
@@ -540,6 +542,30 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
             spinner.remove();
             swal('Oops...', 'Something went wrong please contact to developer!', 'error').catch(swal.noop);
         });
+    };
+
+    $scope.viewInvoice = function (customer) {
+        $("#cusName").text("ឈ្មោះអតិថិជន: " + customer.ENTITIES.CUSTOMER_NAME);
+        $("#comName").text("ឈ្មោះក្រុមហ៊ុន: " + customer.ENTITIES.COMPANY_NAME);
+        $("#caddress").text("អាស័យដ្ឋាន: " + customer.ENTITIES.ADDRESS);
+        $("#iNDate").text("កាលបរិច្ឆេទ: " + customer.ENTITIES.TIME);
+        $("#tel").text("លេខទូរសព្វ: " + customer.ENTITIES.PHONE);
+        $("#email").text("សាអេឡិចត្រូនិច: " + customer.ENTITIES.EMAIL);
+        $("#fb").text("ហ្វេសប៊ុក: " + customer.ENTITIES.FACEBOOK);
+        $("#other").text("ផ្សេង‌ៗ: " + customer.ENTITIES.OTHER);
+
+    };
+
+    $scope.viewBirthday = function (customer) {
+        $("#cusName").text("ឈ្មោះម្ចាស់ខួប: " + customer.ENTITIES.CUSTOMER_NAME);
+        $("#comName").text("ឈ្មោះអាណាព្យាបាល: " + customer.ENTITIES.COMPANY_NAME);
+        $("#caddress").text("អាស័យដ្ឋាន: " + customer.ENTITIES.ADDRESS);
+        $("#iNDate").text("កាលបរិច្ឆេទ: " + customer.ENTITIES.TIME);
+        $("#tel").text("លេខទូរសព្វ: " + customer.ENTITIES.PHONE);
+        $("#email").text("សាអេឡិចត្រូនិច: " + customer.ENTITIES.EMAIL);
+        $("#fb").text("ហ្វេសប៊ុក: " + customer.ENTITIES.FACEBOOK);
+        $("#other").text("ផ្សេង‌ៗ: " + customer.ENTITIES.OTHER);
+
     };
 
 }]);

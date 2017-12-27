@@ -82,7 +82,7 @@
                                                         <th ng-click="sort('GROOM_NAME')">កម្មវិធីបុណ្យ
                                                             <span class="glyphicon sort-icon" ng-show="sortKey=='GROOM_NAME'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                                                         </th>
-                                                        <th ng-click="sort('BRIDE_NAME')">ឈ្មោះអ្នកស្លាប់
+                                                        <th ng-click="sort('BRIDE_NAME')">ឈ្មោះអ្នកផ្តើមបុណ្យ
                                                             <span class="glyphicon sort-icon" ng-show="sortKey=='BRIDE_NAME'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                                                         </th>
                                                         <th ng-click="sort('PHONE')">លេខទូរសព្វ
@@ -97,10 +97,14 @@
                                                         <td>{{customer.PRODUCT.CODE}}</td>
                                                         <td>{{types[customer.PRODUCT.TYPE]}}</td>
                                                         <td>{{customer.QTY}}</td>
-                                                        <td><span class="color-box" ng-style="{'background-color': customer.COLOR}"></span></td>
-                                                        <td>{{customer.GROOM_NAME}}</td>
-                                                        <td>{{customer.BRIDE_NAME}}</td>
-                                                        <td>{{customer.PHONE}}</td>
+                                                        <td>
+                                                            <span ng-repeat="color in getColors(customer.PRODUCT.COLOR)">
+                                                                <span class="color-box" ng-style="{'background-color': color}"></span>
+                                                            </span>
+                                                        </td>
+                                                        <td>{{customer.ENTITIES.PHASE}}</td>
+                                                        <td>{{customer.ENTITIES.STARTER_NAME}}</td>
+                                                        <td>{{customer.ENTITIES.PHONE}}</td>
                                                         <td width="100px">
                                                             <button class="btn btn-info btn-xs"
                                                                     ng-click="viewImage(customer.IMAGES,customer.ID,'CUS')">

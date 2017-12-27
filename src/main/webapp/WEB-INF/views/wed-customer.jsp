@@ -45,7 +45,7 @@
 <jsp:include page="header.jsp"/>
 <jsp:include page="navigationbar.jsp"/>
 
-<div ng-app="ngApp" ng-controller="ngCtrl" data-ng-init="fetchEntity('WED')">
+<div ng-app="ngApp" ng-controller="ngCtrl" data-ng-init="fetchCustomer()">
     <div id="page-wrapper">
         <div class="header">
             <ol class="breadcrumb"></ol>
@@ -54,7 +54,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">អតិថិជនជាវធៀបការ</div>
+                        <div class="panel-heading">អតិថិជនជាវធៀបការ និងសំបុត្រច្នៃ​</div>
                         <div class="panel-body">
                             <div class="row">
                                 <form class="form-inline"​ style="margin-left: 15px">
