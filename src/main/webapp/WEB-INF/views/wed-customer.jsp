@@ -96,7 +96,9 @@
                                                         <td>{{customer.PRODUCT.CODE}}</td>
                                                         <td>{{types[customer.PRODUCT.TYPE]}}</td>
                                                         <td>{{customer.QTY}}</td>
-                                                        <td><span class="color-box" ng-style="{'background-color': customer.COLOR}"></span></td>
+                                                        <td>
+                                                            <span class="color-box" ng-style="{'background-color': customer.COLOR}"></span>
+                                                        </td>
                                                         <td>{{customer.GROOM_NAME}}</td>
                                                         <td>{{customer.BRIDE_NAME}}</td>
                                                         <td>{{customer.PHONE}}</td>

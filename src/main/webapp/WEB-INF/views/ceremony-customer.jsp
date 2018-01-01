@@ -98,7 +98,7 @@
                                                         <td>{{types[customer.PRODUCT.TYPE]}}</td>
                                                         <td>{{customer.QTY}}</td>
                                                         <td>
-                                                            <span ng-repeat="color in getColors(customer.PRODUCT.COLOR)">
+                                                            <span ng-repeat="color in getColors(customer.ENTITIES.COLOR)">
                                                                 <span class="color-box" ng-style="{'background-color': color}"></span>
                                                             </span>
                                                         </td>
@@ -112,7 +112,7 @@
                                                             </button>
                                                             <button class="btn btn-primary btn-xs" data-title="Customer"
                                                                     data-toggle="modal" data-target="#myModal"
-                                                                    ng-click="viewCustomer(customer)"><span
+                                                                    ng-click="viewCeremony(customer)"><span
                                                                     class="glyphicon glyphicon-user"></span></button>
                                                             <button class="btn btn-danger btn-xs" data-title="Delete"
                                                                     data-toggle="modal" data-target="#delete"
@@ -155,70 +155,43 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label style="color:#0866C6">កូនកំលោះ</label>
+                                    <label style="color:#0866C6">​​អតិថិជន</label>
                                 </div>
                                 <div class="form-group">
-                                    <label id="mName"></label>
+                                    <label id="bName"></label>
                                 </div>
                                 <div class="form-group">
-                                    <label id="mFatName"></label>
+                                    <label id="gName"></label>
                                 </div>
                                 <div class="form-group">
-                                    <label id="mMomName"></label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label style="color:#0866C6">កូនក្រមុំ</label>
+                                    <label id="cerMaker"></label>
                                 </div>
                                 <div class="form-group">
-                                    <label id="fName"></label>
+                                    <label id="cerAddress"></label>
                                 </div>
                                 <div class="form-group">
-                                    <label id="fFatName"></label>
+                                    <label id="cerDate"></label>
                                 </div>
                                 <div class="form-group">
-                                    <label id="fMomName"></label>
+                                    <label id="certel"></label>
                                 </div>
                             </div>
+
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label style="color:#0866C6">ពត៏មានបន្តែម</label>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label id="date"></label>
+                                        <label id="eremail"></label>
                                     </div>
                                     <div class="form-group">
-                                        <label id="kh-date"></label>
+                                        <label id="erfb"></label>
                                     </div>
                                     <div class="form-group">
-                                        <label id="address"></label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label id="home"></label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label id="time"></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label id="tel"></label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label id="email"></label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label id="fb"></label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label><a id="map" href="#">Google Map</a></label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label id="other"></label>
+                                        <label id="cerother"></label>
                                     </div>
                                 </div>
                             </div>

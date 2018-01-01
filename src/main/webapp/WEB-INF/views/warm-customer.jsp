@@ -113,12 +113,14 @@
                                                             </button>
                                                             <button class="btn btn-primary btn-xs" data-title="Customer"
                                                                     data-toggle="modal" data-target="#myModal"
-                                                                    ng-click="viewCustomer(customer)"><span
-                                                                    class="glyphicon glyphicon-user"></span></button>
+                                                                    ng-click="warmingHouse(customer)"><span
+                                                                    class="glyphicon glyphicon-user"></span>
+                                                            </button>
                                                             <button class="btn btn-danger btn-xs" data-title="Delete"
                                                                     data-toggle="modal" data-target="#delete"
-                                                                    ng-click="deleteEntity(customer.ID, $index, 'CUS')"><span
-                                                                    class="glyphicon glyphicon-trash"></span></button>
+                                                                    ng-click="deleteEntity(customer.ID, $index, 'CUS')">
+                                                                <span class="glyphicon glyphicon-trash"></span>
+                                                            </button>
 
                                                         </td>
                                                         <td>
@@ -156,70 +158,43 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label style="color:#0866C6">កូនកំលោះ</label>
+                                    <label style="color:#0866C6">​​អតិថិជន</label>
                                 </div>
                                 <div class="form-group">
-                                    <label id="mName"></label>
+                                    <label id="hownerName"></label>
                                 </div>
                                 <div class="form-group">
-                                    <label id="mFatName"></label>
+                                    <label id="husband"></label>
                                 </div>
                                 <div class="form-group">
-                                    <label id="mMomName"></label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label style="color:#0866C6">កូនក្រមុំ</label>
+                                    <label id="wife"></label>
                                 </div>
                                 <div class="form-group">
-                                    <label id="fName"></label>
+                                    <label id="hAddress"></label>
                                 </div>
                                 <div class="form-group">
-                                    <label id="fFatName"></label>
+                                    <label id="hDate"></label>
                                 </div>
                                 <div class="form-group">
-                                    <label id="fMomName"></label>
+                                    <label id="htel"></label>
                                 </div>
                             </div>
+
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label style="color:#0866C6">ពត៏មានបន្តែម</label>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label id="date"></label>
+                                        <label id="hemail"></label>
                                     </div>
                                     <div class="form-group">
-                                        <label id="kh-date"></label>
+                                        <label id="hfb"></label>
                                     </div>
                                     <div class="form-group">
-                                        <label id="address"></label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label id="home"></label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label id="time"></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label id="tel"></label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label id="email"></label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label id="fb"></label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label><a id="map" href="#">Google Map</a></label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label id="other"></label>
+                                        <label id="hother"></label>
                                     </div>
                                 </div>
                             </div>

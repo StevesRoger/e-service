@@ -97,7 +97,11 @@
                                                         <td>{{customer.PRODUCT.CODE}}</td>
                                                         <td>{{types[customer.PRODUCT.TYPE]}}</td>
                                                         <td>{{customer.ENTITIES.QTY}}</td>
-                                                        <td><span class="color-box" ng-style="{'background-color': customer.ENTITIES.COLOR}"></span></td>
+                                                        <td>
+                                                            <span ng-repeat="color in getColors(customer.ENTITIES.COLOR)">
+                                                                <span class="color-box" ng-style="{'background-color': color}"></span>
+                                                            </span>
+                                                        </td>
                                                         <td>{{customer.ENTITIES.CHILD_NAME}}</td>
                                                         <td>{{customer.ENTITIES.PARENT}}</td>
                                                         <td>{{customer.ENTITIES.PHONE}}</td>
@@ -156,19 +160,19 @@
                                     <label style="color:#0866C6">​​អតិថិជន</label>
                                 </div>
                                 <div class="form-group">
-                                    <label id="cusName"></label>
+                                    <label id="birthName"></label>
                                 </div>
                                 <div class="form-group">
-                                    <label id="comName"></label>
+                                    <label id="parentName"></label>
                                 </div>
                                 <div class="form-group">
-                                    <label id="caddress"></label>
+                                    <label id="birthAddress"></label>
                                 </div>
                                 <div class="form-group">
-                                    <label id="iNDate"></label>
+                                    <label id="birthDate"></label>
                                 </div>
                                 <div class="form-group">
-                                    <label id="tel"></label>
+                                    <label id="birthTel"></label>
                                 </div>
                             </div>
 
@@ -178,13 +182,13 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label id="email"></label>
+                                        <label id="birthEmail"></label>
                                     </div>
                                     <div class="form-group">
-                                        <label id="fb"></label>
+                                        <label id="birthFb"></label>
                                     </div>
                                     <div class="form-group">
-                                        <label id="other"></label>
+                                        <label id="birthOther"></label>
                                     </div>
                                 </div>
                             </div>

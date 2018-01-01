@@ -105,18 +105,21 @@
                                                         <td>{{customer.ENTITIES.COMPANY_NAME}}</td>
                                                         <td>{{customer.ENTITIES.PHONE}}</td>
                                                         <td width="100px">
-                                                            <button class="btn btn-info btn-xs"
-                                                                    ng-click="viewImage(customer.IMAGES,customer.ID,'CUS')">
+                                                            <button class="btn btn-info btn-xs" ng-click="viewImage(customer.IMAGES,customer.ID,'CUS')">
                                                                 <span class="glyphicon glyphicon-picture"></span>
                                                             </button>
                                                             <button class="btn btn-primary btn-xs" data-title="Customer"
-                                                                    data-toggle="modal" data-target="#myModal"
-                                                                    ng-click="viewInvoice (customer)"><span
-                                                                    class="glyphicon glyphicon-user"></span></button>
-                                                            <button class="btn btn-danger btn-xs" data-title="Delete"
-                                                                    data-toggle="modal" data-target="#delete"
-                                                                    ng-click="deleteEntity(customer.ID, $index, 'CUS')"><span
-                                                                    class="glyphicon glyphicon-trash"></span></button>
+                                                                    data-toggle="modal" data-target="#myModal" ng-click="viewInvoice (customer)">
+                                                                <span
+                                                                    class="glyphicon glyphicon-user">
+                                                                </span>
+                                                            </button>
+                                                            <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete"
+                                                                    ng-click="deleteEntity(customer.ID, $index, 'CUS')">
+                                                                <span
+                                                                    class="glyphicon glyphicon-trash">
+                                                                </span>
+                                                            </button>
 
                                                         </td>
                                                         <td>

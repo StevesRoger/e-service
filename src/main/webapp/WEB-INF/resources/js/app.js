@@ -557,14 +557,39 @@ app.controller('ngCtrl', ['$scope', '$http', function ($scope, $http) {
     };
 
     $scope.viewBirthday = function (customer) {
-        $("#cusName").text("ឈ្មោះម្ចាស់ខួប: " + customer.ENTITIES.CUSTOMER_NAME);
-        $("#comName").text("ឈ្មោះអាណាព្យាបាល: " + customer.ENTITIES.COMPANY_NAME);
-        $("#caddress").text("អាស័យដ្ឋាន: " + customer.ENTITIES.ADDRESS);
-        $("#iNDate").text("កាលបរិច្ឆេទ: " + customer.ENTITIES.TIME);
-        $("#tel").text("លេខទូរសព្វ: " + customer.ENTITIES.PHONE);
-        $("#email").text("សាអេឡិចត្រូនិច: " + customer.ENTITIES.EMAIL);
-        $("#fb").text("ហ្វេសប៊ុក: " + customer.ENTITIES.FACEBOOK);
-        $("#other").text("ផ្សេង‌ៗ: " + customer.ENTITIES.OTHER);
+        $("#birthName").text("ឈ្មោះម្ចាស់ខួប: " + customer.ENTITIES.CUSTOMER_NAME);
+        $("#parentName").text("ឈ្មោះអាណាព្យាបាល: " + customer.ENTITIES.COMPANY_NAME);
+        $("#birthAddress").text("អាស័យដ្ឋាន: " + customer.ENTITIES.ADDRESS);
+        $("#birthDate").text("កាលបរិច្ឆេទ: " + customer.ENTITIES.TIME);
+        $("#birthTel").text("លេខទូរសព្វ: " + customer.ENTITIES.PHONE);
+        $("#birthEmail").text("សាអេឡិចត្រូនិច: " + customer.ENTITIES.EMAIL);
+        $("#birthFb").text("ហ្វេសប៊ុក: " + customer.ENTITIES.FACEBOOK);
+        $("#birthOther").text("ផ្សេង‌ៗ: " + customer.ENTITIES.OTHER);
+
+    };
+  $scope.viewCeremony = function (customer) {
+        $("#bName").text("កម្មវិធីបុណ្យ: " + customer.ENTITIES.CUSTOMER_NAME);
+        $("#gName").text("ឈ្មោះអ្នកស្លាប់  : " + customer.ENTITIES.COMPANY_NAME);
+        $("#cerMaker").text("ឈ្មោះអ្នកផ្តើមបុណ្យ : " + customer.ENTITIES.COMPANY_NAME);
+        $("#cerAddress").text("អាស័យដ្ឋាន: " + customer.ENTITIES.ADDRESS);
+        $("#cerDate").text("កាលបរិច្ឆេទ: " + customer.ENTITIES.TIME);
+        $("#certel").text("លេខទូរសព្វ: " + customer.ENTITIES.PHONE);
+        $("#eremail").text("សាអេឡិចត្រូនិច: " + customer.ENTITIES.EMAIL);
+        $("#erfb").text("ហ្វេសប៊ុក: " + customer.ENTITIES.FACEBOOK);
+        $("#cerother").text("ផ្សេង‌ៗ: " + customer.ENTITIES.OTHER);
+
+    };
+
+  $scope.warmingHouse = function (customer) {
+        $("#hownerName").text("ឈ្មោះម្ចាស់ផ្ទះ: " + customer.ENTITIES.CUSTOMER_NAME);
+        $("#husband").text("ប្តី : " + customer.ENTITIES.COMPANY_NAME);
+        $("#wife").text("ប្រពន្ធ : " + customer.ENTITIES.COMPANY_NAME);
+        $("#hAddress").text("អាស័យដ្ឋាន: " + customer.ENTITIES.ADDRESS);
+        $("#hDate").text("កាលបរិច្ឆេទ: " + customer.ENTITIES.TIME);
+        $("#htel").text("លេខទូរសព្វ: " + customer.ENTITIES.PHONE);
+        $("#hemail").text("សាអេឡិចត្រូនិច: " + customer.ENTITIES.EMAIL);
+        $("#hfb").text("ហ្វេសប៊ុក: " + customer.ENTITIES.FACEBOOK);
+        $("#hother").text("ផ្សេង‌ៗ: " + customer.ENTITIES.OTHER);
 
     };
 
